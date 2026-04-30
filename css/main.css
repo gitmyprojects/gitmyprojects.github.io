@@ -88,7 +88,7 @@ img {
     filter: grayscale(75%); /* This rids our pictures of 75% of their color */
     border-radius: 8px; /* Gives all images slightly rounded corners */
     max-width: 100%; /* Ensures all images stay within the width of their container */
-    height: 100%; /* Sets the height of all images */
+    height: auto; /* FIX: prevents global stretching/distortion */
     display: block; /* By specifying block display we can ensure our images are able to be centered */
     margin: auto auto auto auto; /* This centers all images */
 }
@@ -218,23 +218,27 @@ footer {
 
 .mySlides{
     display: none; /* This prevents the images from being displayed, we will use JS to display these */
+    height: 100%; /* NEW: allows a fixed slideshow frame */
 }
 
 /* Slideshow section / container */
 #Slideshow_Container {
     width: 39.5vw; /* Relative sizing of the container for the slidewshow set to 39.5% of the viewport width */
-    height: auto; /* The height of the container is automatically adjusted based on the content it is displaying */
+    height: 22vw; /* NEW: fixed frame so all slides are the same size */
     padding-top: 4%; /* Adds a small padding to the top of the slideshow container */
     position: relative; /* This sets the container relative to its normal positioning */
     margin:auto; /* This will horizontally center the container on the page */
+    overflow: hidden; /* NEW: keeps images inside the frame */
 }
 
 /* Images contained within the slideshow */
 .Slideshow_Images {
     vertical-align: middle; /* This centers the images vertically within the slideshow container */
-    height: auto; /* The height of the images is automatically adjusted based on the content, ie if your images are different sizes, they will display as different sizes */
+    width: 100%; /* Fill the frame */
+    height: 100%; /* Fill the frame */
+    object-fit: contain; /* NEW: same size without cropping (logos won’t get cut off) */
+    background-color: white; /* NEW: prevents “empty” space looking odd */
     box-shadow: 0px 5px 10px 12px rgba(0, 0, 0, .75); /* Adds a shadow around the slideshow images */
-    width: 100%; /* The width of the images is automatically adjusted based on the content */
 }
 
 /* Next and previous buttons */
