@@ -213,7 +213,8 @@ footer {
 
 /***** Slideshow Styling *****/
 #Slideshow_Background {
-    background: rgba(255, 255, 255, 0.35); /* This creates a slightly transparent white background that's palced over the video in the background */    
+    background: rgba(255, 255, 255, 0.35); /* This creates a slightly transparent white background that's palced over the video in the background */
+	padding-top: 4%;
 }
 
 .mySlides{
@@ -223,12 +224,14 @@ footer {
 
 /* Slideshow section / container */
 #Slideshow_Container {
-    width: 39.5vw; /* Relative sizing of the container for the slidewshow set to 39.5% of the viewport width */
-    height: 22vw; /* NEW: fixed frame so all slides are the same size */
-    padding-top: 4%; /* Adds a small padding to the top of the slideshow container */
-    position: relative; /* This sets the container relative to its normal positioning */
-    margin:auto; /* This will horizontally center the container on the page */
-    overflow: hidden; /* NEW: keeps images inside the frame */
+    width: 70vw;        /* bigger on the page */
+    height: 40vw;       /* keeps a consistent frame */
+    max-width: 900px;   /* prevents it getting huge on large screens */
+    max-height: 520px;  /* prevents it getting huge on large screens */
+    padding-top: 0;     /* IMPORTANT: don’t steal height inside the frame */
+    position: relative;
+    margin: auto;
+    overflow: hidden;   /* keeps images inside the frame */
 }
 
 /* Images contained within the slideshow */
