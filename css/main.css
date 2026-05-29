@@ -472,4 +472,13 @@ button:hover, .form-container .btn:hover {
     -webkit-transition-duration: 1s;
     border-color: black;
 }
+/***** Full Color Images on Power Automate Page *****/
+.no-image-hover img {
+    filter: none;
+}
+
+.no-image-hover img:hover {
+    filter: none;
+    transform: none;
+}
 /***** End of Contact Form Styling *****/
