@@ -294,14 +294,11 @@ footer {
 }
 
 .Column_1 {
-    width: 100%;
-    max-width: 1050px;
-    min-height: auto;
-    height: auto;
-    padding: 35px 45px;
-    margin: 0 auto;
-    background-color: transparent;
-    float: none;
+    float: left;
+    width: 50%;
+    padding: 1.6%;
+    height: 450px;
+    background-color: #f2f2f2;
 }
 
 .Column_2 {
@@ -310,6 +307,17 @@ footer {
     padding: 1.6%;
     height: 450px;
     background-color: #4d4d4d;
+}
+
+.Projects_Column {
+    width: 100%;
+    max-width: 1050px;
+    min-height: auto;
+    height: auto;
+    padding: 35px 45px;
+    margin: 0 auto;
+    background-color: transparent;
+    float: none;
 }
 
 @media screen and (max-width: 576px) {
