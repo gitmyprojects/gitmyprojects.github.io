@@ -1,99 +1,100 @@
+```css
 /***** GENERAL STYLING *****/
 
-/*Affects entire document */
 html {
     scroll-behavior: smooth;
 }
 
-/* Body */
 body {
-    margin: 0%;
+    margin: 0;
     opacity: 1;
-    transition: 3s opacity;
-    letter-spacing: .2vw;
-    font-family: Avant Garde, Helvetica;
-    font-size: 1.5vw; 
+    letter-spacing: .08vw;
+    font-family: Avant Garde, Helvetica, Arial, sans-serif;
+    font-size: 18px;
     overflow-x: hidden;
     user-select: none;
+    background-color: #ffffff;
+    color: #1a1a1a;
 }
 
-/* This section contributes to the fade effect for the page that occurs when the page is loaded */
 body.fade-out {
-    opacity: .1;
+    opacity: 1;
 }
 
-/* Heading 1 elements */
 h1 {
     text-transform: uppercase;
-    font-family: "Trebuchet MS", Optima;
-    text-align: center;
+    font-family: "Trebuchet MS", Optima, sans-serif;
+    text-align: left;
     margin-top: 3%;
-    color: #1a1a1a; 
+    color: #1a1a1a;
+    letter-spacing: 6px;
 }
 
-/* Heading 1 element hover effect */
 h1:hover {
-    filter: grayscale(5%);
-    transform: scale(1.1);
-    transition: transform 1s;
+    filter: none;
+    transform: none;
 }
 
-/* Styling for Portfolio Title Text */
+h2 {
+    font-family: "Trebuchet MS", Optima, sans-serif;
+    letter-spacing: 4px;
+    margin-top: 35px;
+    margin-bottom: 18px;
+    color: #000000;
+}
+
 .white-text {
     color: #fff;
     padding-top: 10vh;
 }
 
-/* Paragraph elements */
 p {
-    font-family: Perpetua, Rockwell Extra Bold;
-    text-align: justify;
-    letter-spacing: .1vw;
-    font-size: 1.5vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    font-family: Perpetua, Rockwell Extra Bold, serif;
+    text-align: left;
+    letter-spacing: .04vw;
+    font-size: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 1.5;
 }
 
-/* Paragraph element hover effect */
 p:hover {
-    transition: transform 1s;
-    transform: scale(1.01);
+    transition: none;
+    transform: none;
 }
 
-/* Center class - this applies to all centered text */
 .center {
     text-align: center;
 }
 
-/* Center align elements hover effect */
 .center:hover {
-    transition: transform 2s;
-    transform: scale(1.1);
+    transition: none;
+    transform: none;
 }
 
-/* Anchor elements */
 a {
-    color: blue;
+    color: #003cff;
     cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
     text-decoration: underline;
 }
 
-/* Quotation elements */
 q {
     font-style: italic;
 }
 
-/* Image elements */
 img {
     filter: grayscale(75%);
     border-radius: 8px;
     max-width: 100%;
     height: 100%;
     display: block;
-    margin: auto auto auto auto;
+    margin: auto;
 }
 
-/* Image element hover effects */
 img:hover {
     filter: grayscale(5%);
 }
@@ -105,61 +106,43 @@ img:hover {
     }
 }
 
-/*Styling for footer element */
 footer {
     padding: 2%;
     background-color: white;
 }
-/***** End of General Styling *****/
 
+/***** NAVBAR STYLING *****/
 
-/***** Navbar Styling *****/
 .Navbar {
     overflow: hidden;
     background-color: black;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1;
-    -webkit-animation: moveNav 5s;
-    animation: moveNav 5s;
+    z-index: 10;
 }
 
-/* The animation effect for moving the nav bar in from above the left of the screen on page load */
-@keyframes moveNav {
-    from {left: -100vw;}
-    to {left: 0vw;}
-}
-
-/*Navbar Links */
 .Navbar a {
     float: left;
     display: block;
     color: white;
-    padding: .75vw 1vw;
+    padding: 14px 18px;
     text-decoration: none;
-    font-family: Avant Garde, Helvetica;
-    font-size: 1.5vw;
+    font-family: Avant Garde, Helvetica, Arial, sans-serif;
+    font-size: 20px;
     text-align: center;
     position: relative;
-    -webkit-animation: moveNavText 5.75s;
-    animation: moveNavText 5.75s; 
-}
-
-/* The animation effect for moving the nav bar links in from above the top of the screen on page load */
-@keyframes moveNavText {
-    from {top: -100vw;}
-    to {top: 0vw;}
+    letter-spacing: 3px;
 }
 
 @media screen and (max-width: 576px) {
     .Navbar a {
         width: 20%;
         font-size: 12px;
+        padding: 12px 8px;
     }
 }
 
-/*Navbar hover effects */
 .Navbar a:hover {
     background-color: #f4f4f4;
     color: black;
@@ -167,14 +150,12 @@ footer {
     cursor: pointer;
 }
 
-/* Navbar home button */
 .Navbar a.active {
     background-color: darkgray;
 }
-/***** End of Navbar Styling *****/
 
+/***** VIDEO STYLING *****/
 
-/***** Video Styling *****/
 #Typing_Video {
     position: fixed;
     right: 0;
@@ -189,35 +170,24 @@ footer {
     }
 }
 
-/* Texts over the video */
 .Video_Text {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     width: 100%;
     padding-top: 2vh;
     position: relative;
-    -webkit-animation: moveVideoText 5.75s;
-    animation: moveVideoText 5.75s;
 }
 
-/* This animation effect causes the overlay video text to move up from the bottom of the page upon page load */
-@keyframes moveVideoText {
-    from {top: -100vw;}
-    to {top: 0vw;}
-}
-/***** End of Video Styling *****/
+/***** SLIDESHOW STYLING *****/
 
-
-/***** Slideshow Styling *****/
 #Slideshow_Background {
-    background: rgba(255, 255, 255, 0.35);    
+    background: rgba(255, 255, 255, 0.35);
 }
 
 .mySlides {
     display: none;
 }
 
-/* Slideshow section / container */
 #Slideshow_Container {
     width: 39.5vw;
     height: auto;
@@ -226,7 +196,6 @@ footer {
     margin: auto;
 }
 
-/* Images contained within the slideshow */
 .Slideshow_Images {
     vertical-align: middle;
     height: auto;
@@ -234,14 +203,13 @@ footer {
     width: 100%;
 }
 
-/* Next and previous buttons */
 .Previous, .Next {
     cursor: pointer;
     position: absolute;
     top: 50%;
     width: auto;
     padding: 2vw;
-    color: darkgray; 
+    color: darkgray;
     font-weight: bold;
     font-size: 1.5vw;
     border-radius: 0 3px 3px 0;
@@ -249,27 +217,24 @@ footer {
     transition: 0.6s ease;
 }
 
-/* Positioning the next button on the right hand side */
 .Next {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
 
-/* Hover effect on slide show buttons */
 .Previous:hover, .Next:hover {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
 }
 
-/* Slideshow text */
 .text {
-    color: white; 
+    color: white;
     padding: 1vw;
     position: absolute;
     bottom: 0;
     width: 100%;
     text-align: center;
-    font-family: Perpetua, Rockwell Extra Bold;
+    font-family: Perpetua, Rockwell Extra Bold, serif;
     letter-spacing: .1vw;
     font-size: 1.5vw;
     background-color: rgba(0, 0, 0, 0.75);
@@ -277,12 +242,11 @@ footer {
     border-radius: 0px 0px 7px 7px;
 }
 
-/* Styling of the dots under the slideshow */
 .dot {
     cursor: pointer;
     height: 1vw;
     width: 1vw;
-    margin: .25vw; 
+    margin: .25vw;
     background-color: white;
     border-radius: 50%;
     display: inline-block;
@@ -290,12 +254,10 @@ footer {
     z-index: 1;
 }
 
-/* Hover effect for slideshow dots */
 .active, .dot:hover {
     background-color: black;
 }
 
-/* Fading animation for slideshow */
 .fade {
     animation-name: fade;
     animation-duration: 1.5s;
@@ -312,26 +274,34 @@ footer {
     from {opacity: .4;}
     to {opacity: 1;}
 }
-/***** End Slideshow Styling *****/
 
+/***** LAYOUT STYLING *****/
 
-/***** Table Styling - this section covers the styling of the columns and rows within the table *****/
 * {
     box-sizing: border-box;
-} 
-
-.Column_1 {
-    float: left;
-    width: 50%;
-    padding: 1.6%;
-    height: 450px;
-    background-color: #f2f2f2;
 }
 
-@media screen and (max-width: 576px) {
-    .Column_1 {
-        overflow: auto;
-    }
+.Row {
+    width: 100%;
+    display: block;
+    padding-top: 64px;
+}
+
+.Row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.Column_1 {
+    width: 100%;
+    max-width: 1050px;
+    min-height: auto;
+    height: auto;
+    padding: 35px 45px;
+    margin: 0 auto;
+    background-color: transparent;
+    float: none;
 }
 
 .Column_2 {
@@ -342,26 +312,30 @@ footer {
     background-color: #4d4d4d;
 }
 
-/* This inserts something after the content of selected elements */
-.Row:after {
-    content: "";
-    display: table;
-    clear: both;
+@media screen and (max-width: 576px) {
+    .Column_1 {
+        padding: 25px 20px;
+        overflow: auto;
+    }
+
+    .Column_2 {
+        width: 100%;
+        height: auto;
+    }
 }
-/***** End of Table Styling *****/
 
+/***** PROJECT PAGE STYLING *****/
 
-/***** Project Page Styling *****/
 .Project_Page {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     width: 100%;
     min-height: 450px;
-    padding: 4vw 3vw 3vw 3vw;
+    padding: 90px 45px 45px 45px;
     box-sizing: border-box;
 }
 
 .Project_Page h1 {
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
     letter-spacing: 6px;
     margin-top: 0;
@@ -372,11 +346,31 @@ footer {
     margin-left: auto;
     margin-right: auto;
 }
-/***** End of Project Page Styling *****/
 
+/* Project links on the Projects page */
+.Column_1 p a {
+    display: block;
+    max-width: 760px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
 
-/***** Contact Form Styling *****/
-/* Button used to open the contact form - fixed at the bottom of the page */
+.Column_1 p a:hover {
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+/***** CONTACT FORM STYLING *****/
+
 .Pop_Up_Button {
     position: fixed;
     bottom: 1.75vw;
@@ -386,22 +380,8 @@ footer {
     color: black;
     border: solid black;
     cursor: pointer;
-    -webkit-animation: movePopup 5s;
-    animation: movePopup 5s;
 }
 
-/* movePopup animation moves the button from off the right side of the screen to its fixed location */
-@keyframes movePopup {
-    from {right: -40vw;} 
-    to {right: 1.75vw;}
-}
-
-@-webkit-keyframes movePopup {
-    from {right: -40vw;} 
-    to {right: 1.75vw;}
-}
-
-/* Styling for the contact form */
 .form-popup {
     border: 3px solid #f0f1f0;
     z-index: 8;
@@ -411,14 +391,12 @@ footer {
     right: .5vw;
 }
 
-/* Form styling */
 .form-container {
     max-width: 49vw;
     padding: 1vw;
-    background-color: white; 
+    background-color: white;
 }
 
-/* Input fields */
 .form-container input[type=text] {
     width: 100%;
     padding: .93vw;
@@ -428,19 +406,17 @@ footer {
     font-size: 1vw;
 }
 
-/* General styling for all buttons */
 button {
-    font-family: "Trebuchet MS", Optima;
+    font-family: "Trebuchet MS", Optima, sans-serif;
     letter-spacing: .3vw;
     font-size: 1.5vw;
-    font-weight: bold; 
+    font-weight: bold;
     padding: 1.5vw;
     cursor: pointer;
     width: 100%;
     height: auto;
 }
 
-/* Hover effect for contact and submit buttons */
 button:hover, .form-container .btn:hover {
     color: white;
     background-color: black;
@@ -449,22 +425,19 @@ button:hover, .form-container .btn:hover {
     border-color: silver;
 }
 
-/* Submit button */
 .form-container .btn {
-    background-color: white; 
+    background-color: white;
     color: black;
     border-color: black;
     margin-bottom: 1vh;
 }
 
-/* Close button */
 .form-container .cancel {
     background-color: black;
     color: white;
     border-color: gray;
 }
 
-/* Styling for close button on hover */
 .form-container .cancel:hover {
     color: white;
     background-color: darkred;
@@ -472,7 +445,9 @@ button:hover, .form-container .btn:hover {
     -webkit-transition-duration: 1s;
     border-color: black;
 }
-/***** Full Color Images on Power Automate Page *****/
+
+/***** FULL COLOR IMAGES ON POWER AUTOMATE PAGE *****/
+
 .no-image-hover img {
     filter: none;
 }
@@ -481,4 +456,4 @@ button:hover, .form-container .btn:hover {
     filter: none;
     transform: none;
 }
-/***** End of Contact Form Styling *****/
+```
