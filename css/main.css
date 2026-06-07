@@ -348,18 +348,47 @@ footer {
 }
 
 /* Project links on the Projects page */
-.Column_1 p a {
+.Column_1 p a,
+.Project_Page p a {
     display: block;
     max-width: 760px;
     padding: 14px 18px;
     margin: 10px 0;
-    border: 1px solid #d9d9d9;
     border-radius: 8px;
-    background-color: #ffffff;
-    color: #1a1a1a;
+    color: #ffffff;
     text-decoration: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: box-shadow .2s ease, transform .2s ease, filter .2s ease;
+}
+
+.Column_1 p a:hover,
+.Project_Page p a:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+    filter: brightness(90%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+/* Power Platform project button colors */
+.power-automate-link {
+    background-color: #0078D4;
+}
+
+.power-apps-link {
+    background-color: #742774;
+}
+
+.model-driven-link {
+    background-color: #742774;
+}
+
+.custom-connector-link {
+    background-color: #2EA043;
+}
+
+.default-project-link {
+    background-color: #1a1a1a;
 }
 
 .Column_1 p a:hover {
