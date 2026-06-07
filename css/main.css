@@ -347,9 +347,9 @@ footer {
     margin-right: auto;
 }
 
-/* Project links on the Projects page */
-.Column_1 p a,
-.Project_Page p a {
+/* Only links with project-button will become large colored buttons */
+.Column_1 p a.project-button,
+.Project_Page p a.project-button {
     display: block;
     max-width: 760px;
     padding: 14px 18px;
@@ -362,8 +362,8 @@ footer {
     transition: box-shadow .2s ease, transform .2s ease, filter .2s ease;
 }
 
-.Column_1 p a:hover,
-.Project_Page p a:hover {
+.Column_1 p a.project-button:hover,
+.Project_Page p a.project-button:hover {
     transform: translateY(-1px);
     text-decoration: none;
     filter: brightness(90%);
@@ -389,13 +389,6 @@ footer {
 
 .default-project-link {
     background-color: #1a1a1a;
-}
-
-.Column_1 p a:hover {
-    background-color: #f7f7f7;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
-    transform: translateY(-1px);
-    text-decoration: none;
 }
 
 /***** CONTACT FORM STYLING *****/
