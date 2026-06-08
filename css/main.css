@@ -487,4 +487,20 @@ button:hover, .form-container .btn:hover {
     filter: none;
     transform: none;
 }
+
+/***** VIDEO SETTINGS *****/
+.Video_Embed {
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.Video_Embed iframe {
+    width: 100%;
+    max-width: 900px;
+    height: 500px;
+    border-radius: 8px;
+}
 ```
