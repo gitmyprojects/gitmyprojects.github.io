@@ -287,10 +287,11 @@ footer {
     padding-top: 64px;
 }
 
-.Row:after {
-    content: "";
-    display: table;
-    clear: both;
+.Row {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    padding-top: 0;
 }
 
 .Column_1 {
@@ -306,7 +307,8 @@ footer {
     float: left;
     width: 50%;
     padding: 1.6%;
-    height: 450px;
+    min-height: 450px;
+    height: auto;
     background-color: #4d4d4d;
 }
 
