@@ -15,17 +15,19 @@
     </div>
 
     <div class="Project_Page">
-        <h1>Power Automate</h1>
-
-        <p>This page will showcase my Power Automate projects.</p>
-        <p>This is the beginning of the flow. It is triggered when an Opportunity in our CRM (Sales Hub)
-            has been marked as 'Won'.</p>
+        <h1>Company-Wide Impact Automation</h1>
+        <p>**Flow Section 1 — Opportunity Won Trigger and Data Preparation**
+This flow starts when an Opportunity is marked as **Won** in Microsoft Sales Hub. It initializes key values such as salesperson, jurisdiction, zone, and customer identifiers, then uses those values to retrieve related Dataverse records needed later in the process. This demonstrates Sales Hub automation, Dataverse lookups, variable handling, and preparation of structured data for Business Central job creation.
+</p>
         <img src="./media/images/flow1.png" alt="Power Automate Flow 1">
-        <p>Now that we have our project information gathered, we need to gather customer information.</p>
+        <p>**Flow Section 2 — Contact and Customer Relationship Logic**
+The flow evaluates whether the Opportunity contact exists in both Dataverse and Business Central. If the contact already exists, it checks for an existing customer business relationship. If missing, the flow creates the customer relationship and validates the result before continuing. If the contact does not exist in Business Central, the flow creates the contact, updates Dataverse with the Business Central contact number, and creates the customer relationship. This demonstrates conditional branching, error handling, and system synchronization.
+</p>
         <img src="./media/images/flow2.png" alt="Power Automate Flow 2">
-        <p>Once the customer information is prepared, we need to create the job in Business Central.</p>
+        <p>**Flow Section 3 — Business Central Job Creation and Team Notifications**
+After confirming the customer relationship, the flow creates the new job in Business Central and prepares related job resources. It creates supporting items such as a Field Service planning channel, Outlook vCard, and SharePoint job folders. Final parallel branches notify key teams: the customer receives a thank-you email, the office is notified of the new win, accounting is reminded to invoice the permit deposit, and permitting is assigned the next task. This demonstrates ERP automation, collaboration setup, and cross-department workflow orchestration.
+</p>
         <img src="./media/images/flow3.png" alt="Power Automate Flow 3">
-        <p>Finally, we need to thank, inform, and initiate the process of building the customers new home.</p>
         <img src="./media/images/flow4.png" alt="Power Automate Flow 4">
 
         <p><a href="projects.html">Back to Projects</a></p>
