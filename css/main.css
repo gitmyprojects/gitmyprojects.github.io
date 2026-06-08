@@ -317,10 +317,12 @@ footer {
     max-width: 1050px;
     min-height: auto;
     height: auto;
-    padding: 35px 45px;
+    padding: 45px;
     margin: 0 auto;
-    background-color: transparent;
+    background-color: #ffffff;
+    border-radius: 12px;
     float: none;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
 }
 
 @media screen and (max-width: 576px) {
