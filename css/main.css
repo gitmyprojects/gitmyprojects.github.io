@@ -400,6 +400,19 @@ footer {
     background-color: #1a1a1a;
 }
 
+/***** CREATE TWO COLUMNS *****/
+.Projects_Two_Column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+    align-items: start;
+}
+
+@media screen and (max-width: 768px) {
+    .Projects_Two_Column {
+        grid-template-columns: 1fr;
+    }
+}
 /***** CONTACT FORM STYLING *****/
 
 .Pop_Up_Button {
