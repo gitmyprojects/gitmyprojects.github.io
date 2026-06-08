@@ -417,6 +417,9 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+.Projects_Background {
+    background-color: #eef2f6;
+}
 /***** CONTACT FORM STYLING *****/
 
 .Pop_Up_Button {
