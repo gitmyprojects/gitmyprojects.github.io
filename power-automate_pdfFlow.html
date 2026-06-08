@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Power Automate - Neil Javier</title>
+    <title>Customer Contract PDF Generation - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
@@ -15,25 +16,95 @@
     </div>
 
     <div class="Project_Page">
-        <h1>Power Automate</h1>
+        <h1>Customer Contract PDF Generation</h1>
 
-        <p>This page will showcase my Power Automate projects.</p>
-        <p>This is the beginning of the flow. It is triggered when an Opportunity in our CRM (Sales Hub)
-            has been marked as 'Won'.</p>
-        <img src="./media/images/pdfflow5.png" alt="Power Automate Flow 1">
-        <p>Now that we have our project information gathered, we need to gather customer information.</p>
-        <img src="./media/images/pdfflow6.png" alt="Power Automate Flow 2">
-        <p>Once the customer information is prepared, we need to create the job in Business Central.</p>
-        <img src="./media/images/pdfflow1.png" alt="Power Automate Flow 3">
-        <p>Finally, we need to thank, inform, and initiate the process of building the customers new home.</p>
-        <img src="./media/images/pdfflow2.png" alt="Power Automate Flow 4">
-        <p>Finally, we need to thank, inform, and initiate the process of building the customers new home.</p>
-        <img src="./media/images/pdfflow3.png" alt="Power Automate Flow 4">
-        <p>Finally, we need to thank, inform, and initiate the process of building the customers new home.</p>
-        <img src="./media/images/pdfflow4.png" alt="Power Automate Flow 4">
+        <p>
+            <strong>Project Summary</strong><br>
+            This project allows users to generate a customer contract PDF directly from a Microsoft Sales Hub Opportunity. A custom command bar button runs a JavaScript web resource, sends the current Opportunity ID to a Power Automate flow, and downloads the completed PDF when the flow finishes.
+        </p>
+
+        <p>
+            <strong>Custom Sales Hub Button</strong><br>
+            I created a custom command bar button in Sales Hub that gives users a simple, one-click way to start the document generation process from the Opportunity record.
+        </p>
+
+        <p>
+            <strong>Note:</strong> The highlighted button shows the custom ribbon action added to Sales Hub. When selected, the JavaScript web resource starts the document generation process and passes the current Opportunity record ID to the flow.
+        </p>
+
+        <img src="./media/images/pdfflow1.png" alt="Custom Sales Hub button used to generate a PDF document">
+
+        <p>
+            <strong>Web Resource Functionality</strong><br>
+            The JavaScript web resource captures the current Opportunity ID, sends it to a Power Automate flow, displays a progress indicator while the process runs, and triggers the PDF download when the flow returns a successful response.
+        </p>
+
+        <pre><code>
+// Captures the current Opportunity ID
+const entityIdRaw = formContext.data.entity.getId();
+const opportunityId = entityIdRaw.replace(/[{}]/g, "");
+
+// Shows user feedback while the flow runs
+Xrm.Utility.showProgressIndicator("Generating your documents via flow...");
+
+// Sends the Opportunity ID to Power Automate
+fetch(flowUrl, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/pdf"
+    },
+    body: JSON.stringify({ opportunityId: opportunityId })
+});
+
+// Downloads the PDF returned by the flow
+a.download = fileName;
+a.click();
+        </code></pre>
+
+        <p>
+            <strong>User Feedback During Processing</strong><br>
+            While the flow is running, Sales Hub displays a progress message so the user knows the document generation process has started and the system is working.
+        </p>
+
+        <img src="./media/images/pdfflow2.png" alt="Sales Hub progress indicator while the document generation flow runs">
+
+        <p>
+            <strong>Automatic PDF Download</strong><br>
+            Once the Power Automate flow completes, the web resource receives the generated PDF response and automatically starts the file download for the user.
+        </p>
+
+        <img src="./media/images/pdfflow3.png" alt="Generated customer contract PDF download triggered by the web resource">
+
+        <p>
+            <strong>Power Automate Document Generation Flow</strong><br>
+            The flow receives the Opportunity ID from the Sales Hub button, retrieves the related Opportunity and Contact records from Dataverse, and prepares the customer and project data used to populate the contract documents.
+        </p>
+
+        <img src="./media/images/pdfflow5.png" alt="Power Automate flow retrieving opportunity and contact information">
+
+        <p>
+            <strong>State-Specific Contract Logic</strong><br>
+            The flow uses conditional logic to generate the correct contract package based on the project state. Oregon projects follow the Oregon contract branch, while Washington and other projects follow the Washington-specific document branch. Each branch populates the required Word templates, converts them to PDF, merges the final documents, and returns the completed file to the web resource.
+        </p>
+
+        <img src="./media/images/pdfflow6.png" alt="Power Automate state-specific contract generation branches">
+
+        <p>
+            <strong>Generated Contract Output</strong><br>
+            The final PDF shows customer and project information automatically populated into the contract template, including customer name, address, site address, and job-specific details. This reduces manual document preparation, improves consistency, and helps ensure the correct contract documents are generated for the customer’s project location.
+        </p>
+
+        <img src="./media/images/pdfflow4.png" alt="Generated contract PDF with customer and project information populated">
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Custom Sales Hub command bar button, JavaScript web resource, HTTP-triggered Power Automate flow, Dataverse record retrieval, dynamic Word template population, state-based business logic, PDF conversion, PDF merging, automated file response handling, and user-facing progress feedback.
+        </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
 
 </body>
 </html>
+```
