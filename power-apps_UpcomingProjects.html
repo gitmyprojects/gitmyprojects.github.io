@@ -1,13 +1,14 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Project Name - Neil Javier</title>
+    <title>Upcoming Projects Viewer - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
-<body class="Background">
+<body class="Background no-image-hover">
 
     <div class="Navbar">
         <a href="index.html">Home</a>
@@ -17,28 +18,53 @@
     <div class="Project_Page">
         <h1>Upcoming Projects Viewer</h1>
 
-        <h2>Project Summary</h2>
-        <p>Briefly explain what the project does, who it helps, and what business problem it solves.</p>
+        <p>
+            <strong>Project Summary</strong><br>
+            This Canvas app feature gives production and field teams a mobile-friendly way to view upcoming projects from the production queue. It helps crews stay aware of current work, recently completed work, and projects planned in the near future.
+        </p>
 
-        <h2>Tools Used</h2>
-        <p>Power Apps, Power Automate, Dataverse, SharePoint, Excel, Teams, Outlook, Custom Connector, Business Central, or other tools used.</p>
+        <p>
+            <strong>Home Screen Access</strong><br>
+            The Production Queue tile is available from the main app home screen, making upcoming project information easy to access alongside other employee tools such as projects, timecards, receipts, incidents, and announcements.
+        </p>
 
-        <h2>Business Problem</h2>
-        <p>Explain the manual process, bottleneck, duplicate entry, missing visibility, or business risk that existed before the solution.</p>
+        <img src="./media/images/Projects1.png" alt="Canvas app home screen with Production Queue tile">
 
-        <h2>Solution Built</h2>
-        <p>Explain what you built and how the user interacts with it.</p>
+        <p>
+            <strong>Filtered Production Queue Gallery</strong><br>
+            The gallery displays production queue records filtered by estimated start date. It shows projects completed within the last two weeks, projects currently being worked on, and projects planned for the next 28 days. The records are sorted by estimated start date so the most relevant upcoming work appears in order.
+        </p>
 
-        <h2>Key Features</h2>
-        <p><a>Feature 1</a></p>
-        <p><a>Feature 2</a></p>
-        <p><a>Feature 3</a></p>
+        <pre><code>
+Sort(
+    Filter(
+        'Production Queues',
+        'EstimatedStartingDate' >= DateAdd(Today(), -14) &&
+        'EstimatedStartingDate' <= DateAdd(Today(), 28)
+    ),
+    'EstimatedStartingDate',
+    SortOrder.Ascending
+)
+        </code></pre>
 
-        <h2>Skills Demonstrated</h2>
-        <p>Describe the technical skills shown by this project, such as formulas, triggers, approvals, conditions, Dataverse relationships, JavaScript, business rules, or API integration.</p>
+        <img src="./media/images/Projects2.png" alt="Production queue gallery filtered by projected start date range">
 
-        <h2>Screenshot</h2>
-        <p>Add a screenshot of the app, flow, form, or process here.</p>
+        <p>
+            <strong>Project Detail Screen</strong><br>
+            When a user selects a project from the gallery, the app opens a detail screen showing the queue number, related job number, project description, and estimated start date. This gives employees quick access to the key information they need without searching through separate systems.
+        </p>
+
+        <img src="./media/images/Projects3.png" alt="Production queue detail screen showing selected project information">
+
+        <p>
+            <strong>Business Impact</strong><br>
+            This feature improves operational visibility by giving crews a clear view of what work is recently completed, currently active, and coming soon. It reduces the need for manual status checks and helps teams prepare for upcoming jobs.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Canvas app design, Dataverse data integration, gallery filtering, date-based logic, sorting, record selection, detail screen navigation, Power Fx formulas, and mobile-friendly operational reporting.
+        </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
