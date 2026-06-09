@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Power Automate - Neil Javier</title>
+    <title>Company-Wide Impact Automation - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
@@ -16,20 +17,48 @@
 
     <div class="Project_Page">
         <h1>Company-Wide Impact Automation</h1>
+
         <p>
-    <strong>Flow Section 1 — Opportunity Won Trigger and Data Preparation</strong><br>
-    This flow starts when an Opportunity is marked as <strong>Won</strong> in Microsoft Sales Hub. It initializes key values such as salesperson, jurisdiction, zone, and customer identifiers, then uses those values to retrieve related Dataverse records needed later in the process. This demonstrates Sales Hub automation, Dataverse lookups, variable handling, and preparation of structured data for Business Central job creation.
+            <strong>Project Summary</strong><br>
+            This automation connects Microsoft Sales Hub, Dataverse, Business Central, Outlook, Teams, and SharePoint into one end-to-end process triggered by a won Opportunity. It demonstrates cross-system integration, conditional logic, customer and job creation, team notifications, collaboration setup, and production-ready error handling.
         </p>
-        <img src="./media/images/flow1.png" alt="Power Automate Flow 1">
-<p> <strong>Flow Section 2 — Contact and Customer Relationship Logic</strong><br> The flow evaluates whether the Opportunity contact exists in both Dataverse and Business Central. If the contact already exists, it checks for an existing customer business relationship. If missing, the flow creates the customer relationship and validates the result before continuing. If the contact does not exist in Business Central, the flow creates the contact, updates Dataverse with the Business Central contact number, and creates the customer relationship. This demonstrates conditional branching, error handling, and system synchronization. </p>
-            <img src="./media/images/flow2.png" alt="Power Automate Flow 2">
-        
-<p> <strong>Flow Section 3 — Business Central Job Creation and Team Notifications</strong><br> After confirming the customer relationship, the flow creates the new job in Business Central and prepares related job resources. This section is wrapped in a Scope to group the job creation process and support centralized error handling. The flow creates supporting items such as a Field Service planning channel, Outlook vCard, and SharePoint job folders. Final parallel branches notify key teams: the customer receives a thank-you email, the office is notified of the new win, accounting is reminded to invoice the permit deposit, and permitting is assigned the next task. </p>
-            <img src="./media/images/flow3.png" alt="Power Automate Flow 3">
-            <img src="./media/images/flow4.png" alt="Power Automate Flow 4">
-<p> <strong>Project Summary</strong><br> This automation connects Microsoft Sales Hub, Dataverse, Business Central, Outlook, Teams, and SharePoint into one end-to-end process triggered by a won Opportunity. It demonstrates cross-system integration, conditional logic, customer and job creation, team notifications, and production-ready error handling. If any action inside the job creation Scope fails, a follow-up action notifies IT with the flow run failure and relevant details. </p>
+
+        <p>
+            <strong>Opportunity Won Trigger and Data Preparation</strong><br>
+            The flow starts when an Opportunity is marked as <strong>Won</strong> in Microsoft Sales Hub. It initializes key values such as salesperson, jurisdiction, zone, and customer identifiers, then uses those values to retrieve related Dataverse records needed later in the process. This prepares structured data for Business Central job creation.
+        </p>
+
+        <img src="./media/images/flow1.png" alt="Power Automate flow section for Opportunity Won trigger and data preparation">
+
+        <p>
+            <strong>Contact and Customer Relationship Logic</strong><br>
+            The flow evaluates whether the Opportunity contact exists in both Dataverse and Business Central. If the contact already exists, it checks for an existing customer business relationship. If missing, the flow creates the relationship and validates the result before continuing. If the contact does not exist in Business Central, the flow creates the contact, updates Dataverse with the Business Central contact number, and then creates the customer relationship.
+        </p>
+
+        <img src="./media/images/flow2.png" alt="Power Automate flow section for contact and customer relationship logic">
+
+        <p>
+            <strong>Business Central Job Creation and Related Resources</strong><br>
+            After confirming the customer relationship, the flow creates the new job in Business Central and prepares related job resources. This section is wrapped in a Scope to group the job creation process and support centralized error handling. The flow also creates supporting items such as a Field Service planning channel, Outlook vCard, and SharePoint job folders.
+        </p>
+
+        <img src="./media/images/flow3.png" alt="Power Automate flow section for Business Central job creation">
+
+        <p>
+            <strong>Team Notifications and Error Handling</strong><br>
+            Final parallel branches notify key teams after the job setup process begins. The customer receives a thank-you email, the office is notified of the new win, accounting is reminded to invoice the permit deposit, and permitting is assigned the next task. If any action inside the job creation Scope fails, a follow-up action notifies IT with the flow run failure and relevant details.
+        </p>
+
+        <img src="./media/images/flow4.png" alt="Power Automate flow section for team notifications and error handling">
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Sales Hub automation, Dataverse triggers and lookups, Business Central integration, conditional branching, customer and job creation, SharePoint folder automation, Teams and Outlook notifications, Scope-based error handling, and cross-department workflow orchestration.
+        </p>
+
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
 
 </body>
 </html>
+```
