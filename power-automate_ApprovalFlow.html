@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Power Automate - Neil Javier</title>
+    <title>Tool Retirement Approval Workflow - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
@@ -15,14 +16,33 @@
     </div>
 
     <div class="Project_Page">
-        <h1>Power Automate</h1>
+        <h1>Tool Retirement Approval Workflow</h1>
 
-        <p>This page will showcase my Power Automate projects.</p>
-        <p>This is the beginning of the flow. It is triggered when an Opportunity in our CRM (Sales Hub)
-            has been marked as 'Won'.</p>
-        <img src="./media/images/Approval Flow.png" alt="Power Automate Flow 1">
+        <p>
+            <strong>Project Summary</strong><br>
+            This Power Automate flow demonstrates an approval process for tool retirement requests in a Dataverse-based Asset Management system. When a new repair transaction is created with a retirement transaction type, the flow retrieves the related tool details and sends an approval request for review.
+        </p>
+
+        <p>
+            <strong>Approval Process</strong><br>
+            The flow starts from a Dataverse trigger, retrieves the related Tool record, and sends a retirement approval request. Once the approver responds, a condition checks the approval outcome and sends a Teams notification to the requestor with either an approval or denial message.
+        </p>
+
+        <img src="./media/images/Approval Flow.png" alt="Power Automate approval flow for tool retirement request">
+
+        <p>
+            <strong>Business Value</strong><br>
+            This approval pattern helps prevent important asset lifecycle decisions from happening without review. In a production scenario, this same structure could be expanded to update the tool lifecycle status, notify operations, or create an audit trail for retired assets.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Dataverse triggers, trigger conditions, approval actions, related record retrieval, conditional branching, Teams notifications, process control, and asset management workflow design.
+        </p>
+
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
 
 </body>
 </html>
+```
