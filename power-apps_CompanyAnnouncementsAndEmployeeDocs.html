@@ -1,13 +1,14 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Project Name - Neil Javier</title>
+    <title>Company Announcements and Employee Documents - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
-<body class="Background">
+<body class="Background no-image-hover">
 
     <div class="Navbar">
         <a href="index.html">Home</a>
@@ -15,30 +16,50 @@
     </div>
 
     <div class="Project_Page">
-        <h1>Company Annoucenements and Employee Documents</h1>
+        <h1>Company Announcements and Employee Documents</h1>
 
-        <h2>Project Summary</h2>
-        <p>Briefly explain what the project does, who it helps, and what business problem it solves.</p>
+        <p>
+            <strong>Project Summary</strong><br>
+            This Canvas app feature gives employees a centralized place to view company-wide announcements and related documents. It helps the business share important updates, policy changes, benefit information, newsletters, and employee-facing documents through a mobile-friendly Power Apps experience.
+        </p>
 
-        <h2>Tools Used</h2>
-        <p>Power Apps, Power Automate, Dataverse, SharePoint, Excel, Teams, Outlook, Custom Connector, Business Central, or other tools used.</p>
+        <p>
+            <strong>App Navigation</strong><br>
+            The Announcements tile is available from the main app home screen, giving employees quick access to company communication alongside other operational tools such as timecards, receipts, reimbursements, incidents, and IFTA logs.
+        </p>
 
-        <h2>Business Problem</h2>
-        <p>Explain the manual process, bottleneck, duplicate entry, missing visibility, or business risk that existed before the solution.</p>
+        <img src="./media/images/Announcements1.png" alt="Canvas app home screen with Announcements tile">
 
-        <h2>Solution Built</h2>
-        <p>Explain what you built and how the user interacts with it.</p>
+        <p>
+            <strong>Announcement Gallery</strong><br>
+            The announcements screen uses a gallery connected to the company announcements data source. Employees see announcement headlines in a clean list and can select the right arrow to open the full announcement details.
+        </p>
 
-        <h2>Key Features</h2>
-        <p><a>Feature 1</a></p>
-        <p><a>Feature 2</a></p>
-        <p><a>Feature 3</a></p>
+        <img src="./media/images/Announcements2.png" alt="Power Apps gallery showing company announcements sorted by created date">
 
-        <h2>Skills Demonstrated</h2>
-        <p>Describe the technical skills shown by this project, such as formulas, triggers, approvals, conditions, Dataverse relationships, JavaScript, business rules, or API integration.</p>
+        <p>
+            <strong>Announcement Details and Attachments</strong><br>
+            When an employee selects an announcement, the app opens a detail screen with the full message. If HR added an attachment, the employee can use the attachment button to open related files such as newsletters, healthcare documents, policy updates, or images.
+        </p>
 
-        <h2>Screenshot</h2>
-        <img src="./media/images/Announcements1.png" alt="Power Automate Flow 1">
+        <img src="./media/images/Announcements3.png" alt="Selected announcement screen with view attachment button">
+
+        <p>
+            <strong>Role-Based User Experience</strong><br>
+            The app includes customized visibility logic so only authorized users can see certain controls. In this example, the announcement creation button is only visible to users with specific email addresses. This demonstrates how Power Fx can personalize the user experience and control access to administrative actions.
+        </p>
+
+        <img src="./media/images/Announcements4.png" alt="Power Apps visible property using user email to control button visibility">
+
+        <p>
+            <strong>Business Impact</strong><br>
+            This feature improves internal communication by giving employees one reliable place to find important announcements and documents. It reduces scattered communication, helps HR distribute updates more consistently, and makes company information easier to access from a mobile device.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Canvas app design, SharePoint data integration, gallery configuration, sorting, navigation, attachment launching, Power Fx formulas, role-based visibility, user experience customization, and employee communication workflows.
+        </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
