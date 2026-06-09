@@ -1,13 +1,14 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Project Name - Neil Javier</title>
+    <title>Vehicle Inspections - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
-<body class="Background">
+<body class="Background no-image-hover">
 
     <div class="Navbar">
         <a href="index.html">Home</a>
@@ -17,35 +18,90 @@
     <div class="Project_Page">
         <h1>Vehicle Inspections</h1>
 
-        <h2>Project Summary</h2>
-        <p>Briefly explain what the project does, who it helps, and what business problem it solves.</p>
+        <p>
+            <strong>Project Summary</strong><br>
+            This Canvas app feature allows employees to complete vehicle inspection checklists from a mobile-friendly Power Apps interface. The app guides the user through selecting a vehicle, reviewing inspection items, marking each item as satisfactory, unsatisfactory, or not applicable, and submitting the completed inspection with notes and a signature.
+        </p>
 
-        <h2>Tools Used</h2>
-        <p>Power Apps, Power Automate, Dataverse, SharePoint, Excel, Teams, Outlook, Custom Connector, Business Central, or other tools used.</p>
+        <p>
+            <strong>Vehicle Selection and Checklist Loading</strong><br>
+            The user begins by selecting a vehicle from a filtered list of fixed assets. The combo box only displays assets where the equipment type is Vehicle, then formats the display value using the equipment number and fixed asset name. Once a vehicle is selected, the inspection checklist is populated for that vehicle.
+        </p>
 
-        <h2>Business Problem</h2>
-        <p>Explain the manual process, bottleneck, duplicate entry, missing visibility, or business risk that existed before the solution.</p>
+        <pre><code>
+SortByColumns(
+    AddColumns(
+        Filter(
+            'BC_Fixed Assets',
+            'Equipment Type' = "VEHICLE"
+        ),
+        VehicleDisplay,
+        'Equipment Number' & " - " & 'Fixed Asset Name'
+    ),
+    "VehicleDisplay",
+    SortOrder.Ascending
+)
+        </code></pre>
 
-        <h2>Solution Built</h2>
-        <p>Explain what you built and how the user interacts with it.</p>
+        <p>
+            <strong>Guided Inspection Experience</strong><br>
+            The app prevents users from submitting incomplete inspections. Before a vehicle is selected, the checklist actions are unavailable. After the checklist loads, users can mark each row individually or use the Set All Satisfactory button as a shortcut, while still retaining the ability to change individual items if needed.
+        </p>
 
-        <h2>Key Features</h2>
-        <p><a>Feature 1</a></p>
-        <p><a>Feature 2</a></p>
-        <p><a>Feature 3</a></p>
+        <p>
+            <strong>Submit Validation</strong><br>
+            The Submit button is only enabled when every checklist item has a selected status, the user has provided required notes for any unsatisfactory items, and the inspection has been signed. This ensures that submitted inspections are complete and actionable.
+        </p>
 
-        <h2>Skills Demonstrated</h2>
-        <p>Describe the technical skills shown by this project, such as formulas, triggers, approvals, conditions, Dataverse relationships, JavaScript, business rules, or API integration.</p>
+        <pre><code>
+If(
+    (
+        CountRows(Filter(colChecklistRows, Status = "Unsatisfactory")) > 0 
+        && IsBlank(NotesTextInput.Text)
+    )
+    ||
+    CountRows(Filter(colChecklistRows, IsBlank(Status))) > 0
+    ||
+    !varMechanicSigned,
 
-        <h2>Screenshot</h2>
+    DisplayMode.Disabled,
+    DisplayMode.Edit
+)
+        </code></pre>
+
+        <p>
+            <strong>Unsatisfactory Item Handling</strong><br>
+            If any inspection items are marked unsatisfactory, the app displays those items on the notes screen and requires the user to explain the issue before submitting. This creates a cleaner handoff to maintenance because the problem is documented at the time of inspection.
+        </p>
+
+        <p>
+            <strong>Maintenance Follow-Up Automation</strong><br>
+            When an inspection includes unsatisfactory items, a Power Automate flow is triggered after submission. The flow creates a new work order listing the unsatisfactory items and sends a Teams notification to the maintenance technician so the issue can be reviewed and addressed.
+        </p>
+
+        <p>
+            <strong>Video Walkthrough</strong><br>
+            The video below demonstrates the full inspection process, including vehicle selection, checklist completion, unsatisfactory item notes, signature capture, and form submission.
+        </p>
+
         <div class="Video_Embed">
             <iframe 
                 src="https://www.youtube.com/embed/pHPywIm-0hw"
-                title="Project walkthrough video"
+                title="Vehicle inspection app walkthrough video"
                 frameborder="0"
                 allowfullscreen>
             </iframe>
-</div>
+        </div>
+
+        <p>
+            <strong>Business Impact</strong><br>
+            This feature standardizes vehicle inspections, reduces incomplete submissions, improves maintenance visibility, and helps the company respond faster when a vehicle issue is reported. It also creates a better mobile experience for employees completing inspections in the field.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Canvas app design, Power Fx filtering, combo box configuration, collection-based checklist logic, conditional display modes, validation rules, signature capture, required notes logic, Power Automate integration, work order creation, and Teams notifications.
+        </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
