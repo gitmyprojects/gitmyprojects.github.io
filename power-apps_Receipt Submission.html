@@ -1,13 +1,14 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Project Name - Neil Javier</title>
+    <title>Receipt Submission - Neil Javier</title>
     <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
-<body class="Background">
+<body class="Background no-image-hover">
 
     <div class="Navbar">
         <a href="index.html">Home</a>
@@ -17,32 +18,39 @@
     <div class="Project_Page">
         <h1>Receipt Submission</h1>
 
-        <h2>Project Summary</h2>
-        <p>Briefly explain what the project does, who it helps, and what business problem it solves.</p>
+        <p>
+            <strong>Project Summary</strong><br>
+            This Canvas app feature allows employees to submit purchase receipts directly from a mobile-friendly Power Apps interface. The solution helps Accounts Payable receive organized receipt submissions with supporting attachments, employee details, and job-related information when applicable.
+        </p>
 
-        <h2>Tools Used</h2>
-        <p>Power Apps, Power Automate, Dataverse, SharePoint, Excel, Teams, Outlook, Custom Connector, Business Central, or other tools used.</p>
+        <p>
+            <strong>Receipt Entry Decision Point</strong><br>
+            The receipt process begins by asking whether the purchase is job related. This keeps the user experience simple while still allowing the company to capture the additional job and task information needed for project-related expenses.
+        </p>
 
-        <h2>Business Problem</h2>
-        <p>Explain the manual process, bottleneck, duplicate entry, missing visibility, or business risk that existed before the solution.</p>
+        <img src="./media/images/Receipt1.png" alt="Receipt submission screen asking whether the receipt is job related">
 
-        <h2>Solution Built</h2>
-        <p>Explain what you built and how the user interacts with it.</p>
+        <p>
+            <strong>Job-Related Receipt Submission</strong><br>
+            If the receipt is job related, the employee is required to select the related job and task before submitting. This helps Accounts Payable understand where the purchase belongs and gives the business cleaner information for job costing and expense tracking.
+        </p>
 
-        <h2>Key Features</h2>
-        <p><a>Feature 1</a></p>
-        <p><a>Feature 2</a></p>
-        <p><a>Feature 3</a></p>
+        <img src="./media/images/Receipt2.png" alt="Job related receipt submission form with job, task, description, and attachment fields">
 
-        <h2>Skills Demonstrated</h2>
-        <p>Describe the technical skills shown by this project, such as formulas, triggers, approvals, conditions, Dataverse relationships, JavaScript, business rules, or API integration.</p>
+        <p>
+            <strong>Home Screen Access</strong><br>
+            The Submit Receipt tile is available from the main app home screen, making receipt submission easy for employees to access alongside other daily tools such as projects, timecards, reimbursements, incidents, and IFTA logs.
+        </p>
 
-        <h2>Screenshot</h2>
-        <img src="./media/images/Receipt1.png" alt="">
-        <img src="./media/images/Receipt2.png" alt="">
-        <img src="./media/images/Receipt3.png" alt="">
-        <p>Here is the Fx code for the onSelect property of the 'Submit' button.</p>
-        <p>If(
+        <img src="./media/images/Receipt3.png" alt="Canvas app home screen with Submit Receipt tile highlighted">
+
+        <p>
+            <strong>Submit Button Logic</strong><br>
+            The Submit button validates that at least one attachment has been added before allowing the receipt to be sent. It then builds a structured category using the selected job, task, and purchase description, creates a clear email subject and body, attaches the uploaded receipt files, and sends the submission to Accounts Payable.
+        </p>
+
+        <pre><code>
+If(
     CountRows(JobReceiptAttachmentControl.Attachments) = 0,
     Notify(
         "Please add at least one attachment before submitting.",
@@ -95,7 +103,28 @@
     Clear(JobsListCollection);
     Clear(JobDetailsCollection);
     UpdateContext({ showDialog: true })
-)</p>
+)
+        </code></pre>
+
+        <p>
+            <strong>What Accounts Payable Receives</strong><br>
+            Accounts Payable receives an email with the receipt attachment, the employee name and email, and a subject line that includes the job number, task number, and purchase category. This gives AP enough context to process the receipt without needing to chase down missing information.
+        </p>
+
+        <p>
+            <strong>Stakeholder Requirement</strong><br>
+            A stakeholder requested that if an employee from the Field Service department submits a receipt, the project manager should be notified. The formula handles this by checking the employee department value and automatically adding the project manager as a CC recipient when the employee belongs to Field Service.
+        </p>
+
+        <p>
+            <strong>Business Impact</strong><br>
+            This feature reduces manual receipt handling, improves AP visibility, and helps project-related purchases include the correct job and task information. It also supports faster communication between field employees, Accounts Payable, and project management.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Canvas app design, Power Fx validation, conditional logic, attachment handling, Office 365 Outlook integration, dynamic email generation, form reset behavior, collection management, stakeholder-driven requirements, and mobile business process design.
+        </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
     </div>
