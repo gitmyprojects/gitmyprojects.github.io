@@ -20,7 +20,7 @@
 
         <p>
             <strong>Project Summary</strong><br>
-            This Canvas app feature gives employees a centralized place to view company-wide announcements and related documents. It helps the business share important updates, policy changes, benefit information, newsletters, and employee-facing documents through a mobile-friendly Power Apps experience.
+            This Canvas app feature gives employees a centralized place to view company-wide announcements and employee documents. It helps the business share important updates, policy changes, benefit information, newsletters, forms, and employee-facing documents through a mobile-friendly Power Apps experience.
         </p>
 
         <p>
@@ -46,10 +46,45 @@
 
         <p>
             <strong>Role-Based User Experience</strong><br>
-            The app includes customized visibility logic so only authorized users can see certain controls. In this example, the announcement creation button is only visible to users with specific email addresses. This demonstrates how Power Fx can personalize the user experience and control access to administrative actions.
+            The app includes customized visibility logic so only authorized users can see certain administrative controls. In this example, the announcement creation button is only visible to users with specific email addresses. This demonstrates how Power Fx can personalize the user experience and control access to admin-only actions.
         </p>
 
         <img src="./media/images/Announcements4.png" alt="Power Apps visible property using user email to control button visibility">
+
+        <p>
+            <strong>Authorized Admin Actions</strong><br>
+            Authorized users can access a company-related information area with options to create a new announcement, upload a new employee document, or expose an existing employee document to the app. This gives HR or approved administrators a controlled way to publish information for employees without requiring changes to the app itself.
+        </p>
+
+        <img src="./media/images/Announcements5.png" alt="Admin screen for creating announcements and managing employee documents">
+
+        <p>
+            <strong>Employee Document Access</strong><br>
+            Employee documents are stored in a SharePoint document library and surfaced inside the Canvas app. Employees can access documents through announcements or through the Employee Documents section in the main app. These files can include PDFs such as blank W-9 forms, sign-up forms, benefits documents, handbook updates, or other HR resources.
+        </p>
+
+        <img src="./media/images/EmployeeDocs1.png" alt="Employee Documents option available from the app menu">
+
+        <p>
+            <strong>SharePoint Document Gallery</strong><br>
+            The Employee Documents screen displays approved SharePoint files in a gallery. This gives employees a simple mobile-friendly list of available documents while keeping the actual files managed in SharePoint.
+        </p>
+
+        <img src="./media/images/EmployeeDocs2.png" alt="Employee document gallery showing available SharePoint files">
+
+        <p>
+            <strong>Filtered Document Visibility</strong><br>
+            The document gallery uses Power Fx to filter SharePoint files so only documents marked as exposed and added through the Wolf app are shown to employees. This helps prevent unfinished, private, or irrelevant files from appearing in the employee-facing app.
+        </p>
+
+        <img src="./media/images/EmployeeDocs3.png" alt="Power Fx filter used to show only exposed employee documents">
+
+        <p>
+            <strong>Document Launching</strong><br>
+            Employees can open a document directly from the app. The selected document link launches from the gallery item, allowing employees to view forms, PDFs, and other shared resources quickly from their device.
+        </p>
+
+        <img src="./media/images/EmployeeDocs4.png" alt="Power Fx Launch formula used to open selected SharePoint document">
 
         <p>
             <strong>Business Impact</strong><br>
@@ -58,7 +93,7 @@
 
         <p>
             <strong>Skills Demonstrated</strong><br>
-            Canvas app design, SharePoint data integration, gallery configuration, sorting, navigation, attachment launching, Power Fx formulas, role-based visibility, user experience customization, and employee communication workflows.
+            Canvas app design, SharePoint data integration, document library filtering, gallery configuration, sorting, navigation, attachment launching, Power Fx formulas, role-based visibility, admin-only controls, user experience customization, and employee communication workflows.
         </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
