@@ -1,4 +1,3 @@
-```html id="d5fvkq"
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +26,7 @@
             <strong>Connector Purpose</strong><br>
             The connector was designed to make Business Central data available to employee-facing apps and automated workflows. It supports business processes involving jobs, job tasks, planning lines, inventory items, purchase orders, purchase lines, payroll records, PTO balances, reimbursements, production queue records, and purchase invoices.
         </p>
-
+        <img src="./media/images/BConnector.png" alt="">
         <p>
             <strong>Reusable API Actions</strong><br>
             The connector includes reusable actions for common Business Central operations, including getting job lists, retrieving job tasks, creating job journal entries, updating items, retrieving payroll employee records, creating payroll hours, getting employee PTO, creating reimbursements, updating production queue records, and working with purchase invoices and invoice lines.
@@ -56,6 +55,7 @@ ClearCollect(
             <strong>Power Automate Integration</strong><br>
             In Power Automate, the connector can be used inside cloud flows to create or update records in Business Central as part of larger business processes. This makes it possible to automate work that would otherwise require manual entry in the ERP system.
         </p>
+        <img src="./media/images/PAConnector.png" alt="">
 
         <p>
             <strong>Business Impact</strong><br>
@@ -68,11 +68,6 @@ ClearCollect(
         </p>
 
         <p>
-            <strong>Recommended Screenshots To Add</strong><br>
-            Since this project does not have app screenshots yet, I would recommend adding one screenshot of the custom connector action list in Power Platform and one screenshot showing the connector being called from Power Apps or Power Automate. Avoid showing tenant IDs, company IDs, tokens, secrets, or full endpoint URLs.
-        </p>
-
-        <p>
             <strong>Skills Demonstrated</strong><br>
             Custom connectors, Business Central OData APIs, REST API design, Swagger/OpenAPI configuration, Power Apps integration, Power Automate integration, JSON schema mapping, GET actions, POST actions, PATCH actions, DELETE actions, query parameters, request bodies, ERP integration, and reusable connector design.
         </p>
@@ -82,4 +77,4 @@ ClearCollect(
 
 </body>
 </html>
-```
+
