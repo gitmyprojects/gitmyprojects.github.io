@@ -110,8 +110,6 @@ var toolPayload = {
 var createdTool = await Xrm.WebApi.createRecord("wi_tools", toolPayload);
         </code></pre>
 
-        <img src="./media/images/CustomButton9.png" alt="New Tool record created from New Tool Request information">
-
         <p>
             <strong>Request Status Updates and Navigation</strong><br>
             Once the Tool record is created, the script updates the original request so it cannot be used to create another tool. It marks the request as tool created, updates the request status to Ordered, flags the Tool as created from the button, and then opens the new Tool record form for the user.
