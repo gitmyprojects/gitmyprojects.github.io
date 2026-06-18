@@ -1,0 +1,145 @@
+```html id="custombuttonpage"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Custom Command Bar Button - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Custom Command Bar Button</h1>
+
+        <p>
+            <strong>Project Summary</strong><br>
+            This model-driven app customization adds a custom command bar button to a New Tool Request form. The button allows an authorized user to place an order, create a new Tool record in Dataverse, copy key request information into the new record, update the request status, and then navigate directly to the newly created Tool.
+        </p>
+
+        <p>
+            <strong>Custom Button in the Command Bar</strong><br>
+            The Order Placed button appears in the command bar of the New Tool Requests form. It gives users a simple one-click action while the underlying JavaScript handles validation, security, record creation, status updates, and navigation.
+        </p>
+
+        <img src="./media/images/CustomButton1.png" alt="Custom Order Placed command bar button in a model-driven app">
+
+        <p>
+            <strong>Web Resource Configuration</strong><br>
+            The command bar button uses a JavaScript web resource. The button passes the current form context as the PrimaryControl parameter so the script can read values from the current request record, save the form, validate fields, and perform Dataverse operations through the Xrm Web API.
+        </p>
+
+        <img src="./media/images/CustomButton2.png" alt="Model-driven app command bar button configured to run JavaScript web resource">
+
+        <p>
+            <strong>Security Check</strong><br>
+            Before the button can create a Tool record, the script checks whether the current user belongs to an authorized Entra security group backed by a Dataverse Group Team. If the user is not authorized, the script stops and displays a Not Authorized message.
+        </p>
+
+        <pre><code>
+const ALLOWED_AAD_GROUP_OBJECT_ID = "399ea51a-9ff5-43c6-9981-b10dbeaf383d";
+
+const userId = Xrm.Utility
+    .getGlobalContext()
+    .userSettings
+    .userId
+    .replace(/[{}]/g, "");
+
+const teamLookup = await Xrm.WebApi.retrieveMultipleRecords(
+    "team",
+    `?$select=teamid,name,azureactivedirectoryobjectid&$filter=azureactivedirectoryobjectid eq ${ALLOWED_AAD_GROUP_OBJECT_ID}`
+);
+
+const teamMembership = await Xrm.WebApi.retrieveMultipleRecords(
+    "teammembership",
+    `?$filter=systemuserid eq ${userId}&$select=teamid`
+);
+        </code></pre>
+
+        <p>
+            <strong>Required Field Validation</strong><br>
+            The script verifies that all required request fields are completed before allowing the tool to be created. If information is missing, the user receives a clear alert listing the fields that must be completed first.
+        </p>
+
+        <pre><code>
+var requiredFields = [
+    { name: "wi_requestedtooltype", label: "Requested Tool Type" },
+    { name: "wi_requestedtoolname", label: "Requested Tool Name" },
+    { name: "wi_make", label: "Make" },
+    { name: "wi_model", label: "Model" },
+    { name: "wi_po", label: "PO Number" },
+    { name: "wi_expecteddeliverydate", label: "Expected Delivery Date" },
+    { name: "wi_vendor", label: "Vendor" }
+];
+        </code></pre>
+
+        <p>
+            <strong>Tool Record Creation</strong><br>
+            After validation, the script saves the request, retrieves the saved values, builds a Tool record payload, and creates a new Tool record in Dataverse. The new Tool is linked back to the original New Tool Request record so the relationship is preserved.
+        </p>
+
+        <pre><code>
+var toolPayload = {
+    wi_make: request.wi_make,
+    wi_model: request.wi_model,
+    wi_location: request.wi_location,
+    wi_purchaseorder: request.wi_po,
+    wi_expecteddeliverydate: request.wi_expecteddeliverydate,
+    wi_purchasedat: request.wi_vendor,
+    wi_tooltype: request.wi_requestedtooltype,
+    wi_toolname: request.wi_requestedtoolname,
+    wi_purchasedate: new Date().toLocaleDateString("en-US"),
+    wi_lifecyclestatus: 127700004,
+    "wi_NewToolRequest@odata.bind": "/wi_newtoolrequestses(" + requestId + ")"
+};
+
+var createdTool = await Xrm.WebApi.createRecord("wi_tools", toolPayload);
+        </code></pre>
+
+        <p>
+            <strong>Request Status Updates and Navigation</strong><br>
+            Once the Tool record is created, the script updates the original request so it cannot be used to create another tool. It marks the request as tool created, updates the request status to Ordered, flags the Tool as created from the button, and then opens the new Tool record form for the user.
+        </p>
+
+        <pre><code>
+await Xrm.WebApi.updateRecord("wi_newtoolrequests", requestId, {
+    wi_toolcreated: true
+});
+
+await Xrm.WebApi.updateRecord("wi_newtoolrequests", requestId, {
+    wi_requeststatus: 127700001
+});
+
+await Xrm.WebApi.updateRecord("wi_tools", createdTool.id, {
+    wi_triggeredfromtoolrequestbutton: true
+});
+
+Xrm.Navigation.openForm({
+    entityName: "wi_tools",
+    entityId: createdTool.id.replace(/[{}]/g, ""),
+    formId: "46ad3441-aa61-f011-bec1-000d3a55f159"
+});
+        </code></pre>
+
+        <p>
+            <strong>Business Impact</strong><br>
+            This customization reduces duplicate entry and helps keep the asset request process controlled. It ensures only authorized users can place orders, required request data is completed before tool creation, and the new Tool record is created consistently from the approved request information.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Model-driven app command bar customization, JavaScript web resources, Xrm Web API, Entra security group validation, Dataverse Group Team membership checks, form context handling, required field validation, record creation, record updates, lookup binding, duplicate prevention, and guided form navigation.
+        </p>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+    </div>
+
+</body>
+</html>
+```
