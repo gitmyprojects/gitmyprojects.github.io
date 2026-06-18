@@ -1,4 +1,4 @@
-```html id="custombuttonpage"
+```html id="custombuttonpageupdated"
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +20,12 @@
 
         <p>
             <strong>Project Summary</strong><br>
-            This model-driven app customization adds a custom command bar button to a New Tool Request form. The button allows an authorized user to place an order, create a new Tool record in Dataverse, copy key request information into the new record, update the request status, and then navigate directly to the newly created Tool.
+            This model-driven app customization adds custom command bar buttons to the Asset Management app. The first button allows an authorized user to place an order from a New Tool Request record, create a new Tool record in Dataverse, copy request information into the Tool record, update the request status, and navigate directly to the new Tool. A second button supports the receiving process after the tool has been delivered.
         </p>
 
         <p>
             <strong>Custom Button in the Command Bar</strong><br>
-            The Order Placed button appears in the command bar of the New Tool Requests form. It gives users a simple one-click action while the underlying JavaScript handles validation, security, record creation, status updates, and navigation.
+            The Order Placed button appears in the command bar of the New Tool Requests form. It gives users a simple one-click action while the JavaScript web resource handles security, validation, record creation, status updates, and navigation.
         </p>
 
         <img src="./media/images/CustomButton1.png" alt="Custom Order Placed command bar button in a model-driven app">
@@ -79,6 +79,15 @@ var requiredFields = [
 ];
         </code></pre>
 
+        <img src="./media/images/CustomButton3.png" alt="Missing required information alert for custom command bar button">
+
+        <p>
+            <strong>Source Request Information</strong><br>
+            The New Tool Request form stores the purchasing information that will be used to create the Tool record. The command button uses this information as the source data for the new Tool, including values such as purchase order number, vendor, expected delivery date, tool name, and tool type.
+        </p>
+
+        <img src="./media/images/CustomButton4.png" alt="New Tool Request purchaser section with purchase order and vendor information">
+
         <p>
             <strong>Tool Record Creation</strong><br>
             After validation, the script saves the request, retrieves the saved values, builds a Tool record payload, and creates a new Tool record in Dataverse. The new Tool is linked back to the original New Tool Request record so the relationship is preserved.
@@ -101,6 +110,8 @@ var toolPayload = {
 
 var createdTool = await Xrm.WebApi.createRecord("wi_tools", toolPayload);
         </code></pre>
+
+        <img src="./media/images/CustomButton9.png" alt="New Tool record created from New Tool Request information">
 
         <p>
             <strong>Request Status Updates and Navigation</strong><br>
@@ -128,13 +139,44 @@ Xrm.Navigation.openForm({
         </code></pre>
 
         <p>
+            <strong>Tool Pending Delivery</strong><br>
+            After the Tool record is created, the lifecycle status is set to Pending Delivery. This gives the team a clear status showing that the tool has been ordered but has not yet been received.
+        </p>
+
+        <img src="./media/images/CustomButton5.png" alt="Tool record showing lifecycle status pending delivery and Tool Received command bar button">
+
+        <p>
+            <strong>Tool Received Button Validation</strong><br>
+            The Tool Received button supports the receiving process. Before the tool can be marked as received, the process validates that a serial number has been entered. If the serial number is missing, the user receives a clear message explaining what needs to be completed.
+        </p>
+
+        <img src="./media/images/CustomButton6.png" alt="Missing serial number alert when marking a tool received">
+
+        <p>
+            <strong>Received Date and Lifecycle Update</strong><br>
+            When the receiving process is completed successfully, the tool is updated with a received date and the lifecycle status is changed from Pending Delivery to In Circulation. This helps keep asset records accurate and ensures the tool is ready to be used in the rental or circulation process.
+        </p>
+
+        <img src="./media/images/CustomButton7.png" alt="Tool record after being marked received with lifecycle status in circulation and received date populated">
+
+        <p>
+            <strong>Success Confirmation</strong><br>
+            After the update is completed, the user receives a confirmation message letting them know the tool has been marked as received.
+        </p>
+
+        <img src="./media/images/CustomButton8.png" alt="Success message confirming tool was marked as received">
+        <p>
+            Now, the lifecycle of the tool and date received have been updated by the web resource.
+        <p>
+        <img src="./media/images/CustomButton9.png" alt="Lifecycle and Date are updated">
+            
             <strong>Business Impact</strong><br>
-            This customization reduces duplicate entry and helps keep the asset request process controlled. It ensures only authorized users can place orders, required request data is completed before tool creation, and the new Tool record is created consistently from the approved request information.
+            This customization reduces duplicate entry and helps keep the asset request and receiving process controlled. It ensures only authorized users can place orders, required request data is completed before tool creation, new Tool records are created consistently, and delivered tools are not moved into circulation without a serial number.
         </p>
 
         <p>
             <strong>Skills Demonstrated</strong><br>
-            Model-driven app command bar customization, JavaScript web resources, Xrm Web API, Entra security group validation, Dataverse Group Team membership checks, form context handling, required field validation, record creation, record updates, lookup binding, duplicate prevention, and guided form navigation.
+            Model-driven app command bar customization, JavaScript web resources, Xrm Web API, Entra security group validation, Dataverse Group Team membership checks, form context handling, required field validation, record creation, record updates, lookup binding, duplicate prevention, lifecycle status management, receiving validation, and guided form navigation.
         </p>
 
         <p><a href="projects.html">Back to Projects</a></p>
