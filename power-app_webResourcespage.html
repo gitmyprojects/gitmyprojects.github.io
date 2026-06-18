@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JavaScript Web Resources - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>JavaScript Web Resources</h1>
+
+        <p>
+            <strong>Project Summary</strong><br>
+            This project highlights JavaScript web resources created for model-driven apps in the Asset Management system. These scripts improve form behavior by filtering options, populating fields, changing lookup views, enforcing business logic, and helping users make valid selections while working in Dataverse forms.
+        </p>
+
+        <p>
+            <strong>Lifecycle-Based Transaction Filtering</strong><br>
+            This web resource filters available repair transaction types based on the selected tool’s lifecycle status. When a user selects a tool, the script retrieves the related Tool record from Dataverse, checks its lifecycle status and rental availability, and only displays transaction types that are valid for that tool.
+        </p>
+
+        <pre><code>
+var lifecycleToTransactionMap = {
+    127700000: [127700005, 127700003, 127700004],
+    127700007: [127700000, 127700004],
+    127700001: [127700001, 127700000, 127700004],
+    127700008: [127700005, 127700004],
+    127700005: [127700005, 127700004]
+};
+
+Xrm.WebApi.retrieveRecord(
+    "wi_tools",
+    toolId,
+    "?$select=wi_lifecyclestatus,wi_availableforrent"
+).then(function (result) {
+    var lifecycleStatus = result["wi_lifecyclestatus"];
+    var availableForRent = result["wi_availableforrent"];
+    var allowedTransactions = lifecycleToTransactionMap[lifecycleStatus] || [];
+
+    filterTransactionTypeOptions(formContext, allowedTransactions);
+});
+        </code></pre>
+
+        <p>
+            <strong>Business Value</strong><br>
+            This prevents users from selecting transaction types that do not make sense for the current tool status. For example, a tool in repair should not show the same options as a tool already in circulation. This improves data quality and helps enforce the asset lifecycle process directly on the form.
+        </p>
+
+        <p>
+            <strong>Auto-Populate Make and Model</strong><br>
+            This web resource runs when a user selects a Business Central item on a New Tool Request form. The script retrieves the selected item, copies the Make and Model values into the request, and locks those fields so the user does not accidentally overwrite standardized item information.
+        </p>
+
+        <pre><code>
+Xrm.WebApi.retrieveRecord(
+    "wi_businesscentralitems",
+    toolId,
+    "?$select=wi_make,wi_model"
+).then(function success(result) {
+    formContext.getAttribute("wi_make").setValue(result.wi_make);
+    formContext.getAttribute("wi_model").setValue(result.wi_model);
+
+    formContext.getControl("wi_make").setDisabled(true);
+    formContext.getControl("wi_model").setDisabled(true);
+});
+        </code></pre>
+
+        <p>
+            <strong>Business Value</strong><br>
+            This reduces duplicate typing, keeps tool request data consistent with Business Central item data, and gives users flexibility. If the lookup is cleared, the fields unlock so the user can manually enter Make and Model information when needed.
+        </p>
+
+        <p>
+            <strong>Dynamic Tool Lookup Views</strong><br>
+            This web resource changes the default Tool lookup view based on the selected transaction type. For example, a rental transaction shows available tools, a return transaction shows checked-out tools, and repair-related transactions show tools in the appropriate repair or inspection status.
+        </p>
+
+        <pre><code>
+if (transactionType === 127700001) {
+    toolField.setDefaultView("9f746735-fc8c-ef11-ac20-7c1e52579428");
+} else if (transactionType === 127700000) {
+    toolField.setDefaultView("4d8e4dd7-8291-ef11-ac20-7c1e52579428");
+} else if (transactionType === 127700002) {
+    toolField.setDefaultView("647f4d76-da93-ef11-8a69-7c1e52579428");
+}
+        </code></pre>
+
+        <p>
+            <strong>Business Value</strong><br>
+            This improves the user experience by showing the most relevant tool records for the transaction being performed. Users do not need to search through unrelated tools, and the form guides them toward valid records.
+        </p>
+
+        <p>
+            <strong>Why This Matters</strong><br>
+            These web resources add business logic to model-driven app forms without requiring users to understand the underlying Dataverse relationships or lifecycle rules. The result is a cleaner form experience, fewer user mistakes, stronger data quality, and better alignment between the app and real-world business processes.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            JavaScript web resources, model-driven app form scripting, Xrm Web API, Dataverse record retrieval, option set filtering, lookup view control, form context handling, field locking, conditional logic, lifecycle-based business rules, and user experience customization.
+        </p>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+    </div>
+
+</body>
+</html>
+```
