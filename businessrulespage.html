@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Business Rules - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Business Rules</h1>
+
+        <p>
+            <strong>Project Summary</strong><br>
+            This project highlights a business rule created for the New Tool Requests table in a model-driven app. The rule controls field visibility, required fields, locked fields, and cleared values based on whether the request is for a standard tool or a custom/manual tool entry.
+        </p>
+
+        <p>
+            <strong>Business Rule Designer</strong><br>
+            The business rule uses multiple conditions to guide the user through the correct form experience. Depending on the values entered, the form either shows the Tool lookup field or allows the user to manually enter Make and Model information.
+        </p>
+
+        <img src="./media/images/Bizrule1.png" alt="Business rule designer for New Tool Requests field visibility">
+
+        <p>
+            <strong>Standard Tool Logic</strong><br>
+            If Standard Tool is set to Yes, the Tool lookup is shown and required. Make and Model are cleared and locked so the user selects an existing standardized tool record instead of manually typing values.
+        </p>
+
+        <p>
+            <strong>Custom Tool Logic</strong><br>
+            If Standard Tool is set to No, the Tool lookup is cleared, hidden, and no longer required. Make and Model are shown and unlocked so the user can manually enter the tool information.
+        </p>
+
+        <p>
+            <strong>Form Cleanup and Data Quality</strong><br>
+            The rule clears values when users switch between standard and custom tool paths. This prevents conflicting data, such as having both a selected standard tool and manually entered Make and Model values on the same request.
+        </p>
+
+        <p>
+            <strong>Business Impact</strong><br>
+            This business rule improves the New Tool Request process by guiding users through the correct data entry path. It reduces bad data, prevents unnecessary fields from appearing, and makes the form easier to complete without requiring custom JavaScript.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Model-driven app business rules, Dataverse form logic, conditional branching, field visibility, field requirement settings, field locking and unlocking, value clearing, user experience design, and data quality enforcement.
+        </p>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+    </div>
+
+</body>
+</html>
+
