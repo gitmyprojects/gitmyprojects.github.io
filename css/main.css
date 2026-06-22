@@ -1,3 +1,4 @@
+```css
 /***** GENERAL STYLING *****/
 
 html {
@@ -91,7 +92,7 @@ img {
     filter: grayscale(75%);
     border-radius: 8px;
     max-width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
     margin: auto;
 }
@@ -99,13 +100,6 @@ img {
 img:hover {
     filter: grayscale(75%);
     transform: none;
-}
-
-@media screen and (max-width: 576px) {
-    img {
-        height: 100px;
-        margin-top: 150px;
-    }
 }
 
 footer {
@@ -151,8 +145,8 @@ footer {
 
 @media screen and (max-width: 576px) {
     .Navbar a {
-        font-size: 12px;
-        padding: 12px 6px;
+        font-size: 11px;
+        padding: 12px 4px;
         letter-spacing: 1px;
     }
 }
@@ -189,10 +183,80 @@ footer {
     text-align: center;
 }
 
+/***** LAYOUT STYLING *****/
+
+* {
+    box-sizing: border-box;
+}
+
+.Row {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.Column_1 {
+    width: 50%;
+    padding: 2.5%;
+    min-height: 450px;
+    height: auto;
+    background-color: #f2f2f2;
+}
+
+.Column_2 {
+    width: 50%;
+    padding: 2.5%;
+    min-height: 450px;
+    height: auto;
+    background-color: #4d4d4d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Column_2 img {
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+}
+
+.skills-list {
+    max-width: 850px;
+    margin: 20px auto;
+    font-family: Perpetua, Rockwell Extra Bold, serif;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.skills-list li {
+    margin-bottom: 12px;
+}
+
+@media screen and (max-width: 768px) {
+    .Row {
+        display: block;
+    }
+
+    .Column_1,
+    .Column_2 {
+        width: 100%;
+        min-height: auto;
+        padding: 25px 20px;
+    }
+
+    .Column_2 img {
+        max-height: 350px;
+    }
+}
+
 /***** SLIDESHOW STYLING *****/
 
 #Slideshow_Background {
     background: rgba(255, 255, 255, 0.35);
+    padding-top: 40px;
+    padding-bottom: 35px;
 }
 
 .mySlides {
@@ -202,7 +266,6 @@ footer {
 #Slideshow_Container {
     width: 39.5vw;
     height: auto;
-    padding-top: 4%;
     position: relative;
     margin: auto;
 }
@@ -286,79 +349,6 @@ footer {
     to {opacity: 1;}
 }
 
-/***** LAYOUT STYLING *****/
-
-* {
-    box-sizing: border-box;
-}
-
-.Row {
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    padding-top: 0;
-    margin-top: 0;
-}
-
-.Column_1 {
-    float: left;
-    width: 50%;
-    padding: 1.6%;
-    min-height: 450px;
-    height: auto;
-    background-color: #f2f2f2;
-}
-
-.Column_2 {
-    float: left;
-    width: 50%;
-    padding: 1.6%;
-    min-height: 450px;
-    height: auto;
-    background-color: #4d4d4d;
-}
-.skills-list {
-    max-width: 850px;
-    margin: 20px auto;
-    font-family: Perpetua, Rockwell Extra Bold, serif;
-    font-size: 20px;
-    line-height: 1.5;
-}
-
-.skills-list li {
-    margin-bottom: 12px;
-}
-
-.Projects_Column {
-    width: 100%;
-    max-width: 1050px;
-    min-height: auto;
-    height: auto;
-    padding: 45px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 12px;
-    float: none;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-}
-
-@media screen and (max-width: 576px) {
-    .Row {
-        display: block;
-    }
-
-    .Column_1 {
-        width: 100%;
-        padding: 25px 20px;
-        overflow: auto;
-    }
-
-    .Column_2 {
-        width: 100%;
-        height: auto;
-    }
-}
-
 /***** PROJECT PAGE STYLING *****/
 
 .Project_Page {
@@ -380,6 +370,19 @@ footer {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.Projects_Column {
+    width: 100%;
+    max-width: 1050px;
+    min-height: auto;
+    height: auto;
+    padding: 45px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    float: none;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
 }
 
 .Projects_Column p a.project-button,
@@ -545,4 +548,4 @@ button:hover, .form-container .btn:hover {
     height: 500px;
     border-radius: 8px;
 }
-
+```
