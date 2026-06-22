@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     
-    <!-- Head -->
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width" />
@@ -9,20 +8,16 @@
         <link rel="stylesheet" type="text/css" href="./css/main.css">
     </head>
 
-    <!-- Body -->
     <body class="Background">   
 
-        <!-- Navbar -->
         <div class="Navbar">
             <a class="active" href="#Home">Home</a>
             <a href="projects.html">Power Platform Projects</a>
-            <a href="https://docs.google.com/document/d/1ydmAMnd8NnHn0dHVCsPvYEK65zC9lKk7Z8L-ANEHk1c/edit?usp=sharing" target="_blank">
-                My Resume
-            </a>
+            <a href="https://docs.google.com/document/d/1ydmAMnd8NnHn0dHVCsPvYEK65zC9lKk7Z8L-ANEHk1c/edit?usp=sharing" target="_blank">My Resume</a>
+            <a href="https://www.linkedin.com/in/neil-javier/" target="_blank">LinkedIn</a>
             <a onclick="openForm()" ondblclick="closeForm()">Contact</a>
         </div>
 
-        <!-- Background video -->
         <div id="Home">
             <video autoplay muted loop id="Typing_Video">
                 <source src="./media/vids/Typing.mp4" type="video/mp4">
@@ -30,42 +25,38 @@
             </video>
         </div>
 
-        <!-- Video text -->
         <div class="Video_Text">
             <h1 class="white-text">Neil Javier's Portfolio</h1>
             <strong>
-                <p class="center">
-                    I appreciate your time and thank you for visiting!
-                </p>
+                <p class="center">I appreciate your time and thank you for visiting!</p>
             </strong>
         </div>
 
-        <!-- Intro row: personal image on left, Power Platform summary on right -->
         <div class="Row" id="About">
             <div class="Column_2">
                 <img src="./media/images/me.jpg" alt="Picture of Neil Javier">
             </div>
 
-<div class="Column_1">
-    <h1>Power Platform Developer</h1>
+            <div class="Column_1">
+                <h1>Power Platform Developer</h1>
 
-    <p>
-        I design and build Power Platform solutions that turn manual business processes into scalable apps, automated workflows, and connected data experiences.
-    </p>
+                <p>
+                    I design and build Power Platform solutions that turn manual business processes into scalable apps, automated workflows, and connected data experiences.
+                </p>
 
-    <p><strong>Core skills demonstrated in my projects:</strong></p>
+                <p><strong>Core skills demonstrated in my projects:</strong></p>
 
-    <ul class="skills-list">
-        <li>Canvas app design with Power Fx formulas, validation rules, galleries, collections, forms, and mobile-friendly user experiences.</li>
-        <li>Model-driven app customization using Dataverse forms, command bar buttons, business rules, business process flows, and JavaScript web resources.</li>
-        <li>Power Automate cloud flows for approvals, notifications, document generation, scheduled processes, error handling, and cross-department workflows.</li>
-        <li>Dataverse solution design including triggers, lookups, related records, lifecycle statuses, form logic, and data quality controls.</li>
-        <li>Business Central and Sales Hub integrations using custom connectors, OData APIs, REST actions, JSON schemas, and ERP process automation.</li>
-        <li>SharePoint, Outlook, and Teams integration for document management, employee communication, attachments, alerts, and workflow visibility.</li>
-    </ul>
-</div>
+                <ul class="skills-list">
+                    <li>Canvas app design with Power Fx formulas, validation rules, galleries, collections, forms, and mobile-friendly user experiences.</li>
+                    <li>Model-driven app customization using Dataverse forms, command bar buttons, business rules, business process flows, and JavaScript web resources.</li>
+                    <li>Power Automate cloud flows for approvals, notifications, document generation, scheduled processes, error handling, and cross-department workflows.</li>
+                    <li>Dataverse solution design including triggers, lookups, related records, lifecycle statuses, form logic, and data quality controls.</li>
+                    <li>Business Central and Sales Hub integrations using custom connectors, OData APIs, REST actions, JSON schemas, and ERP process automation.</li>
+                    <li>SharePoint, Outlook, and Teams integration for document management, employee communication, attachments, alerts, and workflow visibility.</li>
+                </ul>
+            </div>
+        </div>
 
-        <!-- Slideshow section -->
         <div id="Slideshow">
             <div id="Slideshow_Background"> 
                 <div id="Slideshow_Container">
@@ -123,7 +114,6 @@
             </div>
         </div>
 
-        <!-- Contact form -->
         <div id="Contact">
            <button onclick="openForm()" class="Pop_Up_Button">CONTACT</button>
            <div class="form-popup" id="myForm">
@@ -148,7 +138,6 @@
            </div>
         </div>
         
-        <!-- Footer section -->
         <footer>
             <p class="center">&copy Neil Javier</p><br>
         </footer>
