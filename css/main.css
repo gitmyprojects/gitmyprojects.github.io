@@ -178,6 +178,14 @@ footer {
     padding-top: 2vh;
     position: relative;
 }
+.Video_Text p.center {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
 
 /***** SLIDESHOW STYLING *****/
 
