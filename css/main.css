@@ -1,3 +1,4 @@
+```css
 /***** GENERAL STYLING *****/
 
 html {
@@ -44,8 +45,9 @@ h2 {
 
 .white-text {
     color: #fff;
-    padding-top: 45px;
+    padding-top: 0;
     margin-top: 0;
+    margin-bottom: 20px;
 }
 
 p {
@@ -96,7 +98,8 @@ img {
 }
 
 img:hover {
-    filter: grayscale(5%);
+    filter: grayscale(75%);
+    transform: none;
 }
 
 @media screen and (max-width: 576px) {
@@ -175,7 +178,7 @@ footer {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     width: 100%;
-    padding-top: 0;
+    padding-top: 55px;
     padding-bottom: 10px;
     position: relative;
 }
@@ -292,15 +295,10 @@ footer {
 
 .Row {
     width: 100%;
-    display: block;
-    padding-top: 64px;
-}
-
-.Row {
-    width: 100%;
     display: flex;
     align-items: stretch;
     padding-top: 0;
+    margin-top: 0;
 }
 
 .Column_1 {
@@ -335,7 +333,12 @@ footer {
 }
 
 @media screen and (max-width: 576px) {
+    .Row {
+        display: block;
+    }
+
     .Column_1 {
+        width: 100%;
         padding: 25px 20px;
         overflow: auto;
     }
@@ -369,7 +372,6 @@ footer {
     margin-right: auto;
 }
 
-/* Only links with project-button will become large colored buttons */
 .Projects_Column p a.project-button,
 .Project_Page p a.project-button {
     display: block;
@@ -392,7 +394,6 @@ footer {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
-/* Power Platform project button colors */
 .power-automate-link {
     background-color: #0078D4;
 }
@@ -413,7 +414,6 @@ footer {
     background-color: #1a1a1a;
 }
 
-/***** CREATE TWO COLUMNS *****/
 .Projects_Two_Column {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -426,9 +426,11 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 .Projects_Background {
     background-color: #e8edf3;
 }
+
 /***** CONTACT FORM STYLING *****/
 
 .Pop_Up_Button {
@@ -506,7 +508,7 @@ button:hover, .form-container .btn:hover {
     border-color: black;
 }
 
-/***** FULL COLOR IMAGES ON POWER AUTOMATE PAGE *****/
+/***** FULL COLOR IMAGES ON PROJECT PAGES *****/
 
 .no-image-hover img {
     filter: none;
@@ -518,6 +520,7 @@ button:hover, .form-container .btn:hover {
 }
 
 /***** VIDEO SETTINGS *****/
+
 .Video_Embed {
     width: 100%;
     max-width: 1000px;
@@ -532,4 +535,4 @@ button:hover, .form-container .btn:hover {
     height: 500px;
     border-radius: 8px;
 }
-
+```
