@@ -89,7 +89,7 @@ q {
 }
 
 img {
-    filter: grayscale(75%);
+    filter: none;
     border-radius: 8px;
     max-width: 100%;
     height: auto;
@@ -98,7 +98,7 @@ img {
 }
 
 img:hover {
-    filter: grayscale(75%);
+    filter: none;
     transform: none;
 }
 
