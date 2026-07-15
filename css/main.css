@@ -656,5 +656,12 @@ button:hover, .form-container .btn:hover {
     transform:translateY(-3px);
     box-shadow:0px 10px 22px rgba(0,0,0,.20);
 }
+.enterprise-link{
+    background:#E67E22;
+}
+
+.enterprise-link:hover{
+    background:#CA6A14;
+}
 }
 
