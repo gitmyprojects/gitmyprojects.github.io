@@ -207,7 +207,8 @@ footer {
 .Row {
     width: 100%;
     display: flex;
-    align-items: stretch;
+    justify-content: center;
+    align-items: flex-start;
     padding-top: 0;
     margin-top: 0;
 }
@@ -389,13 +390,14 @@ footer {
 }
 
 .Projects_Column{
-    background:white;
-    width:95%;
-    max-width:1400px;
-    margin:40px auto;
-    padding:50px;
-    border-radius:12px;
-    box-shadow:0 8px 24px rgba(0,0,0,.10);
+    flex: 1;
+    width: 95%;
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 50px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.10);
 }
 
 .Projects_Column p a.project-button,
@@ -675,5 +677,5 @@ button:hover, .form-container .btn:hover {
 .enterprise-link:hover{
     background:#C96A15;
 }
-}
+
 
