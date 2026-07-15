@@ -618,5 +618,26 @@ button:hover, .form-container .btn:hover {
     border-radius:10px;
     box-shadow:0px 8px 24px rgba(0,0,0,.18);
 }
+/***** PROJECT BUTTON *****/
+
+.Project_Button{
+    display:inline-block;
+    margin:30px auto 10px auto;
+    padding:15px 35px;
+    background:#0b4f9c;
+    color:#ffffff;
+    text-decoration:none;
+    font-size:1.1em;
+    font-weight:600;
+    border-radius:8px;
+    transition:all .25s ease;
+    box-shadow:0px 5px 15px rgba(0,0,0,.15);
+}
+
+.Project_Button:hover{
+    background:#083c74;
+    transform:translateY(-3px);
+    box-shadow:0px 10px 22px rgba(0,0,0,.20);
+}
 }
 
