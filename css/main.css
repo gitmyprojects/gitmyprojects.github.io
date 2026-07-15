@@ -115,19 +115,28 @@ footer {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10;
+    min-height: 80px;
+    z-index: 1000;
 }
 
 .Navbar a {
     flex: 1;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+
     color: white;
-    padding: 14px 18px;
     text-decoration: none;
+
     font-family: Avant Garde, Helvetica, Arial, sans-serif;
     font-size: 20px;
-    text-align: center;
     letter-spacing: 3px;
+    text-align: center;
+
+    padding: 0 18px;
+
+    transition: background-color .25s ease;
 }
 
 .Navbar a:hover {
@@ -141,14 +150,22 @@ footer {
     background-color: darkgray;
 }
 
-@media screen and (max-width: 576px) {
-    .Navbar a {
-        font-size: 11px;
-        padding: 12px 4px;
-        letter-spacing: 1px;
-    }
-}
+@media screen and (max-width:576px){
 
+    .Navbar{
+        min-height:60px;
+    }
+
+    .Navbar a{
+
+        min-height:60px;
+
+        font-size:11px;
+        letter-spacing:1px;
+        padding:0 4px;
+    }
+
+}
 /***** VIDEO STYLING *****/
 
 #Typing_Video {
