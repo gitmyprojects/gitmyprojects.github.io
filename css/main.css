@@ -3,7 +3,6 @@
 html {
     scroll-behavior: smooth;
 }
-
 body {
     margin: 0;
     opacity: 1;
@@ -423,6 +422,14 @@ footer {
     background-color: #2EA043;
 }
 
+.azure-function-link {
+    background-color: #0063B1;
+}
+
+.azure-function-link:hover {
+    background-color: #004E8C;
+}
+
 .default-project-link {
     background-color: #1a1a1a;
 }
@@ -547,5 +554,16 @@ button:hover, .form-container .btn:hover {
     max-width: 900px;
     height: 500px;
     border-radius: 8px;
+}  
+.azure-function-link
+{
+    background-color: #0078D4;
+    color: white;
+}
+
+.azure-function-link:hover
+{
+    background-color: #106EBE;
+}
 }
 ```
