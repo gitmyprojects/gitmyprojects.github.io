@@ -451,10 +451,14 @@ footer {
 }
 
 .Projects_Two_Column{
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    display:flex;
     gap:60px;
-    align-items:start;
+    align-items:flex-start;
+}
+
+.Projects_Two_Column > div{
+    flex:1;
+    min-width:0;
 }
 .Projects_Two_Column h2{
     margin-top:35px;
