@@ -23,7 +23,8 @@ h1 {
     text-transform: uppercase;
     font-family: "Trebuchet MS", Optima, sans-serif;
     text-align: center;
-    margin-top: 3%;
+    margin-top: 0;
+    margin-bottom: 20px;
     color: #1a1a1a;
     letter-spacing: 6px;
 }
@@ -186,11 +187,15 @@ footer {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     width: 100%;
-    padding-top: 55px;
-    padding-bottom: 10px;
+    padding-top: 90px;
+    padding-bottom: 30px;
     position: relative;
 }
-
+.Video_Text h1{
+    color:#fff;
+    margin-top:0;
+    margin-bottom:20px;
+}
 .hero-summary {
     display: block;
     max-width: 620px;
