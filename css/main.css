@@ -565,5 +565,58 @@ button:hover, .form-container .btn:hover {
 {
     background-color: #106EBE;
 }
+/***** ENTERPRISE PROJECT STATS *****/
+
+.Project_Stats{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+    margin:40px auto;
+    max-width:1200px;
 }
-```
+
+.Stat_Card{
+    width:220px;
+    background:white;
+    border:1px solid #d9d9d9;
+    border-radius:10px;
+    padding:25px 20px;
+    text-align:center;
+    box-shadow:0px 4px 12px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.Stat_Card:hover{
+    transform:translateY(-6px);
+    box-shadow:0px 10px 24px rgba(0,0,0,.18);
+}
+
+.Stat_Card h2{
+    margin:0;
+    font-size:2.6em;
+    color:#0b4f9c;
+    letter-spacing:1px;
+}
+
+.Stat_Card p{
+    margin-top:12px;
+    font-size:1em;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:#555;
+}
+
+/***** PROJECT IMAGES *****/
+
+.Project_Image{
+    display:block;
+    width:90%;
+    max-width:1100px;
+    margin:45px auto;
+    border-radius:10px;
+    box-shadow:0px 8px 24px rgba(0,0,0,.18);
+}
+}
+
