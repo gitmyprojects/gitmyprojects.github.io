@@ -2,100 +2,74 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
+    <title>Enterprise Power Platform Testing Framework - Neil Javier</title>
 
-    <title>Enterprise Testing Framework | Neil Javier</title>
-
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 
-<body>
+<body class="Background no-image-hover">
 
-<div class="Project_Page">
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
 
-    <a href="projects.html" class="Back_Button">
-        ← Back to Projects
-    </a>
+    <div class="Project_Page">
 
-    <h1>Enterprise Power Platform Testing Framework</h1>
-
-    <p class="Project_Subtitle">
-        Designing a production-ready quality assurance strategy for enterprise Power Platform solutions.
-    </p>
-
-    <img src="media/images/TestingFramework.png"
-         alt="Enterprise Testing Framework"
-         class="Project_Image">
-
-    <section>
-
-        <h2>Project Overview</h2>
+        <h1>Enterprise Power Platform Testing Framework</h1>
 
         <p>
+            Designing a production-ready quality assurance strategy for enterprise Power Platform
+            solutions.
+        </p>
 
-            Building a Power Platform solution is only part of delivering an enterprise application.
-            Before deployment, every business process, automation, security role, integration,
-            and edge case must be validated to ensure production readiness.
+        <img src="media/images/TestingFramework.png"
+             alt="Enterprise Power Platform Testing Framework"
+             class="Project_Image">
 
+        <p>
+            <strong>Project Overview</strong><br>
+            Building an enterprise application involves much more than writing code. Before any
+            solution can be deployed to production, every business process, automation, security
+            role, integration, and edge case must be thoroughly validated.
         </p>
 
         <p>
-
-            For the Wolf Tool Rental solution, I developed a comprehensive pre-deployment testing
-            framework covering every major component of the application. Rather than relying on
-            informal user testing, this framework provides a repeatable validation process that
-            documents expected behavior, captures evidence, and ensures defects are corrected before
-            deployment.
-
+            For the Wolf Tool Rental solution, I designed a comprehensive pre-deployment testing
+            framework that validates every major component of the application before release.
+            Rather than relying on informal testing, this framework provides a repeatable,
+            traceable process for documenting results, capturing evidence, and ensuring issues are
+            corrected before deployment.
         </p>
-
-    </section>
-
-    <section>
 
         <h2>Business Problem</h2>
 
         <p>
-
-            Enterprise applications often contain dozens of interconnected components.
-            A single change can unintentionally affect business rules, cloud flows,
-            security permissions, or user experience.
-
+            Enterprise Power Platform solutions often contain dozens of interconnected components.
+            A single modification can unintentionally affect business rules, Power Automate flows,
+            Dataverse data, JavaScript, security permissions, or user experience.
         </p>
 
         <p>
-
-            Without structured testing, deployments become high-risk events that can
-            introduce production outages, data inconsistencies, or broken business
-            processes.
-
+            Without structured testing, deployments become high-risk events that may introduce
+            production outages, inconsistent data, or broken business processes.
         </p>
 
         <p>
-
-            This testing framework was created to eliminate that risk by validating
-            every major workflow before release.
-
+            This testing framework was created to minimize deployment risk through structured,
+            repeatable validation.
         </p>
-
-    </section>
-
-    <section>
 
         <h2>Solution</h2>
 
         <p>
-
-            I designed a structured testing process consisting of approximately
-            130 individual test cases organized into logical testing categories.
-
+            I designed a structured testing framework consisting of approximately 130 individual
+            test cases organized into logical testing categories.
         </p>
 
         <ul>
-
             <li>Environment preparation</li>
             <li>Application navigation</li>
             <li>Tool search and lookup validation</li>
@@ -112,53 +86,36 @@
             <li>Browser compatibility</li>
             <li>Solution packaging</li>
             <li>Deployment readiness</li>
-
         </ul>
-
-    </section>
-
-    <section>
 
         <h2>Testing Methodology</h2>
 
         <p>
-
-            Every test follows a structured format designed for repeatability and
-            auditability.
-
+            Every test follows a standardized format that allows testing to be repeated across
+            development, testing, staging, and production environments.
         </p>
 
         <ul>
-
             <li>Test Identifier</li>
             <li>Scenario Description</li>
             <li>Expected Result</li>
             <li>Pass / Fail / N/A</li>
             <li>Evidence and Notes</li>
-
         </ul>
 
         <p>
-
-            This allows testing to be repeated consistently across development,
-            test, staging, and production environments while providing complete
-            deployment documentation.
-
+            This structure provides complete traceability and produces consistent deployment
+            documentation for every release.
         </p>
-
-    </section>
-
-    <section>
 
         <h2>Key Areas Validated</h2>
 
         <ul>
-
             <li>Dataverse business logic</li>
             <li>Power Apps functionality</li>
-            <li>Model-driven app navigation</li>
+            <li>Model-driven App navigation</li>
             <li>Power Automate flows</li>
-            <li>Child flow execution</li>
+            <li>Child Flow execution</li>
             <li>Approval workflows</li>
             <li>Reservation queue processing</li>
             <li>Rental lifecycle automation</li>
@@ -166,38 +123,19 @@
             <li>Security role enforcement</li>
             <li>Exception handling</li>
             <li>Deployment validation</li>
-
         </ul>
-
-    </section>
-
-    <section>
 
         <h2>Technologies Used</h2>
 
-        <div class="Technology_List">
-
-            <span>Power Apps</span>
-            <span>Dataverse</span>
-            <span>Power Automate</span>
-            <span>Model-Driven Apps</span>
-            <span>JavaScript</span>
-            <span>Microsoft Approvals</span>
-            <span>Solution Checker</span>
-            <span>Managed Solutions</span>
-            <span>Security Roles</span>
-            <span>ALM</span>
-
-        </div>
-
-    </section>
-
-    <section>
+        <p>
+            Power Apps • Dataverse • Power Automate • Model-Driven Apps • JavaScript •
+            Microsoft Approvals • Solution Checker • Managed Solutions • Security Roles •
+            Application Lifecycle Management (ALM)
+        </p>
 
         <h2>Highlights</h2>
 
         <ul>
-
             <li>Approximately 130 documented test cases</li>
             <li>16 organized testing categories</li>
             <li>Positive and negative testing scenarios</li>
@@ -207,41 +145,32 @@
             <li>Concurrency testing</li>
             <li>Failure recovery validation</li>
             <li>Enterprise documentation standards</li>
-
         </ul>
-
-    </section>
-
-    <section>
 
         <h2>What This Demonstrates</h2>
 
         <p>
-
-            Beyond building Power Platform solutions, I focus on delivering software
-            that is maintainable, reliable, and production-ready.
-
+            Beyond building Power Platform solutions, I focus on delivering software that is
+            maintainable, reliable, secure, and production-ready.
         </p>
 
         <p>
-
-            This framework demonstrates my understanding of enterprise application
-            lifecycle management, quality assurance, deployment planning, risk
-            mitigation, and release readiness.
-
+            This testing framework demonstrates my understanding of enterprise application
+            lifecycle management, quality assurance, deployment planning, release readiness,
+            security validation, and risk mitigation.
         </p>
 
         <p>
-
-            My goal is not simply to create applications that work—but to deliver
-            solutions that organizations can confidently deploy and maintain.
-
+            My objective is not simply to build applications that function correctly, but to
+            deliver enterprise solutions that organizations can confidently deploy, maintain,
+            and scale.
         </p>
 
-    </section>
+        <p>
+            <a href="projects.html">Back to Projects</a>
+        </p>
 
-</div>
+    </div>
 
 </body>
-
 </html>
