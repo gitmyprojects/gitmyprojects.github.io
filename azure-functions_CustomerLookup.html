@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Customer Lookup REST API - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+
+        <h1>Customer Lookup REST API</h1>
+
+        <p>
+            <strong>Project Summary</strong><br>
+            This project demonstrates the development of a REST API using Azure Functions and C#. The API accepts an HTTP GET request containing a customer ID, searches an in-memory customer collection using LINQ, and returns either the matching customer record or an appropriate HTTP error response. The project was built to strengthen backend development skills that complement Microsoft Power Platform solutions.
+        </p>
+
+        <p>
+            <strong>HTTP Trigger</strong><br>
+            The Azure Function is triggered by an HTTP GET request. The customer ID is passed as a query string parameter, allowing client applications such as Power Automate, Power Apps, or other services to request customer information through a REST endpoint.
+        </p>
+
+        <pre><code>
+GET /api/CustomerLookup?customerId=26
+        </code></pre>
+
+        <p>
+            <strong>Customer Model</strong><br>
+            A strongly typed Customer class defines the structure of the data returned by the API. Each customer contains a unique Customer ID along with name and location information. Returning strongly typed objects allows Azure Functions to automatically serialize the response into JSON.
+        </p>
+
+        <pre><code>
+public class Customer
+{
+    public int CustomerId { get; set; }
+
+    public string Name { get; set; } = "";
+
+    public string City { get; set; } = "";
+
+    public string State { get; set; } = "";
+}
+        </code></pre>
+
+        <p>
+            <strong>Searching the Customer Collection</strong><br>
+            The project uses a List&lt;Customer&gt; to simulate a database while learning Azure Functions. LINQ's FirstOrDefault() method searches the collection for a matching Customer ID and returns the appropriate Customer object if one exists.
+        </p>
+
+        <pre><code>
+Customer? customer = customers.FirstOrDefault(
+    c => c.CustomerId.ToString() == customerId
+);
+        </code></pre>
+
+        <p>
+            <strong>REST Response Handling</strong><br>
+            When a matching customer is found, the API returns an HTTP 200 (OK) response containing the customer information. If no matching customer exists, the API returns an HTTP 404 (Not Found) response with a structured JSON error message.
+        </p>
+
+        <pre><code>
+// Successful response
+return new OkObjectResult(customer);
+
+// Customer not found
+return new NotFoundObjectResult(new
+{
+    error = "CustomerNotFound",
+    message = $"Customer with ID {customerId} was not found."
+});
+        </code></pre>
+
+        <p>
+            <strong>Request Lifecycle</strong><br>
+            This project also provided an opportunity to understand how Azure Functions process HTTP requests. The Azure Functions Host listens for incoming requests, routes the request to the appropriate function, serializes the returned C# object into JSON, and sends the HTTP response back to the client.
+        </p>
+
+        <pre><code>
+Browser
+    │
+HTTP Request
+    │
+Azure Functions Host
+    │
+CustomerLookup()
+    │
+List&lt;Customer&gt;
+    │
+LINQ Query
+    │
+Customer Object
+    │
+Serialization
+    │
+JSON Response
+    │
+Browser
+        </code></pre>
+
+        <p>
+            <strong>What I Learned</strong><br>
+            Building this project helped me better understand how Azure Functions fit into the Microsoft ecosystem. Prior to this project, I primarily worked within Power Platform. Developing the API gave me practical experience with HTTP requests and responses, object serialization, LINQ queries, RESTful status codes, and the role of the Azure Functions Host in processing requests. It also strengthened my understanding of how Power Apps and Power Automate interact with custom APIs.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Azure Functions, C#, REST API development, HTTP triggers, LINQ, object-oriented programming, JSON serialization, HTTP status codes, REST response design, query string parameters, backend development fundamentals, and Microsoft Power Platform integration concepts.
+        </p>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
