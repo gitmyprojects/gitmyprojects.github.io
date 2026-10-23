@@ -690,3 +690,202 @@ button:hover, .form-container .btn:hover {
 }
 
 
+
+/***** SHAREPOINT PROJECT PAGES *****/
+
+.sharepoint-link {
+    background-color: #038387;
+}
+
+.sharepoint-link:hover {
+    background-color: #026a6d;
+}
+
+.SP_Lead {
+    max-width: 900px;
+    margin: 0 auto 10px auto;
+    color: #555;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.SP_Callout {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px 26px;
+    border-left: 6px solid #038387;
+    background-color: #f1f8f8;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.SP_Callout p {
+    margin: 6px 0;
+}
+
+.SP_Callout .SP_Callout_Label {
+    font-family: Avant Garde, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #038387;
+    margin: 0 0 4px 0;
+}
+
+.SP_Figure {
+    max-width: 1100px;
+    margin: 30px auto 40px auto;
+}
+
+.SP_Figure img {
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+}
+
+.SP_Figure figcaption {
+    max-width: 900px;
+    margin: 12px auto 0 auto;
+    font-family: Avant Garde, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+}
+
+.SP_Figure_Pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 30px auto 40px auto;
+}
+
+.SP_Figure_Pair .SP_Figure {
+    flex: 1 1 380px;
+    margin: 0;
+}
+
+.SP_Table_Wrap {
+    max-width: 900px;
+    margin: 20px auto 30px auto;
+    overflow-x: auto;
+}
+
+.SP_Table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Avant Garde, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.SP_Table th {
+    text-align: left;
+    background-color: #0E1B2C;
+    color: #ffffff;
+    padding: 10px 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.SP_Table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #e6e6e6;
+    vertical-align: top;
+}
+
+.SP_Table tr:nth-child(even) td {
+    background-color: #f7f9fa;
+}
+
+.SP_Scroll {
+    max-height: 460px;
+    overflow-y: auto;
+}
+
+.SP_Code {
+    max-width: 900px;
+    margin: 20px auto 30px auto;
+    padding: 18px 20px;
+    background-color: #0E1B2C;
+    color: #E6EDF5;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    user-select: text;
+    box-sizing: border-box;
+}
+
+.SP_List {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    font-family: Perpetua, Rockwell Extra Bold, serif;
+    font-size: 20px;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.SP_List li {
+    margin-bottom: 8px;
+}
+
+.SP_Nav {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.SP_Nav a {
+    flex: 1 1 240px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    background-color: #038387;
+    color: #ffffff;
+    font-family: Avant Garde, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+}
+
+.SP_Nav a:hover {
+    background-color: #026a6d;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 576px) {
+    .SP_Page .Project_Page {
+        padding: 80px 16px 30px 16px;
+    }
+
+    .SP_Table {
+        font-size: 13px;
+    }
+
+    .SP_Code {
+        font-size: 12px;
+    }
+}
+
+/***** PROJECTS PAGE ON PHONES *****/
+
+@media screen and (max-width: 576px) {
+    .Projects_Column {
+        padding: 24px 16px;
+    }
+
+    .Projects_Two_Column {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .Projects_Two_Column > div {
+        width: 100%;
+    }
+}

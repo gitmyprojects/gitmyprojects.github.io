@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Change Request Controls in SharePoint - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Change Request Controls in SharePoint</h1>
+        <p class="SP_Lead">SharePoint administration · SOX change control · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p>Designing <strong>least-privilege permissions that enforce a SOX control</strong>, then proving the design works by <strong>testing it as each role</strong> rather than as the administrator.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            A change request intake for a manufacturing company's Business Systems Team, built on SharePoint in a Microsoft 365 test tenant. Employees submit requests for changes to D365 Finance &amp; Operations, Power Platform and SharePoint. Approvers and auditors can see every request, requesters see only their own, and no one outside Business Systems can change a request after it is submitted. The company, Lumen Photonics, is fictional and modeled on a fiber laser manufacturer.
+        </p>
+        <p>
+            <strong>Business Problem</strong><br>
+            Change requests arrived by email and hallway conversation and were logged by hand in an Excel tracker. The company is public, so any change that affects inventory valuation or cost of goods sold is in SOX scope, and external auditors sample change records every year. The tracker could not show who approved a change, could not stop a request from being edited after approval, and gave everyone the same access to everything.
+        </p>
+        <p>
+            <strong>Starting From Requirements, Not the Requested Solution</strong><br>
+            The design started from a real-style ticket: a production manager asked for a new "Rework" cost category before month-end. Working through it the way an analyst would (stakeholders, current state, constraints such as the close freeze, and what was out of scope) produced the list of fields the intake needed and the controls it had to enforce: two named approvers for costing changes, no approval by timeout, and a record auditors can trust.
+        </p>
+        <p>
+            <strong>Designing the List Around Who Owns Each Field</strong><br>
+            The Change Requests list has 26 columns in three groups: what the <strong>requester</strong> describes (the business problem, not the solution they want), what <strong>Business Systems</strong> classifies (change type, SOX relevance, risk, implementer), and what the <strong>approval flow</strong> will record (decisions and timestamps). People never type a decision into the list, so the decision columns are evidence rather than opinion.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-columns.webp" alt="Change Requests list columns in List settings" width="637" height="530" loading="lazy">
+            <figcaption>Required fields are only the ones a requester can answer. Triage and decision fields are filled in later by Business Systems and by the flow.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-change-requests-list.webp" alt="Change Requests list with color-coded choice columns" width="1292" height="570" loading="lazy">
+            <figcaption>Twenty legacy requests migrated from the Excel tracker, covering every status from Submitted to Closed.</figcaption>
+        </figure>
+        <p>
+            <strong>Groups, Not People</strong><br>
+            Access is granted to groups only. Entra ID security groups hold the people, SharePoint groups map those groups to permission levels, and the list's unique permissions use the SharePoint groups. When an approver leaves, one Entra group membership changes and every site, list and flow that uses it updates at once.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>On the Change Requests list</th><th>Contains</th><th>Permission level</th></tr>
+                <tr><td>Business Systems Owners</td><td>Microsoft 365 group owners</td><td>Full Control</td></tr>
+                <tr><td>Business Systems Members</td><td>Analyst and developer</td><td>Edit</td></tr>
+                <tr><td>CR Requesters</td><td>SG-All-Employees</td><td><strong>CR Submit Only</strong> (custom)</td></tr>
+                <tr><td>CR Approvers</td><td>SG-CR-Approvers</td><td><strong>CR Read All</strong> (custom)</td></tr>
+                <tr><td>CR Auditors</td><td>SG-Internal-Audit</td><td><strong>CR Read All</strong> (custom)</td></tr>
+            </table>
+        </div>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/entra-sg-cr-approvers.webp" alt="Members of the SG-CR-Approvers Entra security group" width="1298" height="510" loading="lazy">
+            <figcaption>Approver membership uses an <em>assigned</em> group, not a dynamic rule, so a job title edit can never quietly grant approval rights. Only IT owns the group.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-list-permissions.webp" alt="Change Requests list with unique permissions for five SharePoint groups" width="884" height="473" loading="lazy">
+            <figcaption>The list breaks inheritance on purpose and has exactly five entries, each with a reason to be there.</figcaption>
+        </figure>
+        <p>
+            <strong>Two Custom Permission Levels</strong><br>
+            <strong>CR Submit Only</strong> is Contribute without Edit Items, Delete Items or Delete Versions. SharePoint has no column-level security, so if a requester could edit their request they could also edit its decision columns, or change the scope after it was approved. Requesters add information through a separate linked list instead, and a scope change resets the approvals. Deleting is removed because deleting a request would delete the audit evidence; unwanted requests are cancelled instead.
+        </p>
+        <p>
+            <strong>CR Read All</strong> is Read plus <em>Override List Behaviors</em>, the permission that lets approvers and auditors see items created by other people without granting edit rights. Because the same permission can also discard other users' document checkouts, it is granted on this one list and never on the site.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-custom-permission-levels.webp" alt="SharePoint permission levels page showing the two custom levels" width="1264" height="490" loading="lazy">
+            <figcaption>Built-in levels were copied, never modified, so no other site or list changed.</figcaption>
+        </figure>
+        <p>
+            <strong>Evidence by Default</strong><br>
+            Version history is on for every item, and the Approval Comments column only appends, so each comment is kept with its author and time. Combined with the built-in Created, Modified and Modified By columns, the list records who changed what and when without anyone having to remember to document it.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-versioning.webp" alt="Versioning settings for the Change Requests list" width="1181" height="523" loading="lazy">
+            <figcaption>Versioning was turned on before the append-only column, because append-only text depends on it.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-approval-comments-append.webp" alt="Approval Comments column with Append changes to existing text on" width="256" height="549" loading="lazy">
+            <figcaption>A running history of comments instead of a field anyone can overwrite.</figcaption>
+        </figure>
+        <p>
+            <strong>Testing as the Roles</strong><br>
+            Every permission was tested by signing in as the test users, because an administrator with Full Control can't see what's broken for anyone else.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-requester-read-only.webp" alt="A requester&#x27;s own submitted request with every field read-only" width="1024" height="533" loading="lazy">
+            <figcaption>Signed in as Priya, a cost accountant: she can submit and view her own request, but every field is read-only once it's saved, and she can't add comments that would sit outside the audit trail.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/cr-check-permissions-auditor.webp" alt="Check Permissions result for the internal auditor" width="635" height="287" loading="lazy">
+            <figcaption>Check Permissions for Ellen, the internal auditor, shows permissions are additive: she can read everything as an auditor, and as an employee she can also submit requests.</figcaption>
+        </figure>
+        <p>
+            <strong>What Testing Found</strong><br>
+            Four problems only showed up when testing as real roles, and each one is a lesson worth keeping:
+        </p>
+        <ul class="SP_List">
+            <li><strong>A lookup column failed for requesters but worked for the admin.</strong> Requesters couldn't read the Departments list the lookup pointed at. Fix: give the CR groups Read on the source list.</li>
+            <li><strong>The group creator was added to the approvers group automatically.</strong> SharePoint adds whoever creates a group as its first member, which put the admin account in an approval group. Fix: check membership right after creating any group.</li>
+            <li><strong>People with access to only one list can't find it.</strong> Limited Access hides the site from navigation, so the entry points became a hub navigation link, a home page button and the approval emails.</li>
+            <li><strong>The tenant hides the "Everyone" claims.</strong> Company-wide access uses a named security group instead, which is easier to review and doesn't extend to guests.</li>
+        </ul>
+        <p>
+            <strong>Design Decisions Worth Defending</strong><br>
+            
+        </p>
+        <ul class="SP_List">
+            <li><strong>SOX Relevant defaults to Yes.</strong> If triage misses it, the result is an extra approval, not a skipped one. The default fails safe.</li>
+            <li><strong>Approvals will never auto-complete on timeout.</strong> The flow is designed to escalate to the approver's manager after two business days instead.</li>
+            <li><strong>The deployer is never the implementer.</strong> The person who configures a change in the sandbox is not the person who moves it to production, and the list records both.</li>
+        </ul>
+        <p>
+            <strong>What&#x27;s Next</strong><br>
+            Locking down the new-request form so requesters only see their own fields, a linked Request Updates list, and the Power Automate approval flow: process owner first, then the Controller when SOX Relevant is Yes, with escalation and decisions written back to the list.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Requirements gathering, SharePoint list design, permission inheritance, custom permission levels, item-level security, Entra ID security groups, SharePoint groups, segregation of duties, SOX change control, versioning and audit trail design, and role-based permission testing.
+        </p>
+        <p><strong>More from this SharePoint lab</strong></p>
+        <div class="SP_Nav">
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>

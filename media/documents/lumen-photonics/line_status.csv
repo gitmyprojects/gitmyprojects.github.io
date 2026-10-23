@@ -1,0 +1,9 @@
+Title,Site,Status,Reason,ETA,SortOrder
+Wafer Fab,PLT1,Running,,,10
+Chip Dicing,PLT1,Degraded,New dicing saw running at reduced speed during qualification,2026-10-24 15:00,20
+Chip Test,PLT1,Running,,,30
+Line 1 Fiber Assembly,PLT2,Running,,,40
+Line 2 Fiber Assembly,PLT2,Planned Maintenance,Quarterly preventive maintenance,2026-10-23 14:00,50
+Line 3 Polish,PLT2,Down,Polishing head failure - replacement part on site,2026-10-23 10:00,60
+Final Test,PLT2,Running,,,70
+Packaging,PLT2,Degraded,Label printer offline - labels printed at Line 1 station,2026-10-23 08:00,80

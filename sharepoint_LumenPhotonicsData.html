@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Building Lumen Photonics - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Building Lumen Photonics: A Test Company and Its Data</h1>
+        <p class="SP_Lead">Data modeling · Entra ID provisioning · Power Automate migration · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p>Modeling <strong>realistic master data first</strong>, then loading it with <strong>repeatable, scripted processes</strong> (bulk import, Graph PowerShell and a solution-aware Power Automate migration) instead of entering it by hand.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            To test SharePoint permissions and segregation of duties properly, the lab needed real roles: requesters, approvers, an implementer who isn't the deployer, and an auditor who can read everything and change nothing. Lumen Photonics is a fictional fiber laser manufacturer with a headquarters and two plants, built in a Microsoft 365 test tenant with 24 employees, nine departments and the reference data an ERP would expect.
+        </p>
+        <p>
+            <strong>Master Data Before Transactions</strong><br>
+            The reference tables were designed first, because every transaction (change requests, downtime, production orders) points back at them. Each one maps to its equivalent in Dynamics 365 Finance &amp; Operations.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Table</th><th>Rows</th><th>Holds</th><th>F&amp;O equivalent</th></tr>
+                <tr><td>Sites</td><td>3</td><td>Headquarters, Plant 1 (chip fab), Plant 2 (fiber laser assembly)</td><td>Sites</td></tr>
+                <tr><td>Departments</td><td>9</td><td>Finance, Production, Quality, Business Systems, Internal Audit and more</td><td>Operating units</td></tr>
+                <tr><td>Cost Centers</td><td>10</td><td>Production split by plant, so one department is costed separately per site</td><td>Financial dimension</td></tr>
+                <tr><td>Shifts</td><td>3</td><td>Office day shift and two production shifts</td><td>Calendars / working times</td></tr>
+                <tr><td>Employees</td><td>24</td><td>Title, department, site, cost center, manager, shift and change request role</td><td>Workers</td></tr>
+            </table>
+        </div>
+        <p>
+            <strong>The Organization</strong><br>
+            Roles were chosen so that every control could be tested by a real person. Business Systems is split into an analyst who configures changes, a manager who deploys them and a developer, so the "implementer is never the deployer" rule can be shown. The internal auditor reports outside the operations and finance chains.
+        </p>
+        <div class="SP_Table_Wrap SP_Scroll">
+            <table class="SP_Table">
+                <tr><th>Name</th><th>Title</th><th>Department</th><th>Site</th><th>Manager</th><th>Change request role</th></tr>
+                <tr><td>Victor Hale</td><td>VP Operations</td><td>Executive</td><td>HQ</td><td>—</td><td>Escalation approver (Operations)</td></tr>
+                <tr><td>Sandra Whitfield</td><td>Chief Financial Officer</td><td>Finance</td><td>HQ</td><td>—</td><td>Escalation approver (Finance)</td></tr>
+                <tr><td>Grace Lin</td><td>Controller</td><td>Finance</td><td>HQ</td><td>Sandra Whitfield</td><td>Financial approver</td></tr>
+                <tr><td>Priya Nair</td><td>Cost Accountant</td><td>Finance</td><td>HQ</td><td>Grace Lin</td><td>Requester</td></tr>
+                <tr><td>Marcus Webb</td><td>Accounts Payable Specialist</td><td>Finance</td><td>HQ</td><td>Grace Lin</td><td>Requester</td></tr>
+                <tr><td>Ray Holt</td><td>Business Systems Manager</td><td>Business Systems</td><td>HQ</td><td>Sandra Whitfield</td><td>Deployer (moves changes to production)</td></tr>
+                <tr><td>Maya Chen</td><td>Business Systems Analyst</td><td>Business Systems</td><td>HQ</td><td>Ray Holt</td><td>Implementer (configures in sandbox)</td></tr>
+                <tr><td>Owen Patel</td><td>D365 F&amp;O Developer</td><td>Business Systems</td><td>HQ</td><td>Ray Holt</td><td>Developer</td></tr>
+                <tr><td>Ellen Park</td><td>Internal Auditor</td><td>Internal Audit</td><td>HQ</td><td>—</td><td>Auditor (read-only)</td></tr>
+                <tr><td>Carla Mendes</td><td>Plant 1 Production Manager</td><td>Production</td><td>PLT1</td><td>Victor Hale</td><td>Process-owner approver (Plant 1)</td></tr>
+                <tr><td>Jake Morrison</td><td>Shift Supervisor</td><td>Production</td><td>PLT1</td><td>Carla Mendes</td><td>Requester</td></tr>
+                <tr><td>Aisha Bello</td><td>Production Operator</td><td>Production</td><td>PLT1</td><td>Jake Morrison</td><td>None</td></tr>
+                <tr><td>Dana Reyes</td><td>Plant 2 Production Manager</td><td>Production</td><td>PLT2</td><td>Victor Hale</td><td>Process-owner approver (Plant 2)</td></tr>
+                <tr><td>Luis Ortega</td><td>Shift Supervisor</td><td>Production</td><td>PLT2</td><td>Dana Reyes</td><td>Requester</td></tr>
+                <tr><td>Hannah Cole</td><td>Shift Supervisor</td><td>Production</td><td>PLT2</td><td>Dana Reyes</td><td>Requester</td></tr>
+                <tr><td>Ben Tran</td><td>Production Operator</td><td>Production</td><td>PLT2</td><td>Luis Ortega</td><td>None</td></tr>
+                <tr><td>Sofia Ramirez</td><td>Production Operator</td><td>Production</td><td>PLT2</td><td>Hannah Cole</td><td>None</td></tr>
+                <tr><td>Greg Novak</td><td>Maintenance Supervisor</td><td>Maintenance</td><td>PLT2</td><td>Victor Hale</td><td>Requester</td></tr>
+                <tr><td>Tyler Brooks</td><td>Maintenance Technician</td><td>Maintenance</td><td>PLT2</td><td>Greg Novak</td><td>None</td></tr>
+                <tr><td>Tom Becker</td><td>Quality Manager</td><td>Quality</td><td>PLT2</td><td>Victor Hale</td><td>Requester / consulted</td></tr>
+                <tr><td>Nina Kowalski</td><td>Quality Engineer</td><td>Quality</td><td>PLT2</td><td>Tom Becker</td><td>None</td></tr>
+                <tr><td>Ian Fletcher</td><td>Supply Chain Manager</td><td>Supply Chain</td><td>HQ</td><td>Victor Hale</td><td>Process-owner approver (Supply Chain)</td></tr>
+                <tr><td>Rachel Kim</td><td>Production Planner</td><td>Supply Chain</td><td>HQ</td><td>Ian Fletcher</td><td>Requester</td></tr>
+                <tr><td>Derek Shaw</td><td>Manufacturing Engineer</td><td>Manufacturing Engineering</td><td>PLT2</td><td>Victor Hale</td><td>Consulted (routes)</td></tr>
+            </table>
+        </div>
+        <p>
+            <strong>Identity: Bulk Import, Then Scripted Managers</strong><br>
+            Users were created with the Microsoft 365 admin center's bulk import, after regenerating the CSV to match Microsoft's template headers exactly, the most common reason a bulk import fails. Managers aren't supported by bulk import, so they were set with Microsoft Graph PowerShell from the same reference file, then verified with a second query rather than assuming the script worked.
+        </p>
+        <pre class="SP_Code"><code>$rows = Import-Csv &quot;.\employees_reference.csv&quot;
+
+foreach ($row in $rows) {
+    if ([string]::IsNullOrWhiteSpace($row.Manager)) { continue }
+
+    $manager = Get-MgUser -UserId &quot;$($row.Manager)@$domain&quot;
+    Set-MgUserManagerByRef -UserId &quot;$($row.Username)@$domain&quot; -BodyParameter @{
+        &quot;@odata.id&quot; = &quot;https://graph.microsoft.com/v1.0/users/$($manager.Id)&quot;
+    }
+}</code></pre>
+        <p>
+            The script ran with the execution policy relaxed for <em>that PowerShell window only</em>, the smallest change that does the job, and was read before it was run. Managers matter later: approval escalation looks up an approver's manager.
+        </p>
+        <p>
+            <strong>Groups With Names That Say What They Do</strong><br>
+            Access-granting security groups use an <code>SG-</code> prefix and assigned membership: <code>SG-CR-Approvers</code>, <code>SG-Internal-Audit</code> and <code>SG-All-Employees</code>. The last one exists because the tenant hides the "Everyone except external users" claim, and an existing "All Company" group turned out to contain only the administrator. Checking membership before granting access caught it.
+        </p>
+        <p>
+            <strong>Lookups to Reference Data</strong><br>
+            The Departments list was created first, because a lookup column can only point at a list that already exists. The department head is a Person column, so a flow can find a department's head without hard-coding names.
+        </p>
+        <div class="SP_Figure_Pair">
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/data-departments-list.webp" alt="Departments list with department heads as people" width="684" height="560" loading="lazy">
+            <figcaption>Reference data imported from CSV, with department heads resolved to real users.</figcaption>
+        </figure>
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/data-lookup-column.webp" alt="Department lookup column pointing at the Departments list" width="286" height="465" loading="lazy">
+            <figcaption>The Change Requests Department column looks up to this list, so renaming a department updates every request.</figcaption>
+        </figure>
+        </div>
+        <p>
+            <strong>Migrating the Legacy Tracker</strong><br>
+            The 20 legacy change requests were treated as a migration from the old Excel tracker, not as test data typed in by hand. A manually triggered cloud flow, built inside a solution so it can move between environments, reads an Excel table and creates one list item per row. It looks up each department's ID, sends null instead of empty strings for optional fields, and applies the same fail-safe SOX default as the list.
+        </p>
+        <pre class="SP_Code"><code>// Department lookup: find the Departments item ID for this row
+first(outputs(&#x27;Get_items&#x27;)?[&#x27;body/value&#x27;])?[&#x27;ID&#x27;]
+
+// Optional fields: send null instead of an empty string
+if(empty(items(&#x27;Apply_to_each&#x27;)?[&#x27;TargetReleaseDate&#x27;]), null,
+   items(&#x27;Apply_to_each&#x27;)?[&#x27;TargetReleaseDate&#x27;])
+
+// Fail-safe default: anything not explicitly &#x27;No&#x27; loads as SOX relevant
+if(equals(items(&#x27;Apply_to_each&#x27;)?[&#x27;SOXRelevant&#x27;], &#x27;No&#x27;), false, true)</code></pre>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/data-solution.webp" alt="Lumen Change Management solution containing the migration flow" width="1072" height="342" loading="lazy">
+            <figcaption>The flow and its connection reference live in a solution, ready for the approval flow to join them.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/data-migration-flow-run.webp" alt="Successful run of the migration flow with 20 iterations" width="1266" height="503" loading="lazy">
+            <figcaption>Tested on two rows first, then run for all 20, then turned off but kept as evidence of how the data got there.</figcaption>
+        </figure>
+        <p>
+            <strong>A Migration Limitation, Documented</strong><br>
+            Every migrated item shows the migration account as Created By, because SharePoint sets that field itself. The original requester and submission date were kept in dedicated Requester and Submitted On columns. The trade-off is recorded rather than hidden: because "see only your own" is based on Created By, original requesters can't see their migrated requests, while approvers and auditors can.
+        </p>
+        <p>
+            <strong>Download the Seed Data</strong><br>
+            <a href="./media/documents/lumen-photonics/employees_reference.csv">Employees</a> · <a href="./media/documents/lumen-photonics/departments.csv">Departments</a> · <a href="./media/documents/lumen-photonics/cost_centers.csv">Cost centers</a> · <a href="./media/documents/lumen-photonics/sites.csv">Sites</a> · <a href="./media/documents/lumen-photonics/shifts.csv">Shifts</a> · <a href="./media/documents/lumen-photonics/change_requests_sample.csv">Change requests</a> · <a href="./media/documents/lumen-photonics/line_status.csv">Line status</a>
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Master data modeling, ERP-aligned reference data, Microsoft 365 bulk user import, Microsoft Graph PowerShell, Entra ID security groups and naming conventions, SharePoint lookup columns, Power Automate data migration, solution-aware flows, expression-based data cleansing, and documenting migration limitations.
+        </p>
+        <p><strong>More from this SharePoint lab</strong></p>
+        <div class="SP_Nav">
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
