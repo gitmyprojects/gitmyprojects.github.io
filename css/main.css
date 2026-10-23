@@ -889,3 +889,25 @@ button:hover, .form-container .btn:hover {
         width: 100%;
     }
 }
+
+.SP_Scroll_Frame {
+    max-height: 640px;
+    overflow-y: auto;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    background-color: #0E1B2C;
+}
+
+.SP_Figure .SP_Scroll_Frame img {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 576px) {
+    .SP_Scroll_Frame {
+        max-height: 480px;
+    }
+}
