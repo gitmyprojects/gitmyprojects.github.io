@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Lumen Hub Intranet and Plant Status Board - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Lumen Hub: Intranet and Live Plant Status Board</h1>
+        <p class="SP_Lead">SharePoint intranet · JSON view formatting · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p>Turning a plain SharePoint list into a <strong>live, color-coded operations board with JSON view formatting</strong>, inside an intranet designed around <strong>tasks and named owners</strong> rather than decoration.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Lumen Hub is the company intranet for Lumen Photonics, a fictional fiber laser manufacturer with two plants and a headquarters. It's the tenant's root site, registered as a hub and designated as the home site. The page counts down to month-end close, carries announcements, links to the change request intake, rolls up news from department sites, and shows the live status of every production line.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/hub-status-board.webp" alt="Plant status board with color-coded cards for eight production lines" width="1279" height="482" loading="lazy">
+            <figcaption>The plant status board: one card per production line, colored by status, with the reason, the expected time back and who updated it last. Supervisors update a list; everyone sees the board.</figcaption>
+        </figure>
+        <p>
+            <strong>Business Problem</strong><br>
+            There was no front door. The default root site showed Microsoft's sample content, department sites were only reachable by direct link, and line status traveled by phone and radio, so planners and Finance found out about downtime late. People with access to a single list had no way to find it.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/hub-home-before.webp" alt="Default communication site home page before redesign" width="1300" height="581" loading="lazy">
+            <figcaption>Before: the default communication site, with stock photos and placeholder web parts.</figcaption>
+        </figure>
+        <p>
+            <strong>Information Architecture</strong><br>
+            Rather than create a new site next to an unused root site, the root communication site became Lumen Hub. It was registered as a hub so department sites share its navigation, theme and search, and designated as the home site so it's the company's landing page in SharePoint and Teams. Business Systems was associated with the hub <em>without</em> syncing hub permissions, so the shared navigation doesn't open up a private site.
+        </p>
+        <div class="SP_Figure_Pair">
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/hub-registered.webp" alt="Active sites list showing Lumen Hub registered as a hub site" width="871" height="395" loading="lazy">
+            <figcaption>The root site registered as a hub. Sites stay flat and are tied together by the hub, not by subsites.</figcaption>
+        </figure>
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/hub-home-site.webp" alt="Home sites setting in the SharePoint admin center listing Lumen Hub" width="552" height="440" loading="lazy">
+            <figcaption>Designated as the home site in the SharePoint admin center.</figcaption>
+        </figure>
+        </div>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/hub-site-associated.webp" alt="Business Systems site showing the Lumen Hub navigation bar" width="766" height="524" loading="lazy">
+            <figcaption>Business Systems picks up the hub's navigation bar while keeping its own private permissions.</figcaption>
+        </figure>
+        <p>
+            <strong>A Home Page Built Around Tasks and Owners</strong><br>
+            Every section on the page had to answer three questions: what it shows, who it's for, and who keeps it current. Sections with no owner were removed, including the default Documents and People web parts and page comments.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Section</th><th>Purpose</th><th>Owner</th></tr>
+                <tr><td>Countdown to close</td><td>Close begins in N days, with a link to the close calendar</td><td>Finance, monthly</td></tr>
+                <tr><td>Announcements</td><td>Urgent items such as the costing change freeze; expire after two weeks</td><td>Department leads</td></tr>
+                <tr><td>Plant status</td><td>Live status of every production line</td><td>Shift supervisors and maintenance</td></tr>
+                <tr><td>Change Requests</td><td>Submit a request, or see your own requests</td><td>Business Systems</td></tr>
+                <tr><td>News and Events</td><td>Rolled up from every site in the hub, not duplicated</td><td>Each site's owners</td></tr>
+            </table>
+        </div>
+        <p>
+            <strong>Building the Status Board</strong><br>
+            The board is a SharePoint list with one row per production line: plant, status (Running, Degraded, Down, Planned Maintenance), reason, expected time back and a sort order. A gallery view with JSON formatting turns each row into a card. The color bar, status pill and "Back by" line all come from the data, and the "Updated by" line comes from SharePoint's built-in Modified and Modified By columns, so readers can tell whether to trust what they see. A simplified excerpt of the formatting:
+        </p>
+        <pre class="SP_Code"><code>{
+  &quot;elmType&quot;: &quot;div&quot;,
+  &quot;customRowAction&quot;: { &quot;action&quot;: &quot;defaultClick&quot; },
+  &quot;children&quot;: [
+    {
+      &quot;elmType&quot;: &quot;div&quot;,
+      &quot;style&quot;: {
+        &quot;height&quot;: &quot;8px&quot;,
+        &quot;background-color&quot;: &quot;=if([$field_2] == &#x27;Down&#x27;, &#x27;#D13438&#x27;,
+          if([$field_2] == &#x27;Degraded&#x27;, &#x27;#F2A900&#x27;,
+          if([$field_2] == &#x27;Planned Maintenance&#x27;, &#x27;#3A96DD&#x27;, &#x27;#13A10E&#x27;)))&quot;
+      }
+    },
+    { &quot;elmType&quot;: &quot;div&quot;, &quot;txtContent&quot;: &quot;[$Title]&quot; },
+    { &quot;elmType&quot;: &quot;div&quot;,
+      &quot;txtContent&quot;: &quot;=if([$field_3] == &#x27;&#x27;, &#x27;Running normally&#x27;, [$field_3])&quot; },
+    { &quot;elmType&quot;: &quot;div&quot;,
+      &quot;txtContent&quot;: &quot;=&#x27;Back by &#x27; + toLocaleString([$field_4])&quot;,
+      &quot;style&quot;: { &quot;display&quot;: &quot;=if(Number([$field_4]) == 0, &#x27;none&#x27;, &#x27;block&#x27;)&quot; } },
+    { &quot;elmType&quot;: &quot;div&quot;,
+      &quot;txtContent&quot;: &quot;=&#x27;Updated &#x27; + toLocaleString([$Modified]) + &#x27; by &#x27; + [$Editor.title]&quot; }
+  ]
+}</code></pre>
+        <p>
+            <strong>When the First Version Showed Everything as Running</strong><br>
+            The first version rendered every line green with no reason, even the line that was down. Three separate problems caused it, and two of them were in the data model rather than the JSON:
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/hub-status-board-first-attempt.webp" alt="First version of the status board with every card green" width="1274" height="552" loading="lazy">
+            <figcaption>First attempt: every card green and "Running normally", including Line 3, which was down.</figcaption>
+        </figure>
+        <ul class="SP_List">
+            <li><strong>Internal names.</strong> The list was created from a CSV, so Status, Reason and ETA were stored as <code>field_2</code>, <code>field_3</code> and <code>field_4</code>. Formatting, flows and APIs use internal names, not display names.</li>
+            <li><strong>Multi-select choices.</strong> The import created Site and Status as checkbox (multi-select) columns with no choices defined. A multi-select value never equals a single word, and a line can't be both Running and Down, so the columns were changed to single-select drop-downs with defined choices.</li>
+            <li><strong>Fields missing from the view.</strong> Formatting can only read columns that are in the view, so Modified and Modified By were added to make the "Updated by" line work.</li>
+        </ul>
+        <p>
+            <strong>Branding</strong><br>
+            A logo, header banner and news image were created for the company, and a dark navy and laser-orange theme was built in the SharePoint brand center. The first attempt used <code>Add-SPOTheme</code> in PowerShell, which failed on a sign-in component in the current SharePoint Online module; the brand center is the supported, point-and-click route and produced the same result.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/brand-news-image.webp" alt="Lumen Photonics logo on a navy background with an orange laser line" width="800" height="450" loading="lazy">
+            <figcaption>The Lumen Photonics mark: an optical fiber bending into a laser beam.</figcaption>
+        </figure>
+        <p>
+            <strong>Known Limitations</strong><br>
+            
+        </p>
+        <ul class="SP_List">
+            <li><strong>Announcements need a mail-enabled audience.</strong> The all-employees security group isn't mail-enabled, so the proof of concept targets a smaller group. In production, one mail-enabled "All Employees" group would replace both.</li>
+            <li><strong>The countdown doesn't reset itself.</strong> Finance owns updating it to the next close each month.</li>
+            <li><strong>Rolled-up news depends on search.</strong> New posts can take several minutes to appear on the home page.</li>
+        </ul>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Hub and home site configuration, information architecture, communication site design, list JSON view formatting, gallery views, internal column names, choice column design, audience and ownership planning, SharePoint brand center themes, and troubleshooting rendering problems back to the data model.
+        </p>
+        <p><strong>More from this SharePoint lab</strong></p>
+        <div class="SP_Nav">
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+EmployeeID,DisplayName,Username,JobTitle,Department,SiteCode,CostCenter,Manager,Shift,ChangeRequestRole
+E1001,Victor Hale,victor.hale,VP Operations,Executive,HQ,CC-100,,DAY,Escalation approver (Operations)
+E1002,Sandra Whitfield,sandra.whitfield,Chief Financial Officer,Finance,HQ,CC-110,,DAY,Escalation approver (Finance)
+E1003,Grace Lin,grace.lin,Controller,Finance,HQ,CC-110,sandra.whitfield,DAY,Financial approver
+E1004,Priya Nair,priya.nair,Cost Accountant,Finance,HQ,CC-110,grace.lin,DAY,Requester
+E1005,Marcus Webb,marcus.webb,Accounts Payable Specialist,Finance,HQ,CC-110,grace.lin,DAY,Requester
+E1006,Ray Holt,ray.holt,Business Systems Manager,Business Systems,HQ,CC-120,sandra.whitfield,DAY,Deployer (moves changes to production)
+E1007,Maya Chen,maya.chen,Business Systems Analyst,Business Systems,HQ,CC-120,ray.holt,DAY,Implementer (configures in sandbox)
+E1008,Owen Patel,owen.patel,D365 F&O Developer,Business Systems,HQ,CC-120,ray.holt,DAY,Developer
+E1009,Ellen Park,ellen.park,Internal Auditor,Internal Audit,HQ,CC-130,,DAY,Auditor (read-only)
+E1010,Carla Mendes,carla.mendes,Plant 1 Production Manager,Production,PLT1,CC-200,victor.hale,DAY,Process-owner approver (Plant 1)
+E1011,Jake Morrison,jake.morrison,Shift Supervisor,Production,PLT1,CC-200,carla.mendes,S1,Requester
+E1012,Aisha Bello,aisha.bello,Production Operator,Production,PLT1,CC-200,jake.morrison,S1,None
+E1013,Dana Reyes,dana.reyes,Plant 2 Production Manager,Production,PLT2,CC-210,victor.hale,DAY,Process-owner approver (Plant 2)
+E1014,Luis Ortega,luis.ortega,Shift Supervisor,Production,PLT2,CC-210,dana.reyes,S1,Requester
+E1015,Hannah Cole,hannah.cole,Shift Supervisor,Production,PLT2,CC-210,dana.reyes,S2,Requester
+E1016,Ben Tran,ben.tran,Production Operator,Production,PLT2,CC-210,luis.ortega,S1,None
+E1017,Sofia Ramirez,sofia.ramirez,Production Operator,Production,PLT2,CC-210,hannah.cole,S2,None
+E1018,Greg Novak,greg.novak,Maintenance Supervisor,Maintenance,PLT2,CC-220,victor.hale,S1,Requester
+E1019,Tyler Brooks,tyler.brooks,Maintenance Technician,Maintenance,PLT2,CC-220,greg.novak,S2,None
+E1020,Tom Becker,tom.becker,Quality Manager,Quality,PLT2,CC-230,victor.hale,DAY,Requester / consulted
+E1021,Nina Kowalski,nina.kowalski,Quality Engineer,Quality,PLT2,CC-230,tom.becker,DAY,None
+E1022,Ian Fletcher,ian.fletcher,Supply Chain Manager,Supply Chain,HQ,CC-240,victor.hale,DAY,Process-owner approver (Supply Chain)
+E1023,Rachel Kim,rachel.kim,Production Planner,Supply Chain,HQ,CC-240,ian.fletcher,DAY,Requester
+E1024,Derek Shaw,derek.shaw,Manufacturing Engineer,Manufacturing Engineering,PLT2,CC-250,victor.hale,DAY,Consulted (routes)

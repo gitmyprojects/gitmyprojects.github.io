@@ -1,0 +1,11 @@
+CostCenter,Name,Department,SiteCode,Owner
+CC-100,Executive,Executive,HQ,victor.hale
+CC-110,Finance,Finance,HQ,grace.lin
+CC-120,Business Systems,Business Systems,HQ,ray.holt
+CC-130,Internal Audit,Internal Audit,HQ,ellen.park
+CC-200,Plant 1 Production,Production,PLT1,carla.mendes
+CC-210,Plant 2 Production,Production,PLT2,dana.reyes
+CC-220,Maintenance,Maintenance,PLT2,greg.novak
+CC-230,Quality,Quality,PLT2,tom.becker
+CC-240,Supply Chain,Supply Chain,HQ,ian.fletcher
+CC-250,Manufacturing Engineering,Manufacturing Engineering,PLT2,derek.shaw

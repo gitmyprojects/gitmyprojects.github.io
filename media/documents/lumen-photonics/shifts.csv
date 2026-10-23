@@ -1,0 +1,4 @@
+ShiftCode,ShiftName,Start,End,Days
+DAY,Day (office),08:00,17:00,Mon-Fri
+S1,1st shift,06:00,14:30,Mon-Fri
+S2,2nd shift,14:30,23:00,Mon-Fri
