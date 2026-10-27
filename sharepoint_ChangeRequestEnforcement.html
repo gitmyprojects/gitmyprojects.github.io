@@ -29,10 +29,16 @@
             <strong>Why the Form Isn't Enough</strong><br>
             The requester form was trimmed to the eight fields a requester should fill in, and testing as a requester confirmed that grid view is read-only for them too. One route remained: anyone who can add items can create one through the API, a Power App or their own flow, and set any value they like. Only a flow that runs on every new item covers that.
         </p>
-        <figure class="SP_Figure">
-            <img src="./media/images/sharepoint/enf-flow-try-catch.webp" alt="Cloud flow with a Try scope containing Get Department and Enforce defaults, and a Catch scope containing Get failed actions, Notify Admin and Terminate" width="186" height="529" loading="lazy">
-            <figcaption>The enforcement steps run inside Try. Catch runs only if Try fails or times out.</figcaption>
+        <div class="SP_Figure_Pair">
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/enf-flow-try.webp" alt="Flow trigger When an item is created, followed by a Try scope containing Get Department and Enforce defaults" width="332" height="455" loading="lazy">
+            <figcaption>Try: look up the department, then overwrite the protected fields.</figcaption>
         </figure>
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/enf-flow-catch.webp" alt="Catch scope containing Get failed actions, Notify Admin and Terminate" width="318" height="502" loading="lazy">
+            <figcaption>Catch: runs only if Try fails or times out, alerts Business Systems, then ends the run as Failed.</figcaption>
+        </figure>
+        </div>
         <p>
             <strong>What the Flow Enforces</strong><br>
             The flow triggers on <em>item created</em>, not <em>created or modified</em>, because it updates the same item and would otherwise trigger itself in a loop. It looks up the request's department, then overwrites the protected fields with values the requester can't influence.
