@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Change Request Enforcement - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Change Request Enforcement: Flow Controls and Failure Alerts</h1>
+        <p class="SP_Lead">Power Automate · SOX change control · Error handling · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Forms shape behavior; flows enforce it.</strong> A flow resets protected fields on every new request, and a <strong>try/catch pattern</strong> makes sure the control can never fail silently.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Change requests at Lumen Photonics route to approvers based on fields like Status, SOX Relevant and Process Owner. If a requester could set those themselves, they could mark a costing change as not SOX relevant and skip financial review, or pick a friendly approver. SharePoint has no column-level permissions, so hiding those fields on the form only prevents honest mistakes. This flow is the actual control.
+        </p>
+        <p>
+            <strong>Why the Form Isn't Enough</strong><br>
+            The requester form was trimmed to the eight fields a requester should fill in, and testing as a requester confirmed that grid view is read-only for them too. One route remained: anyone who can add items can create one through the API, a Power App or their own flow, and set any value they like. Only a flow that runs on every new item covers that.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/enf-flow-try-catch.webp" alt="Cloud flow with a Try scope containing Get Department and Enforce defaults, and a Catch scope containing Get failed actions, Notify Admin and Terminate" width="186" height="529" loading="lazy">
+            <figcaption>The enforcement steps run inside Try. Catch runs only if Try fails or times out.</figcaption>
+        </figure>
+        <p>
+            <strong>What the Flow Enforces</strong><br>
+            The flow triggers on <em>item created</em>, not <em>created or modified</em>, because it updates the same item and would otherwise trigger itself in a loop. It looks up the request's department, then overwrites the protected fields with values the requester can't influence.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Field</th><th>Set to</th><th>Why</th></tr>
+                <tr><td>Status</td><td>Submitted</td><td>A request can't arrive already approved</td></tr>
+                <tr><td>SOX Relevant</td><td>Yes</td><td>Fail-safe default; only Business Systems can change it during triage</td></tr>
+                <tr><td>Process Owner</td><td>The department's process owner</td><td>Requesters don't choose their own approver</td></tr>
+                <tr><td>Approval decisions</td><td>Pending</td><td>Only the approval flow writes decisions</td></tr>
+                <tr><td>Requester</td><td>Created By</td><td>Recorded by SharePoint, so it can't be spoofed</td></tr>
+                <tr><td>Submitted On</td><td>Created date, in local time</td><td>Recorded by SharePoint, not typed in</td></tr>
+            </table>
+        </div>
+        <pre class="SP_Code"><code>// Look up the department row the request points at (the lookup's ID, not the request's)
+triggerBody()?[&#x27;Department/Id&#x27;]
+
+// Requester comes from who actually created the item
+triggerBody()?[&#x27;Author/Claims&#x27;]
+
+// Created is stored in UTC; convert before keeping only the date
+convertFromUtc(triggerBody()?[&#x27;Created&#x27;], &#x27;Pacific Standard Time&#x27;, &#x27;yyyy-MM-dd&#x27;)</code></pre>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/enf-enforce-defaults.webp" alt="Enforce defaults Update item action with Status, SOX Relevant, Process Owner, decisions, Requester and Submitted On mapped" width="296" height="520" loading="lazy">
+            <figcaption>The update action. Requester answers pass through unchanged; protected fields are overwritten.</figcaption>
+        </figure>
+        <p>
+            <strong>Bugs Found in Testing</strong><br>
+            Testing as a requester turned up three bugs, each one a quiet error that a run marked "Succeeded" wouldn't reveal:
+        </p>
+        <ul class="SP_List">
+            <li><strong>Record ID instead of lookup ID.</strong> The department lookup was first given the change request's ID (24) instead of the department's ID (4), so it found nothing.</li>
+            <li><strong>Fields from the wrong action.</strong> The trigger and the department lookup both expose Created By and Created. Picking from the wrong one would have recorded the administrator as every requester. Checking code view caught it.</li>
+            <li><strong>UTC dates.</strong> A request submitted at 6:13 PM Pacific was stamped with the next day's date, which matters when a financial close freeze starts on a specific date.</li>
+        </ul>
+        <p>
+            <strong>Failing Loudly</strong><br>
+            If the flow fails, the request keeps whatever values it was created with and the control fails open. Nobody watches run history, so the Catch scope posts an alert to Teams with everything needed to fix it without opening the flow: the request ID and link, the time, the failed step, the error message and a link to the run.
+        </p>
+        <pre class="SP_Code"><code>// Collect the actions inside Try that failed
+filter: result(&#x27;Try&#x27;)  where  item()?[&#x27;status&#x27;] = &#x27;Failed&#x27;
+
+// Error text lives in different places depending on the action
+coalesce(first(body(&#x27;Get_failed_actions&#x27;))?[&#x27;error&#x27;]?[&#x27;message&#x27;],
+         first(body(&#x27;Get_failed_actions&#x27;))?[&#x27;outputs&#x27;]?[&#x27;body&#x27;]?[&#x27;message&#x27;],
+         &#x27;Unknown error&#x27;)
+
+// Link straight to this run
+concat(&#x27;https://make.powerautomate.com/environments/&#x27;, workflow()?[&#x27;tags&#x27;]?[&#x27;environmentName&#x27;],
+       &#x27;/flows/&#x27;, workflow()?[&#x27;name&#x27;], &#x27;/runs/&#x27;, workflow()?[&#x27;run&#x27;]?[&#x27;name&#x27;])</code></pre>
+        <p>
+            Two details make the alert trustworthy. The message is built only from the trigger and the failure details, never from outputs of the steps inside Try, because the step that failed may have returned nothing. And Catch ends with a Terminate set to Failed, so a handled failure still shows as Failed in run history instead of Succeeded.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/enf-teams-alert.webp" alt="Teams message reporting that enforcement failed for change request 25, with the time, reason, request link, run link and failed step" width="793" height="251" loading="lazy">
+            <figcaption>The alert from a deliberately forced failure. Tenant links and IDs are blurred.</figcaption>
+        </figure>
+        <p>
+            <strong>Testing the Failure Path</strong><br>
+            The alert was tested by breaking the flow on purpose: the department lookup was pointed at a row that doesn't exist, and a requester submitted a new request. The alert arrived, the run showed Failed, and the request was left unenforced, exactly the state the alert warns about. After restoring the lookup, resubmitting the failed run enforced the request and confirmed the fix in one step.
+        </p>
+        <p>
+            <strong>What I'd Change in Production</strong><br>
+            The flow writes with a personal connection, so every correction shows a person's name in version history. In production it would run under a service account through the solution's connection reference, so the audit trail reads as the system. The alert would also post to a Business Systems Teams channel instead of one person's chat, so failures still reach someone when that person is out.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power Automate cloud flows, SharePoint triggers and lookups, workflow expressions, try/catch error handling with scopes and run-after settings, Teams notifications, time zone handling, solution-aware flows, SOX-aligned control design, and testing failure paths as well as success paths.
+        </p>
+        <p><strong>More from this SharePoint lab</strong></p>
+        <div class="SP_Nav">
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
