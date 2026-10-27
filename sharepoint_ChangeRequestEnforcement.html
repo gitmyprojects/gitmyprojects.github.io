@@ -63,8 +63,8 @@ triggerBody()?[&#x27;Author/Claims&#x27;]
 // Created is stored in UTC; convert before keeping only the date
 convertFromUtc(triggerBody()?[&#x27;Created&#x27;], &#x27;Pacific Standard Time&#x27;, &#x27;yyyy-MM-dd&#x27;)</code></pre>
         <figure class="SP_Figure">
-            <img src="./media/images/sharepoint/enf-enforce-defaults.webp" alt="Enforce defaults Update item action with Status, SOX Relevant, Process Owner, decisions, Requester and Submitted On mapped" width="296" height="520" loading="lazy">
-            <figcaption>The update action. Requester answers pass through unchanged; protected fields are overwritten.</figcaption>
+            <img src="./media/images/sharepoint/enf-enforce-defaults.webp" alt="Enforce defaults Update item action setting Process Owner, Status, SOX Relevant, both decisions, Requester and Submitted On, connected through a solution connection reference" width="590" height="699" loading="lazy">
+            <figcaption>The protected fields the flow overwrites. The connection comes from the solution&#x27;s connection reference, so it can point to a service account in production.</figcaption>
         </figure>
         <p>
             <strong>Bugs Found in Testing</strong><br>
