@@ -28,7 +28,7 @@
             <div><b>3</b><span>SharePoint sites</span></div>
             <div><b>4</b><span>custom permission levels</span></div>
             <div><b>12</b><span>access groups</span></div>
-            <div><b>2</b><span>Power Automate flows</span></div>
+            <div><b>3</b><span>Power Automate flows</span></div>
             <div><b>9</b><span>departments</span></div>
         </div>
 
@@ -38,7 +38,7 @@
         </p>
 
         <figure class="SP_Figure">
-            <a href="./media/images/lumen/lumen-architecture.webp"><img src="./media/images/lumen/lumen-architecture.webp" alt="Lab architecture: Entra ID groups grant access; Lumen Hub is the hub and home site; associated sites Business Systems (Departments and Change Requests lists) and Policies and Procedures (Instructions and Procedures library); a Power Automate solution with an enforcement flow and a migration flow; coming next: approval flows, Power BI reports and a SharePoint agent" width="1100" height="890" loading="lazy"></a>
+            <a href="./media/images/lumen/lumen-architecture.webp"><img src="./media/images/lumen/lumen-architecture.webp" alt="Lab architecture: Entra ID groups grant access; Lumen Hub is the hub and home site; associated sites Business Systems (Departments and Change Requests lists) and Policies and Procedures (Instructions and Procedures library); a Power Automate solution with an enforcement flow and a migration flow; coming next: approval flows, Power BI reports and a SharePoint agent" width="1100" height="968" loading="lazy"></a>
             <figcaption>How the pieces connect. Identity lives in Entra ID, Lumen Hub is the front door, and each department-owned site carries its own permissions. Select any diagram to open it full size.</figcaption>
         </figure>
 
@@ -54,6 +54,7 @@
                 <tr><td>3</td><td><a href="sharepoint_LumenHub.html">Lumen Hub</a></td><td>A hub and home site that gives every employee one front door, without opening private sites</td><td>SharePoint</td></tr>
                 <tr><td>4</td><td><a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a></td><td>A flow that resets protected fields on every request, with try/catch alerts so the control can't fail silently</td><td>Power Automate</td></tr>
                 <tr><td>5</td><td><a href="sharepoint_DocumentControl.html">Document Control</a></td><td>ISO-style procedures and work instructions: content types, approval before release, drafts hidden from operators</td><td>SharePoint</td></tr>
+                <tr><td>6</td><td><a href="power-automate_ApprovalRouting.html">Change Request Approval Routing</a></td><td>Two-stage approval routed by role, with SOX financial review and segregation-of-duties checks</td><td>Power Automate</td></tr>
             </table>
         </div>
 
@@ -64,7 +65,7 @@
 
         <figure class="SP_Figure">
             <a href="./media/images/lumen/lumen-access.webp"><img src="./media/images/lumen/lumen-access.webp" alt="Access matrix for the Change Requests list and the Instructions and Procedures library: each group's permission level and whether it can see, add, edit, approve and delete" width="1100" height="826" loading="lazy"></a>
-            <figcaption>Who can do what, including the known gaps. Approvals move into flows next, and retention will stop controlled records from being deleted.</figcaption>
+            <figcaption>Who can do what, including the known gaps. Change requests are now approved through a flow; retention will stop controlled records from being deleted.</figcaption>
         </figure>
 
         <p>
@@ -90,6 +91,7 @@
             <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
             <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
             <a href="sharepoint_DocumentControl.html">Document Control</a>
+            <a href="power-automate_ApprovalRouting.html">Approval Routing</a>
         </div>
 
         <p><a href="projects.html">Back to Projects</a></p>
