@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Lumen Photonics Lab at a Glance - Neil Javier</title>
+    <meta name="description" content="A one-page view of the Lumen Photonics lab: a fictional manufacturer built in Microsoft 365 to practice SharePoint administration, Power Automate and SOX/ISO-aligned controls.">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Lumen Photonics Lab at a Glance</h1>
+        <p class="SP_Lead">SharePoint · Power Automate · Entra ID · SOX and ISO controls</p>
+        <div class="SP_Callout SP_Callout_Lumen">
+            <p class="SP_Callout_Label">What this lab shows</p>
+            <p>A complete business systems environment for a fictional fiber laser manufacturer, built from an empty Microsoft 365 tenant: <strong>people and roles, sites and permissions, automated controls and controlled documents</strong>, each one tested by signing in as the employees who use it.</p>
+        </div>
+
+        <div class="LG_Stats">
+            <div><b>24</b><span>employees with managers</span></div>
+            <div><b>3</b><span>SharePoint sites</span></div>
+            <div><b>4</b><span>custom permission levels</span></div>
+            <div><b>12</b><span>access groups</span></div>
+            <div><b>2</b><span>Power Automate flows</span></div>
+            <div><b>9</b><span>departments</span></div>
+        </div>
+
+        <p>
+            <strong>Why I built it</strong><br>
+            Business systems roles in manufacturing ask for SharePoint administration, Power Platform automation and experience with SOX and ISO controls. Those are hard to show with a single app, so I built a company to practice on: Lumen Photonics, with a headquarters and two plants, real reporting lines and the reference data an ERP would expect. Every control below was tested by signing in as the person it applies to, not as the administrator.
+        </p>
+
+        <figure class="SP_Figure">
+            <a href="./media/images/lumen/lumen-architecture.webp"><img src="./media/images/lumen/lumen-architecture.webp" alt="Lab architecture: Entra ID groups grant access; Lumen Hub is the hub and home site; associated sites Business Systems (Departments and Change Requests lists) and Policies and Procedures (Instructions and Procedures library); a Power Automate solution with an enforcement flow and a migration flow; coming next: approval flows, Power BI reports and a SharePoint agent" width="1100" height="890" loading="lazy"></a>
+            <figcaption>How the pieces connect. Identity lives in Entra ID, Lumen Hub is the front door, and each department-owned site carries its own permissions. Select any diagram to open it full size.</figcaption>
+        </figure>
+
+        <p>
+            <strong>The Parts</strong><br>
+            Each part has its own page focused on one approach or skill. They were built in this order.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>#</th><th>Part</th><th>What it shows</th><th>Platform</th></tr>
+                <tr><td>1</td><td><a href="sharepoint_LumenPhotonicsData.html">Building a Test Company</a></td><td>Master data first, then scripted, repeatable loading: bulk user import, Graph PowerShell managers and a solution-aware migration flow</td><td>SharePoint · Entra ID</td></tr>
+                <tr><td>2</td><td><a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a></td><td>Least-privilege permissions that enforce a SOX control, tested as each role</td><td>SharePoint</td></tr>
+                <tr><td>3</td><td><a href="sharepoint_LumenHub.html">Lumen Hub</a></td><td>A hub and home site that gives every employee one front door, without opening private sites</td><td>SharePoint</td></tr>
+                <tr><td>4</td><td><a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a></td><td>A flow that resets protected fields on every request, with try/catch alerts so the control can't fail silently</td><td>Power Automate</td></tr>
+                <tr><td>5</td><td>Document Control <em>(page coming next)</em></td><td>ISO-style procedures and work instructions: content types, approval before release, drafts hidden from operators</td><td>SharePoint</td></tr>
+            </table>
+        </div>
+
+        <figure class="SP_Figure">
+            <a href="./media/images/lumen/lumen-orgchart.webp"><img src="./media/images/lumen/lumen-orgchart.webp" alt="Org chart of 24 employees in three reporting lines under the VP Operations, the CFO and the independent internal auditor, with badges for process owners, the financial approver, document authors and approvers, and test personas" width="1100" height="1107" loading="lazy"></a>
+            <figcaption>The people behind the permissions. Roles were chosen so every control could be tested by a real person, and the auditor reports outside the chains she reviews.</figcaption>
+        </figure>
+
+        <figure class="SP_Figure">
+            <a href="./media/images/lumen/lumen-access.webp"><img src="./media/images/lumen/lumen-access.webp" alt="Access matrix for the Change Requests list and the Instructions and Procedures library: each group's permission level and whether it can see, add, edit, approve and delete" width="1100" height="826" loading="lazy"></a>
+            <figcaption>Who can do what, including the known gaps. Approvals move into flows next, and retention will stop controlled records from being deleted.</figcaption>
+        </figure>
+
+        <p>
+            <strong>Controls Built In</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>Segregation of duties.</strong> Requesters can't approve, authors can't release their own documents, and the auditor can read everything but change nothing.</li>
+            <li><strong>Fail-safe defaults.</strong> Every change request starts as SOX relevant, and only Business Systems can change that during triage.</li>
+            <li><strong>Enforced, not just hidden.</strong> SharePoint has no column-level permissions, so a flow resets protected fields on every new request, and alerts Business Systems if it can't.</li>
+            <li><strong>Controlled documents.</strong> Operators only ever see the approved revision, while drafts stay visible to their author and approver.</li>
+            <li><strong>An audit trail.</strong> Versioning, check-in comments and run history record who changed what, and why.</li>
+        </ul>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            SharePoint site architecture, hub and home sites, permission design with custom levels and groups, item-level security, content types and site columns, content approval and versioning, Entra ID users, groups and managers, Microsoft Graph PowerShell, Power Automate cloud flows with error handling, solution-aware ALM, and SOX- and ISO-aligned control design.
+        </p>
+
+        <p><strong>Explore the Lumen Photonics lab</strong></p>
+        <div class="SP_Nav">
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
