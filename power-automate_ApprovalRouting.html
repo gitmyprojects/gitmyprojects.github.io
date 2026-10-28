@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Change Request Approval Routing - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Change Request Approval Routing: Process Owner and SOX Review</h1>
+        <p class="SP_Lead">Power Automate · Approvals · SOX change control · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Routing by role, not by name.</strong> Every approver is looked up from data (the Departments list, an Entra group and the manager chain), so an org change never requires editing the flow, and <strong>segregation of duties is built into who gets asked</strong>.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Every change request at Lumen needs the department's process owner to approve it, and changes that touch the financial statements also need a financial review before anything is configured in Dynamics 365 Finance &amp; Operations. This flow routes each request to the right people, records each decision and who made it, and writes the outcome back to the request.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Step</th><th>Who approves</th><th>Where the flow finds them</th></tr>
+                <tr><td>1. Process owner</td><td>The owner of the requesting department's process</td><td>The Process Owner column on the Departments list, set on the request by the enforcement flow</td></tr>
+                <tr><td>2. Financial review (SOX relevant only)</td><td>The Controller</td><td>Membership of the SG-Financial-Approvers Entra group</td></tr>
+                <tr><td>Conflict</td><td>The financial approver's manager</td><td>Entra manager attribute, used if the financial approver requested the change or already approved it as process owner</td></tr>
+            </table>
+        </div>
+        <div class="SP_Figure_Pair">
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-flow-top.webp" alt="Flow trigger, Set In Review, Process owner approval and a condition that records a rejection or continues to the SOX check" width="852" height="521" loading="lazy">
+            <figcaption>Process owner approval. A rejection is recorded and the flow ends.</figcaption>
+        </figure>
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-flow-sox.webp" alt="SOX branch: get the financial approver's manager, choose the financial approver, start the financial approval and record approval or rejection" width="774" height="521" loading="lazy">
+            <figcaption>The SOX branch resolves the financial approver, asks them and records the outcome.</figcaption>
+        </figure>
+        </div>
+        <p>
+            <strong>Starting at the Right Moment</strong><br>
+            Two flows act on a new request. The enforcement flow sets the process owner, so the approval flow must not start until that has happened, and it must start only once even though it updates the same request it triggers on. A trigger condition handles both: the flow runs only when the request is Submitted, has a process owner and has no decision yet. Its first action sets the status to In Review, so none of its own later updates match the condition again.
+        </p>
+        <pre class="SP_Code"><code>@and(
+    equals(triggerBody()?[&#x27;Status&#x27;]?[&#x27;Value&#x27;], &#x27;Submitted&#x27;),
+    not(empty(triggerBody()?[&#x27;ProcessOwner&#x27;])),
+    equals(triggerBody()?[&#x27;ProcessOwnerDecision&#x27;]?[&#x27;Value&#x27;], &#x27;Pending&#x27;)
+)</code></pre>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-trigger-condition.webp" alt="Trigger settings panel with the trigger condition" width="496" height="496" loading="lazy">
+            <figcaption>The condition lives in the trigger's settings, so non-matching changes never start a run.</figcaption>
+        </figure>
+        <p>
+            <strong>Choosing the Financial Approver</strong><br>
+            The financial approver comes from group membership, so changing who reviews SOX changes is a group change in Entra, not a flow edit. The conflict rule keeps one person from approving twice or approving their own request:
+        </p>
+        <pre class="SP_Code"><code>// Normally the group member; their manager if they requested the change
+// or already approved it as process owner
+if(or(equals(toLower(member), toLower(requesterEmail)),
+      equals(toLower(member), toLower(processOwnerEmail))),
+   managerEmail,
+   member)</code></pre>
+        <p>
+            Approvals are sent with reassignment turned off, because a one-click handoff to anyone would bypass the routing. Each approval links straight to the request, since approvers can't browse to the list.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-financial-email.webp" alt="SOX financial review approval email for change request 26, requested for Priya Nair, with a link to open the change request" width="624" height="398" loading="lazy">
+            <figcaption>The Controller's SOX financial review, requested on behalf of the person who submitted the change. Addresses are blurred.</figcaption>
+        </figure>
+        <p>
+            <strong>Recording Who Decided</strong><br>
+            SharePoint's own approval features don't record who approved. The flow appends a line to an append-only Approval Comments column for every decision, with the approver's name, the time in Pacific time and their comment, and sets the Financial Approver column.
+        </p>
+        <pre class="SP_Code"><code>concat(&#x27;Financial approver &#x27;,
+       first(outputs(&#x27;Financial_approval&#x27;)?[&#x27;body/responses&#x27;])?[&#x27;responder&#x27;]?[&#x27;displayName&#x27;],
+       &#x27; approved on &#x27;,
+       convertFromUtc(utcNow(), &#x27;Pacific Standard Time&#x27;, &#x27;MM/dd/yyyy h:mm tt&#x27;),
+       &#x27;: &#x27;,
+       coalesce(first(outputs(&#x27;Financial_approval&#x27;)?[&#x27;body/responses&#x27;])?[&#x27;comments&#x27;], &#x27;No comment&#x27;))</code></pre>
+        <p>
+            Two rules apply to every update the flow makes. SOX Relevant always passes through from the request, because the designer fills it with a default and a hard-coded Yes would silently undo a triage decision. And a decision is never written back to Pending once it has been made.
+        </p>
+        <p>
+            <strong>Testing It End to End</strong><br>
+            A cost accountant submitted a Finance change request. The enforcement flow set the CFO as process owner, the CFO approved, and the flow sent the SOX review to the Controller, who approved. The request finished Approved, with both decisions and the financial approver recorded.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-row-left.webp" alt="Change request row: status Approved, department Finance, SOX relevant, process owner Sandra Whitfield, process owner decision Approved, financial approver Grace Lin" width="1195" height="157" loading="lazy">
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-row-right.webp" alt="The same row continued: financial decision Approved, system D365 F&amp;O, site HQ, priority High, requester Priya Nair" width="1069" height="120" loading="lazy">
+            <figcaption>The finished request, shown as two halves of one row.</figcaption>
+        </figure>
+        <p>
+            Version history tells the whole story: the requester submits, the enforcement flow sets the process owner and requester, the approval flow moves it to In Review, the CFO approves, and the Controller's approval releases it. The first run failed after the CFO approved because of a typo in a condition; the history shows the fix and the restart, because nothing is hidden.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/appr-version-history.webp" alt="Version history from submission through process owner approval, a restart, and financial approval to Approved" width="939" height="342" loading="lazy">
+            <figcaption>Every step of request 26, from submission to approval.</figcaption>
+        </figure>
+        <p>
+            <strong>What Testing Found, and What's Next</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>A failed run left the request stuck in review, silently.</strong> The enforcement flow already has a try/catch with a Teams alert; this flow needs the same.</li>
+            <li><strong>The process owner's email was missing the requester and the link.</strong> Those two fields hadn't saved on the first approval action; the financial approval had them.</li>
+            <li><strong>Requesters aren't told the outcome yet.</strong> A notification at the end of each path is next.</li>
+            <li><strong>No escalation yet.</strong> Approvals left for two business days should go to the approver's manager, with a fallback for people who have no manager.</li>
+            <li><strong>It runs on a personal connection.</strong> In production it would use a service account through the solution's connection reference.</li>
+        </ul>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power Automate approvals, trigger conditions, multi-stage approval routing, nested conditions, Office 365 Groups and Users connectors, workflow expressions, SharePoint list updates, SOX-aligned segregation of duties, end-to-end testing as multiple users, and reading version history as an audit trail.
+        </p>
+        <p><strong>More from the Lumen Photonics lab</strong></p>
+        <div class="SP_Nav">
+            <a href="lumen_AtAGlance.html">Lab at a Glance</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
+            <a href="sharepoint_DocumentControl.html">Document Control</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
