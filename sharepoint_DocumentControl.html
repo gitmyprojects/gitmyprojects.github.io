@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Document Control in SharePoint - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Document Control: ISO Procedures and Work Instructions</h1>
+        <p class="SP_Lead">SharePoint administration · ISO 9001 document control · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Releasing only approved revisions.</strong> Content types define what a controlled document is, content approval and draft security decide who sees what, and every step was <strong>tested as the author, the approver and an operator</strong>.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Lumen's Quality Manager, Tom Becker, brought a problem from an ISO 9001 audit: an operator on Line 3 followed an outdated work instruction because an old copy was still on a shared drive. He needed one place where operators only ever see the current approved revision, engineers can revise documents without exposing drafts, every revision is kept with who approved it, and each document is reviewed once a year.
+        </p>
+        <p>
+            <strong>Procedures and Work Instructions</strong><br>
+            The structure follows the usual quality system hierarchy. The difference between a procedure and a work instruction drove the whole design, so the definitions appear on the site, in the content type descriptions and here.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Document</th><th>Answers</th><th>Example at Lumen</th></tr>
+                <tr><td>Policy</td><td>Why we do it</td><td>Every product is tested before it ships</td></tr>
+                <tr><td>Procedure</td><td>What we do, who does it and when</td><td>Final inspection: every module is power-tested at Plant 2 final test</td></tr>
+                <tr><td>Work instruction</td><td>How to do one task, step by step</td><td>WI-QA-001: how to measure fiber laser output power</td></tr>
+                <tr><td>Form or record</td><td>Proof that it happened</td><td>The final test log entry for each serial number</td></tr>
+            </table>
+        </div>
+        <p>
+            <strong>Where It Lives</strong><br>
+            A new communication site, Policies and Procedures, owned by Quality and associated with the Lumen Hub so it appears in the shared navigation. Everyone can read it. One library holds a folder per department, and only the department folders that need their own authors break permission inheritance. Reading isn't restricted by department, because an operator may need a Quality instruction and an auditor needs everything; what varies by department is who can write.
+        </p>
+        <p>
+            <strong>Content Types Instead of Subfolders</strong><br>
+            Procedure and Work Instruction are content types, each requiring a document owner, a next review date and an owning department. A subfolder can't require anything; a content type can, and it lets reports count documents by type later. The generic Document type was removed from the library, so authors can only create one of the two.
+        </p>
+        <div class="SP_Figure_Pair">
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-new-menu.webp" alt="New menu in the Quality folder offering only Procedure and Work Instruction" width="656" height="427" loading="lazy">
+            <figcaption>The library's New menu offers only the two controlled document types.</figcaption>
+        </figure>
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-content-type.webp" alt="Work Instruction content type with its description and three required columns" width="1019" height="522" loading="lazy">
+            <figcaption>The Work Instruction content type carries the definition and three required columns.</figcaption>
+        </figure>
+        </div>
+        <p>
+            Each department folder fills in its own Owning Department automatically through column default values, so nobody types it. The library root has no default on purpose: a file saved outside a department folder has to be assigned one, which makes misfiled documents visible. The column name "Department" was already reserved by SharePoint, which is why it's Owning Department.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-column-defaults.webp" alt="Column default value settings with a default on every department folder" width="1133" height="375" loading="lazy">
+            <figcaption>Every department folder sets Owning Department for the documents saved in it.</figcaption>
+        </figure>
+        <p>
+            <strong>How a Revision Stays Hidden</strong><br>
+            The library requires content approval and keeps major and minor versions. A draft is a minor version (0.1, 1.1) that only its author and the folder's approvers can see. Submitting a major version doesn't publish it; it goes to Pending, still hidden, until an approver releases it. Documents must be checked out before editing, so only one person changes a controlled document at a time, and every check-in carries a comment explaining why.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-versioning.webp" alt="Versioning settings: content approval required, major and minor versions, no time limit, drafts visible only to approvers and the author, check-out required" width="747" height="548" loading="lazy">
+            <figcaption>Content approval, minor versions and draft item security do the work. Versions never expire by age.</figcaption>
+        </figure>
+        <p>
+            <strong>The Author Never Approves</strong><br>
+            Two custom permission levels keep writing and releasing separate. Doc Author is Contribute without the ability to delete documents or versions; Doc Approver adds Approve Items. Department head approval matches who is accountable for the process: Quality owns the document control system, not Finance's month-end close.
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Folder</th><th>Authors (Doc Author)</th><th>Approver (Doc Approver)</th></tr>
+                <tr><td>Finance</td><td>Grace Lin, Controller</td><td>Sandra Whitfield, CFO</td></tr>
+                <tr><td>Production</td><td>Derek Shaw (work instructions), Carla Mendes and Dana Reyes (procedures)</td><td>Victor Hale, VP Operations</td></tr>
+                <tr><td>Quality</td><td>Nina Kowalski, Quality Engineer</td><td>Tom Becker, Quality Manager (site owner)</td></tr>
+                <tr><td>Other six</td><td colspan="2">Read-only for everyone and controlled by Quality until the department needs its own authors</td></tr>
+            </table>
+        </div>
+        <p>
+            Access is granted only through SharePoint groups owned by the site's owners, so Quality manages who writes and approves without needing an Entra administrator. Membership is visible to everyone, because employees and auditors should be able to see who is accountable for a procedure.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-folder-permissions.webp" alt="Finance folder with unique permissions: Finance Doc Approvers with Doc Approver and Finance Doc Authors with Doc Author" width="745" height="440" loading="lazy">
+            <figcaption>The Finance folder: everyone reads, Finance writes, the CFO approves.</figcaption>
+        </figure>
+        <p>
+            <strong>Testing as Three People</strong><br>
+            The design was tested with a realistic work instruction, WI-QA-001, signing in as each person in separate browsers. First, Nina checked in a draft. She sees version 0.1; Aisha Bello, a production operator, sees an empty Quality folder.
+        </p>
+        <div class="SP_Figure_Pair">
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-draft-author.webp" alt="Version history showing version 0.1 by Nina Kowalski with approval status Draft" width="1010" height="243" loading="lazy">
+            <figcaption>The author's view: version 0.1, status Draft.</figcaption>
+        </figure>
+            <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-draft-operator.webp" alt="The Quality folder as the operator sees it: empty" width="1277" height="451" loading="lazy">
+            <figcaption>The operator's view of the same folder at the same moment.</figcaption>
+        </figure>
+        </div>
+        <p>
+            Nina then submitted it as a major version. It went to Tom's Approve/reject Items queue as Pending and stayed hidden from Aisha. Once Tom approved it, Aisha saw the released work instruction.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-approval-queue.webp" alt="Approve/reject Items view with WI-QA-001 pending, created and modified by Nina Kowalski" width="1244" height="413" loading="lazy">
+            <figcaption>Tom's approval queue: written by Nina, waiting for him.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/doc-released-operator.webp" alt="The operator now sees WI-QA-001 with approval status Approved" width="1270" height="432" loading="lazy">
+            <figcaption>After approval, the operator sees it.</figcaption>
+        </figure>
+        <p>
+            <strong>What Testing Found</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>SharePoint doesn't record who approved.</strong> Content approval stores the status and the approver's comment, not the approver's name; Modified By stays the author. The fix is a document approval flow that writes Approved By and Approved On, which is next on the roadmap.</li>
+            <li><strong>Owners can delete version history.</strong> Version history alone isn't protection. A retention label will keep old revisions for auditors.</li>
+            <li><strong>A review date was entered a year early.</strong> The document was due for review on the day it was released. Correcting it had to go through approval like any other change, and it's exactly what an overdue-review report should catch.</li>
+        </ul>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            SharePoint site and library design, ISO-style document hierarchy, site columns and content types, column default values, content approval, major and minor versioning, draft item security, check-out, custom permission levels, SharePoint groups, folder-level unique permissions, segregation of duties, and testing as multiple users.
+        </p>
+        <p><strong>More from the Lumen Photonics lab</strong></p>
+        <div class="SP_Nav">
+            <a href="lumen_AtAGlance.html">Lab at a Glance</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
