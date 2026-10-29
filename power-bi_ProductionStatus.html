@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Production Status Board - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Production Status Board</h1>
+        <p class="SP_Lead">Power BI · ERP and SharePoint data · Conditional formatting · Wolf Industries</p>
+        <div class="SP_Callout SP_Callout_PBI">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>One view of the production queue from two sources.</strong> Job status comes from the ERP, actual start and end dates come from a SharePoint list the production team maintains, and the report joins them so nobody has to check both.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            The report gives production and office staff one view of the production queue: which jobs are finished, which are on the floor and which haven't started, along with purchasing notes that can affect the schedule.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/production-status.webp"><img src="./media/images/powerbi/production-status.webp" alt="Production queue table with job number, description, purchasing notes, color-coded status and actual start and end dates, above KPI cards for completed all time, completed year to date, completed this quarter, in progress and not started" width="961" height="544" loading="lazy"></a>
+            <figcaption>The production queue with status color-coded, and running totals along the bottom. Customer names are blurred.</figcaption>
+        </figure>
+        <p>
+            <strong>How It Works</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>Two sources, one row per job.</strong> The ERP job feed supplies the job number, production status and purchasing notes. A SharePoint production queue list supplies the description and the actual start and end dates. The model relates them on the job, so each row shows both.</li>
+            <li><strong>Status that reads from across the room.</strong> Conditional formatting colors each status: green for complete, yellow for in progress and red for not started.</li>
+            <li><strong>Running totals.</strong> Cards show jobs completed all time, this year and this quarter, plus how many are in progress and not started.</li>
+            <li><strong>Long text kept readable.</strong> Descriptions and purchasing notes are truncated in the data so the table stays one line per job.</li>
+        </ul>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power BI Desktop, combining ERP and SharePoint data in one model, relationships, conditional formatting, KPI cards, and report design for a production audience.
+        </p>
+        <p><strong>More Power BI reports</strong></p>
+        <div class="SP_Nav SP_Nav_PBI">
+            <a href="power-bi_IFTAMileage.html">IFTA Mileage and Fuel</a>
+            <a href="power-bi_LaborHours.html">Labor Hours by Job</a>
+            <a href="power-bi_ChangeControl.html">Change Control Dashboard</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>

@@ -1172,3 +1172,28 @@ button:hover, .form-container .btn:hover {
         flex-wrap: wrap;
     }
 }
+
+/***** POWER BI PAGES *****/
+
+.chip-powerbi {
+    background-color: #F2C811;
+    color: #1b1b1b;
+}
+
+.SP_Callout_PBI {
+    border-left-color: #F2C811;
+    background-color: #fffaea;
+}
+
+.SP_Callout_PBI .SP_Callout_Label {
+    color: #8a6d00;
+}
+
+.SP_Nav_PBI a {
+    background-color: #F2C811;
+    color: #1b1b1b;
+}
+
+.SP_Nav_PBI a:hover {
+    background-color: #d9b20f;
+}

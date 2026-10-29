@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>IFTA Mileage and Fuel - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>IFTA Mileage and Fuel: Report and Fix in One Place</h1>
+        <p class="SP_Lead">Power BI · Dataverse · Embedded Power Apps · Wolf Industries</p>
+        <div class="SP_Callout SP_Callout_PBI">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Writeback from inside the report.</strong> An embedded Power Apps visual lets the user correct a trip record without leaving Power BI, so the person who finds an odometer discrepancy can fix it on the spot.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Wolf Industries runs trucks in Oregon and Washington, and IFTA (the International Fuel Tax Agreement) requires reporting the miles driven and fuel purchased in each state. Each trip was logged in a Dataverse table: vehicle, date, beginning and ending odometer, miles, gallons purchased, state and driver. This report turns that log into the numbers needed for the filing, and finds the entries that would make the filing wrong.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/ifta-by-state.webp"><img src="./media/images/powerbi/ifta-by-state.webp" alt="IFTA report page with a date range, a state filter, totals of 1,261 miles and 70 gallons, miles and gallons by vehicle, and the trip log" width="973" height="547" loading="lazy"></a>
+            <figcaption>Miles and gallons by vehicle for the selected dates and states, with every trip behind the totals.</figcaption>
+        </figure>
+        <p>
+            <strong>Three Pages, Three Jobs</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>IFTA Report.</strong> Pick a date range and states to get total miles and gallons, broken down by vehicle, with the trip log underneath as the audit trail.</li>
+            <li><strong>Oregon.</strong> The same view, filtered to trips not yet marked as reported.</li>
+            <li><strong>Discrepancies.</strong> Trips whose odometer readings don't line up are flagged in orange. Slicers narrow it by vehicle, state, date and discrepancy.</li>
+        </ul>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/ifta-discrepancies.webp"><img src="./media/images/powerbi/ifta-discrepancies.webp" alt="Discrepancies page with flagged trips highlighted, slicers for vehicle, date, state and discrepancy, and an embedded Power Apps panel" width="971" height="543" loading="lazy"></a>
+            <figcaption>Flagged trips on the left; the embedded Power Apps panel on the right edits the selected record. The panel shows a sign-in prompt because the report is no longer connected. Driver names are blurred.</figcaption>
+        </figure>
+        <p>
+            <strong>Fixing the Data Without Leaving the Report</strong><br>
+            Selecting a flagged trip passes it to the embedded Power Apps visual, which shows that record's details and lets the user correct the odometer readings or other fields. The change is written straight back to the Dataverse table, so reporting and correcting happen in one place, by the person who spotted the problem.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power BI Desktop with Dataverse, the Power Apps visual for Power BI (writeback), data-quality checks, slicers and page-level filters, regulatory reporting, and in-report guidance through summary text on each page.
+        </p>
+        <p><strong>More Power BI reports</strong></p>
+        <div class="SP_Nav SP_Nav_PBI">
+            <a href="power-bi_ProductionStatus.html">Production Status Board</a>
+            <a href="power-bi_LaborHours.html">Labor Hours by Job</a>
+            <a href="power-bi_ChangeControl.html">Change Control Dashboard</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>

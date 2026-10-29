@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Labor Hours by Job - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Labor Hours by Job: Where Payroll Hours Go</h1>
+        <p class="SP_Lead">Power BI · Business Central job ledger · Wolf Industries</p>
+        <div class="SP_Callout SP_Callout_PBI">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Built for people who don't use Power BI.</strong> The report opens on a plain-language guide to every page, and each page answers one question about where labor hours are going.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Every payroll hour posted to a job in Dynamics 365 Business Central lands in the job ledger with a job, a task and a posting date. This report reads the job ledger entries and job task lines to show which jobs and tasks consume the most labor, and how the hours on a task compare from one job to another, for any date range.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/labor-hours-by-job.webp"><img src="./media/images/powerbi/labor-hours-by-job.webp" alt="Bar chart of total hours by job with a posting-date range selector" width="974" height="586" loading="lazy"></a>
+            <figcaption>Hours by job for the selected posting dates. Customer names are blurred; job numbers are shown.</figcaption>
+        </figure>
+        <p>
+            <strong>Four Questions, Four Pages</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>How many hours went to each job?</strong> Select payroll weeks or a posting-date range and see hours by job.</li>
+            <li><strong>Where did one job's hours go?</strong> Select a job from the tiles and the hours split by task.</li>
+            <li><strong>Which tasks take the most labor?</strong> Total hours by task across all jobs, from largest to smallest.</li>
+            <li><strong>How does a task compare across jobs?</strong> Select two or more jobs and the same task to compare the hours each one used.</li>
+        </ul>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/labor-hours-by-task-for-job.webp"><img src="./media/images/powerbi/labor-hours-by-task-for-job.webp" alt="Hours by task for a selected job, next to job selection tiles" width="979" height="551" loading="lazy"></a>
+            <figcaption>One job's hours split by task. Job names on the tiles are blurred.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/labor-hours-by-task.webp"><img src="./media/images/powerbi/labor-hours-by-task.webp" alt="Line chart of total hours by task number, falling from 22,800 hours to a long tail" width="979" height="545" loading="lazy"></a>
+            <figcaption>Total hours by task across all jobs: a few tasks account for most of the labor.</figcaption>
+        </figure>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/labor-hours-compare.webp"><img src="./media/images/powerbi/labor-hours-compare.webp" alt="Job and task selector next to a bar chart comparing hours for two selected jobs" width="1131" height="547" loading="lazy"></a>
+            <figcaption>Comparing two jobs on the tasks selected in the job and task tree.</figcaption>
+        </figure>
+        <p>
+            <strong>A Detail That Mattered</strong><br>
+            Hours appear by posting date, and most postings land on Wednesday, because that's when payroll posts the previous week ending Sunday. The guide page explains this so nobody reads a Wednesday spike as a Wednesday workload, and shows users how to drill into the rows behind any bar and export them to Excel.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power BI Desktop with Business Central data, date slicers, button and hierarchy slicers, small multiples, drill-through to underlying rows, report navigation, and user documentation written for non-technical readers.
+        </p>
+        <p><strong>More Power BI reports</strong></p>
+        <div class="SP_Nav SP_Nav_PBI">
+            <a href="power-bi_ProductionStatus.html">Production Status Board</a>
+            <a href="power-bi_IFTAMileage.html">IFTA Mileage and Fuel</a>
+            <a href="power-bi_ChangeControl.html">Change Control Dashboard</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
