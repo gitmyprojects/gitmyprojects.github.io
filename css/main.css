@@ -1124,14 +1124,32 @@ button:hover, .form-container .btn:hover {
 .Projects_Column .Lab_Feature p a.project-button {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     max-width: none;
     margin: 0;
+    padding: 20px 24px;
+    font-size: 26px;
     border-left: 5px solid #FF7A1A;
 }
 
 .Lab_Feature .Lab_Tag {
     background-color: #FF7A1A;
+    padding: 5px 13px;
+    font-size: 14px;
+}
+
+.powerbi-link {
+    background-color: #F2C811;
+}
+
+.Projects_Column p a.project-button.powerbi-link,
+.Project_Page p a.project-button.powerbi-link {
+    color: #1b1b1b;
+}
+
+.powerbi-link .Lab_Step,
+.powerbi-link .Lab_Tag {
+    background-color: rgba(0, 0, 0, .12);
 }
 
 @media screen and (max-width: 900px) {
@@ -1141,6 +1159,11 @@ button:hover, .form-container .btn:hover {
 }
 
 @media screen and (max-width: 576px) {
+    .Projects_Column .Lab_Feature p a.project-button {
+        font-size: 21px;
+        padding: 16px 18px;
+    }
+
     .LG_Stats b {
         font-size: 24px;
     }

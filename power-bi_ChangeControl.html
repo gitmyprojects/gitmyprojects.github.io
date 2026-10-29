@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Change Control Dashboard in Power BI - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Change Control Dashboard: Approval Speed and SOX Controls</h1>
+        <p class="SP_Lead">Power BI · DAX · SharePoint data · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Reporting that proves the controls work.</strong> Alongside the usual volume and aging numbers, the dashboard measures the controls themselves, so a zero on screen is evidence an auditor can use, and every visual answers a question someone at Lumen actually asks.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            The change request process records every submission, decision and deployment in a SharePoint list. This Power BI report turns that history into one page for three audiences: Business Systems running the weekly change review, operations leaders who own approvals, and Finance and Internal Audit checking SOX controls before each month-end close.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/sharepoint/pbi-dashboard.webp"><img src="./media/images/sharepoint/pbi-dashboard.webp" alt="Change control dashboard with headline cards, control checks, requests by month split by SOX relevance, average days to process owner decision by owner, and open requests sorted by age" width="891" height="497" loading="lazy"></a>
+            <figcaption>The full dashboard. Select it to open full size.</figcaption>
+        </figure>
+        <p>
+            <strong>The Data</strong><br>
+            The report connects to the Change Requests list with the SharePoint Online connector. In Power Query, only the 23 columns the report needs are kept, people and lookup columns are expanded to display names, and dates are typed so they can be grouped by month. Seven months of history (138 requests from April to October) were generated to be realistic and loaded through the same solution-aware migration flow used for the original legacy tracker, with the enforcement and approval flows switched off during the load so history wasn't overwritten.
+        </p>
+        <p>
+            <strong>Measures, Kept in One Place</strong><br>
+            All measures live in a dedicated measures table, so the model stays readable and report authors find every calculation in one spot. Two of them are control checks that should always be zero.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/pbi-measures.webp" alt="Data pane showing a _Measures table with seven measures" width="278" height="301" loading="lazy">
+            <figcaption>The measures table, pinned to the top of the model.</figcaption>
+        </figure>
+        <pre class="SP_Code"><code>Avg Owner Decision Days =
+AVERAGEX (
+    FILTER ( &#x27;Change Requests&#x27;, NOT ISBLANK ( &#x27;Change Requests&#x27;[Process Owner Decision Date] ) ),
+    CONVERT ( &#x27;Change Requests&#x27;[Process Owner Decision Date] - &#x27;Change Requests&#x27;[Submitted On], DOUBLE )
+)
+
+// Control check: SOX-relevant changes that moved forward without financial approval
+SOX Released Without Finance =
+CALCULATE (
+    [Total Requests],
+    &#x27;Change Requests&#x27;[SOX Relevant] = TRUE (),
+    &#x27;Change Requests&#x27;[Status] IN { &quot;Approved&quot;, &quot;In Testing&quot;, &quot;Ready to Deploy&quot;, &quot;Deployed&quot;, &quot;Closed&quot; },
+    &#x27;Change Requests&#x27;[Financial Decision] &lt;&gt; &quot;Approved&quot;
+) + 0
+
+// Control check: deployments during month-end close (last days and first days of the month)
+Deployed During Close =
+COUNTROWS (
+    FILTER (
+        &#x27;Change Requests&#x27;,
+        NOT ISBLANK ( &#x27;Change Requests&#x27;[Deployed On] )
+            &amp;&amp; ( DAY ( &#x27;Change Requests&#x27;[Deployed On] ) &gt;= 28 || DAY ( &#x27;Change Requests&#x27;[Deployed On] ) &lt;= 6 )
+    )
+)</code></pre>
+        <p>
+            Two calculated columns support the visuals: a readable SOX label for the chart legend, and Days Open, which counts days since submission for requests that aren't finished. They live in the report rather than the SharePoint list, because they're derived and Days Open changes every day.
+        </p>
+        <p>
+            <strong>How It's Used</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>Business Systems, in the weekly change review.</strong> Ray Holt starts with Open requests by age, oldest first, and follows up on anything stuck in Pending Approval or In Testing.</li>
+            <li><strong>Operations leadership, owning their approvals.</strong> Selecting a process owner's bar filters the whole page to their requests, so Victor Hale sees exactly what is waiting on him.</li>
+            <li><strong>Finance and Internal Audit, before each close.</strong> Sandra Whitfield and Ellen Park check the control cards: no SOX-relevant change released without financial review, and no deployments during close.</li>
+        </ul>
+        <figure class="SP_Figure">
+            <a href="./media/images/sharepoint/pbi-filtered-owner.webp"><img src="./media/images/sharepoint/pbi-filtered-owner.webp" alt="Dashboard filtered to Victor Hale: 47 requests, 3.5 average days to decide, 2 waiting over two days, and his six open requests listed by age" width="887" height="499" loading="lazy"></a>
+            <figcaption>Selecting Victor Hale's bar: 47 requests, 3.5 days on average to decide, and the six open requests that are his to move.</figcaption>
+        </figure>
+        <p>
+            <strong>What the Data Shows</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>One approver is the bottleneck.</strong> The VP of Operations owns approvals for Production and Executive requests and takes about 3.5 days to decide, against 1.6 to 2.5 days for the other owners. That is the business case for the escalation step planned for the approval flow.</li>
+            <li><strong>The SOX control holds.</strong> No SOX-relevant change has moved forward without financial approval.</li>
+            <li><strong>The old process allowed close-window deployments.</strong> Three changes from the legacy tracker went live during month-end close; none have since the controlled process began. Rather than hiding the three, the card reports them.</li>
+            <li><strong>Only owners with enough decisions are ranked.</strong> A visual-level filter limits the approval chart to owners with at least ten requests, so a handful of legacy decisions can't top the chart.</li>
+        </ul>
+        <p>
+            <strong>What I'd Add Next</strong><br>
+            A financial decision date column, so finance turnaround can be measured the same way as process owner turnaround, and publishing to the Power BI service with scheduled refresh, which needs a Power BI Pro license the lab doesn't have.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power BI Desktop, the SharePoint Online connector, Power Query shaping, DAX measures and calculated columns, a dedicated measures table, visual-level filters, cross-filtering, report design for specific audiences, realistic test data generation, and turning control requirements into measurable checks.
+        </p>
+        <p><strong>More from the Lumen Photonics lab</strong></p>
+        <div class="SP_Nav">
+            <a href="lumen_AtAGlance.html">Lab at a Glance</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
+            <a href="sharepoint_DocumentControl.html">Document Control</a>
+            <a href="power-automate_ApprovalRouting.html">Approval Routing</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
