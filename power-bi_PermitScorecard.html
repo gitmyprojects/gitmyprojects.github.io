@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Permit Scorecard - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Permit Scorecard: Every Job in the Permitting Pipeline</h1>
+        <p class="SP_Lead">Power BI · DAX time intelligence · Wolf Industries</p>
+        <div class="SP_Callout SP_Callout_PBI">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>A scorecard that reads in seconds.</strong> The top row counts jobs at every permitting stage, so a glance shows where work is piling up, and slicers narrow everything to one technician or one period.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Before a modular home can be built, the job has to be permitted. This report tracks every job through the permitting process, from a new permit through submittal preparation, submission, review and pre-issuance, and counts how many jobs and modules (boxes) have been permitted this year.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/powerbi/permit-scorecard.webp"><img src="./media/images/powerbi/permit-scorecard.webp" alt="Permit scorecard with counts of jobs at each permitting stage, permitted jobs year to date, a table of permitted boxes, slicers for technician, month and quarter, and a cumulative line of permitted modules by month" width="968" height="583" loading="lazy"></a>
+            <figcaption>The main page: counts by permitting stage across the top, permitted jobs year to date, and permitted modules accumulating through the year. Customer and staff names are blurred.</figcaption>
+        </figure>
+        <p>
+            <strong>How It's Used</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>Where are jobs stuck?</strong> The top row counts jobs in each stage: New Permit, Submittal Prep, Submittal Prep (Waiting), Ready to Submit, Submitted, In Review, In Review (Waiting) and Pre Issuance. A large number in a waiting stage shows where follow-up is needed.</li>
+            <li><strong>How much has been permitted?</strong> Permitted jobs year to date, the list of permitted jobs with their completion dates and module counts, and a cumulative line of permitted modules by month.</li>
+            <li><strong>Who and when?</strong> Slicers filter the whole page by permit technician, month and quarter, and each technician also has a page filtered to their own jobs.</li>
+            <li><strong>What's coming and how does this year compare?</strong> Further pages show jobs by estimated completion date, and quarter-to-date and year-to-date permitting across all years.</li>
+        </ul>
+        <p>
+            <strong>Under the Hood</strong><br>
+            Status counts, year-to-date and quarter-to-date measures live in their own measures table, and a dedicated date table drives the time intelligence, so the cumulative line and the year-over-year pages all use the same calendar.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Power BI Desktop, DAX measures for status counts, running totals and year-to-date and quarter-to-date comparisons, a date table, page-level filters for individual views, slicers, and scorecard design.
+        </p>
+        <p><strong>More Power BI reports</strong></p>
+        <div class="SP_Nav SP_Nav_PBI">
+            <a href="power-bi_ProductionStatus.html">Production Status Board</a>
+            <a href="power-bi_IFTAMileage.html">IFTA Mileage and Fuel</a>
+            <a href="power-bi_LaborHours.html">Labor Hours by Job</a>
+            <a href="power-bi_ChangeControl.html">Change Control Dashboard</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
