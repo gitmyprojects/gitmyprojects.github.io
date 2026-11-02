@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Build Notes: Content Types in SharePoint - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Power Platform &amp; Dynamics 365 Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Build Notes: What Content Types Do in SharePoint, and Why I Used Them</h1>
+        <p class="SP_Lead">Build Notes · SharePoint · Lumen Photonics lab</p>
+        <div class="SP_Callout">
+            <p class="SP_Callout_Label">Why this post exists</p>
+            <p>The lab pages show <strong>what</strong> I built. Build Notes explain <strong>why</strong>: the decision behind a setting, what it does and doesn't guarantee, and what I'd tell a business owner before relying on it.</p>
+        </div>
+
+        <p>
+            <strong>The Problem</strong><br>
+            In the Lumen Photonics lab, the Quality Manager came back from an ISO 9001 audit with a finding: an operator followed an outdated work instruction. To fix that, every controlled document needs an owner, an owning department and a date it's due for review. The question was how to make sure every document carries that information, not just the ones uploaded by careful people.
+        </p>
+
+        <p>
+            <strong>What a Content Type Is</strong><br>
+            A content type is a reusable definition of one kind of document or item: the columns that describe it, a template for new files and a description. It's defined once and can be used in many libraries, so an invoice, a procedure or a work instruction is described the same way everywhere it appears.
+        </p>
+        <p>
+            Every content type has a parent. Procedure and Work Instruction inherit from SharePoint's built-in Document type, which is why they still have a name, a title and version history, and add their own required columns on top.
+        </p>
+
+        <p>
+            <strong>When You Need One (and When You Don't)</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>You need one</strong> when a library holds different kinds of documents that need different information, or when the same kind of document lives in several libraries or sites. A Finance library with invoices (vendor, invoice number, due date) and purchase orders (vendor, PO number, requested by) is the classic case.</li>
+            <li><strong>You don't</strong> when everything in the library is the same kind of thing. Plain columns, required where needed, are enough.</li>
+            <li><strong>A common misunderstanding:</strong> required fields don't come from content types. A required column works without one. What a content type adds is a <em>different</em> set of fields and a template per kind of document, reusable everywhere.</li>
+        </ul>
+
+        <p>
+            <strong>What I Built</strong><br>
+            Two site content types, Procedure and Work Instruction, each requiring Document Owner, Next Review Date and Owning Department. In the Instructions and Procedures library I removed the generic Document type, so nobody can save a file that skips the metadata. Each department folder sets Owning Department automatically through a column default value. Details are on the <a href="sharepoint_DocumentControl.html">Document Control</a> page.
+        </p>
+
+        <p>
+            <strong>What the User Actually Sees</strong><br>
+            My concern with any metadata design is the lazy or unaware user. Modern SharePoint uploads don't stop to ask for metadata: the file lands in the folder and the user can walk away. So I uploaded a file the way a hurried employee would and looked at what happened.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/buildnotes-required-info.webp" alt="A newly uploaded file in the Finance folder with status Draft, a check-out arrow, Owning Department set to Finance and Required info shown for Document Owner and Next Review Date" width="1070" height="246" loading="lazy">
+            <figcaption>One row, three safeguards: Owning Department filled in by the folder default, missing fields flagged, and the file checked out and still a Draft.</figcaption>
+        </figure>
+        <p>
+            The missing fields are flagged in the view, and because the library requires check-out, the file stays checked out to the uploader and invisible to everyone else until the required fields are filled in and it's checked in. Content approval then keeps it hidden until an approver releases it. If a manager went looking for the file, they wouldn't find it, which is the point: an incomplete document never reaches the people relying on it.
+        </p>
+        <p>
+            One practical rule came out of this: <strong>put the required columns in the library's default view.</strong> If they aren't shown, the "Required info" warning isn't either.
+        </p>
+
+        <p>
+            <strong>Where the Fields Come From</strong><br>
+            Opening the file shows its properties panel. The fields, their order and whether each is required come from the content type, so a Procedure and a Work Instruction can each show a different panel. Unlike a list, a document library can't replace this panel with a custom Power Apps form, so libraries rely on content types, defaults and validation instead.
+        </p>
+        <figure class="SP_Figure">
+            <img src="./media/images/sharepoint/buildnotes-properties-panel.webp" alt="Item properties panel showing Content Type Work Instruction, Document Owner, Next Review Date 11/3/2026 and Owning Department Finance" width="759" height="519" loading="lazy">
+            <figcaption>The properties panel is shaped by the content type. Note the default type and the review date.</figcaption>
+        </figure>
+
+        <p>
+            <strong>What Content Types Don't Do</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>A required field guarantees a value, not a correct one.</strong> In the screenshot above, Next Review Date is the day after upload, when an annual review should be a year out. Catching that takes a validation rule or an overdue-review report, not just a required column.</li>
+            <li><strong>The default type gets picked by default.</strong> Content Type shows Work Instruction because it's the library's first type. An unaware user would leave it, even if the file is really a procedure.</li>
+            <li><strong>Content types don't approve anything.</strong> Approval comes from the library's content approval setting, and it doesn't record who approved. A document approval flow that writes Approved By and Approved On is on the roadmap.</li>
+            <li><strong>Nobody is chased.</strong> A file left checked out with missing fields just sits there. A scheduled flow that emails the uploader and the library's business owner after a day would close that gap.</li>
+        </ul>
+
+        <p>
+            <strong>How I'd Explain It in an Interview</strong><br>
+            "Content types are how I enforce consistent metadata across kinds of documents and across sites. In my lab, Procedure and Work Instruction each require an owner, an owning department and a next review date, and the generic Document type is removed, so every controlled document can be reported on for annual review. Check-out and content approval keep incomplete or unapproved documents hidden, which is what ISO 9001 document control needs."
+        </p>
+
+        <p><strong>Where this is built</strong></p>
+        <div class="SP_Nav">
+            <a href="sharepoint_DocumentControl.html">Document Control</a>
+            <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
+            <a href="lumen_AtAGlance.html">Lab at a Glance</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
