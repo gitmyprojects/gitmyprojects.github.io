@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Serverless Contact Form on Azure Static Web Apps - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Power Platform &amp; Dynamics 365 Projects</a>
+    </div>
+
+    <div class="Project_Page">
+
+        <h1>Serverless Contact Form on Azure Static Web Apps</h1>
+
+        <p>
+            <strong>Project Summary</strong><br>
+            A small business website with a contact request form, hosted entirely on Azure free tiers. When a visitor submits the form, a serverless API checks the request, saves it to Azure Cosmos DB and emails an alert through Azure Communication Services. Every change goes through a GitHub pull request with its own preview site before it reaches production. The whole setup runs for about $0 a month.
+        </p>
+
+        <p>
+            <strong>Tools Used</strong><br>
+            Azure Static Web Apps (Free plan), Azure Functions (managed, Node.js 20), Azure Cosmos DB for NoSQL (free tier), Azure Communication Services Email, GitHub, GitHub Actions, JavaScript, HTML and CSS.
+        </p>
+
+        <p>
+            <strong>Business Problem</strong><br>
+            A small business needed a website where prospective clients could request a consultation, with three requirements: requests must never be lost in an inbox, the owner must hear about each one right away, and hosting should cost nothing until the business is ready to take clients. A plain file host such as GitHub Pages can't save form data, and a full web server costs money every hour it runs.
+        </p>
+
+        <p>
+            <strong>Architecture</strong><br>
+            The code lives in a GitHub repository. GitHub Actions publishes it to an Azure Static Web App, which serves the pages and also hosts a small Functions API. The API saves each request to Cosmos DB and sends the email alert.
+        </p>
+
+        <pre><code>
+GitHub repository
+    │  commit or pull request
+GitHub Actions workflow
+    │  build and deploy
+Azure Static Web App
+    ├── Site pages (HTML, CSS, JavaScript)
+    ├── Functions API  POST /api/intake
+    │       ├── Cosmos DB  (saves the request)
+    │       └── Communication Services Email  (alerts the owner)
+    └── Built-in sign-in and role-based routes
+        </code></pre>
+
+        <p>
+            <strong>Hosting: Azure Static Web Apps</strong><br>
+            Static Web Apps serves the site's files from Microsoft's global network, with no server to manage or patch. I chose it over GitHub Pages and Azure App Service because the Free plan includes three things the project needed: a managed Functions API, built-in sign-in with roles, and a direct link to GitHub for automatic deployment.
+        </p>
+
+        <p>
+            <strong>Deployment: GitHub Actions and Preview Environments</strong><br>
+            Every commit to the main branch runs a GitHub Actions workflow that publishes the site in one to three minutes. Each pull request gets its own temporary preview site, so changes are checked on a real URL before they go live. A branch ruleset on main blocks direct pushes and force pushes, so every change goes through a reviewed pull request.
+        </p>
+
+        <p>
+            <strong>The Functions API</strong><br>
+            When the form is submitted, the browser sends the request as JSON to a single HTTP-triggered function. The function rejects oversized or non-JSON requests, then validates and cleans each field before anything is stored. The validation lives in its own module with no Azure dependencies, so it is covered by unit tests.
+        </p>
+
+        <pre><code>
+POST /api/intake
+Content-Type: application/json
+
+200  saved (or quietly dropped as spam)
+400  a field failed validation, with a message per field
+413  request too large
+415  not JSON
+500  the save failed
+        </code></pre>
+
+        <p>
+            <strong>Spam Protection Without a Captcha</strong><br>
+            Two quiet checks catch most bots without making real visitors solve a puzzle: a hidden field that people never see but bots tend to fill in, and a minimum time on the page measured in the visitor's browser. Requests that fail either check get a normal success response but are never stored, so a bot learns nothing about why it failed. A captcha such as Cloudflare Turnstile is held in reserve in case spam gets through.
+        </p>
+
+        <p>
+            <strong>Storage: Azure Cosmos DB</strong><br>
+            Each request is saved as a JSON document in a Cosmos DB container, with an ID, a timestamp, a status of "new" and the visitor's answers. The account uses Cosmos DB's free tier with provisioned throughput, which keeps a small workload at no cost.
+        </p>
+
+        <pre><code>
+await container.items.create({
+    id: randomUUID(),
+    createdAt: new Date().toISOString(),
+    status: "new",
+    source: "site-form",
+    ...cleanedFields
+});
+        </code></pre>
+
+        <p>
+            <strong>Email Alerts: Azure Communication Services</strong><br>
+            After the request is saved, the function sends a plain-text alert to the owner through Communication Services Email, with the visitor set as the reply-to address so the owner can answer straight from the alert. The alert is sent only after the save succeeds, and an email failure never fails the visitor's request, because the request is already stored. I chose Communication Services over a Power Automate flow because a flow triggered by Cosmos DB or by an HTTP request needs a Premium license.
+        </p>
+
+        <p>
+            <strong>Security</strong><br>
+            The repository is public, so no keys or connection strings are ever committed. They live only in the Static Web App's environment variables. Until launch, the form page and the API are locked to my account using the platform's role-based route rules. A configuration file also blocks build files from being served and adds security headers. Two-factor sign-in is on for GitHub and Azure, and an Azure budget alert watches for unexpected cost.
+        </p>
+
+        <p>
+            <strong>Who Built What</strong><br>
+            I designed the solution and made the architecture decisions, including the hosting choice, the spam approach, the email service and the security rules. I created and configured every Azure and GitHub resource myself. The JavaScript for the site and the API was written with an AI coding assistant (Claude). I reviewed every change in a pull request and tested it on preview and production before merging.
+        </p>
+
+        <p>
+            <strong>What I Learned</strong><br>
+            Roles in Static Web Apps apply only to the production environment, so the locked page and API had to be tested after merging rather than on a preview site. Environment variables are set per environment and must be added by hand. In the Cosmos DB create form, picking the workload type last reset the capacity mode and free tier, so I set it first and checked the other settings again. And a key that has been pasted anywhere it shouldn't be gets regenerated right away, which I had to do once during the build.
+        </p>
+
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Azure Static Web Apps, serverless Azure Functions (Node.js), REST API design and HTTP status codes, input validation, Azure Cosmos DB for NoSQL, Azure Communication Services Email, GitHub Actions CI/CD, pull request preview environments, branch protection, secrets management, role-based access control, and cloud cost control.
+        </p>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
