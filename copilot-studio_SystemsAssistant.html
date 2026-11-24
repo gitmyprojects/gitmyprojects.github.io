@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Lumen Systems Assistant in Copilot Studio - Neil Javier</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body class="Background no-image-hover SP_Page">
+
+    <div class="Navbar">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Power Platform &amp; Dynamics 365 Projects</a>
+    </div>
+
+    <div class="Project_Page">
+        <h1>Lumen Systems Assistant: An AI Agent with Predictable Answers</h1>
+        <p class="SP_Lead">Copilot Studio · generative orchestration · SharePoint knowledge · Lumen Photonics lab</p>
+        <div class="SP_Callout SP_Callout_Copilot">
+            <p class="SP_Callout_Label">Approach highlighted</p>
+            <p><strong>Letting the AI understand the question, and fixed logic give the answer.</strong> The agent works out which department someone is asking about, then hands that value into a topic with set steps, so the process owner always comes from the Departments list and never from a guess.</p>
+        </div>
+        <p>
+            <strong>Project Summary</strong><br>
+            Lumen employees who submit or approve change requests keep asking Business Systems the same questions: who owns this department's process, where is my request, and how do I submit one. The Lumen Systems Assistant is a Copilot Studio agent that answers those questions from the Business Systems site's SharePoint lists, so people get an answer in chat instead of searching the lists or emailing the team.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/copilot-studio/agent-overview.webp"><img src="./media/images/copilot-studio/agent-overview.webp" alt="Copilot Studio overview of the Lumen Systems Assistant: name, description, model selection and the agent's instructions" width="1045" height="569" loading="lazy"></a>
+            <figcaption>The agent's description and instructions. Select any screenshot to open it full size.</figcaption>
+        </figure>
+        <p>
+            <strong>How the Agent Is Set Up</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>Instructions.</strong> Answer only from Lumen's SharePoint knowledge, keep answers short with numbered steps, say so when it can't find an answer and suggest contacting Ray Holt in Business Systems, and never reveal details of another employee's change request.</li>
+            <li><strong>Knowledge.</strong> The Departments and Change Requests lists on the Business Systems site. Each source has its own description telling the agent when to use it, which is how it decides where to look.</li>
+            <li><strong>Sign-in.</strong> Users sign in with their Microsoft work account, so the agent searches SharePoint as that person and the list permissions built earlier in the lab still apply.</li>
+            <li><strong>Packaging.</strong> The agent lives in its own solution, "Lumen Agents", with a Lumen Photonics publisher, so it can be moved from development to test to production like the lab's flows.</li>
+            <li><strong>Classic experience.</strong> I built a second copy in Copilot Studio's new (preview) experience to compare them, and kept the classic one: it's generally available, supports full topic authoring, and an agent can't be converted from one experience to the other later.</li>
+        </ul>
+        <figure class="SP_Figure">
+            <a href="./media/images/copilot-studio/agent-knowledge.webp"><img src="./media/images/copilot-studio/agent-knowledge.webp" alt="Knowledge page listing the Departments and Change Requests SharePoint lists" width="796" height="316" loading="lazy"></a>
+            <figcaption>The two SharePoint lists the agent can search.</figcaption>
+        </figure>
+        <p>
+            <strong>The Problem with Leaving Everything to the AI</strong><br>
+            With generative orchestration on, the agent reads each message and picks the right topic itself. The "Department Process Owner" topic first used an ordinary question step to collect the department. In testing, it sometimes used the department from the person's first message and sometimes ignored it and asked again: it skipped the question when someone asked about Supply Chain, but asked anyway when someone asked about Quality. An agent that repeats questions people have already answered feels broken.
+        </p>
+        <p>
+            <strong>The Fix: A Topic Input</strong><br>
+            I added an input to the topic, SelectedDepartment. When the agent picks the topic, it fills the input from what the person already said. A condition then checks it: if the department is there, the topic goes straight to the lookup; if it's blank, it asks the question as a fallback, with the nine departments as choices. The AI decides what was asked; everything after that follows the same steps every time.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/copilot-studio/agent-topic-canvas.webp"><img src="./media/images/copilot-studio/agent-topic-canvas.webp" alt="Department Process Owner topic: the agent chooses the topic, a condition skips the department question when SelectedDepartment is filled, a generative answers step finds the process owner, then the agent offers a change request link or hands off to End of Conversation" width="1231" height="1414" loading="lazy"></a>
+            <figcaption>The whole topic, from trigger to end. The left branch skips the question when the department is already known.</figcaption>
+        </figure>
+        <p>
+            The input's description is what tells the agent how to fill it, so it lists the only values that are allowed and says when to leave it empty:
+        </p>
+        <pre class="SP_Code"><code>The Lumen department the user is asking about. Must be one of: Executive, Finance,
+Business Systems, Internal Audit, Production, Maintenance, Quality, Supply Chain,
+Manufacturing Engineering. Leave empty if the user doesn't name a department.</code></pre>
+        <figure class="SP_Figure">
+            <a href="./media/images/copilot-studio/agent-topic-input.webp"><img src="./media/images/copilot-studio/agent-topic-input.webp" alt="Topic input settings for SelectedDepartment: filled dynamically by the agent, string data type, with a description" width="162" height="475" loading="lazy"></a>
+            <figcaption>The SelectedDepartment input, filled by the agent ("Dynamically fill with best option").</figcaption>
+        </figure>
+        <p>
+            <strong>Keeping the Answer to One Source</strong><br>
+            The answer step in this topic searches the Departments list only, even though the agent can also read change requests. A change request might mention a manager or approver in its text, and that should never be read as the department's process owner. After answering, the topic offers a link to the change request form, then hands off to the standard end-of-conversation topic rather than just stopping, so the person gets the "Did that answer your question?" check and a rating.
+        </p>
+        <figure class="SP_Figure">
+            <a href="./media/images/copilot-studio/agent-genanswers-scoped.webp"><img src="./media/images/copilot-studio/agent-genanswers-scoped.webp" alt="Generative answers properties with Search only selected sources turned on and only the Departments list checked" width="283" height="463" loading="lazy"></a>
+            <figcaption>"Search only selected sources": Departments checked, Change Requests not.</figcaption>
+        </figure>
+        <p>
+            <strong>Testing</strong>
+        </p>
+        <div class="SP_Table_Wrap">
+            <table class="SP_Table">
+                <tr><th>Test</th><th>Expected</th><th>Result</th></tr>
+                <tr><td>"Who is the process owner for the Quality department?" (knowledge only, before the topic existed)</td><td>Tom Becker, cited from the Departments list</td><td>Pass</td></tr>
+                <tr><td>"Who is the process owner for Quality?" (department named)</td><td>No follow-up question; Tom Becker, cited from Departments</td><td>Pass</td></tr>
+                <tr><td>"Who approves changes for my department?" (department not named)</td><td>Agent asks for the department; Maintenance returns Greg Novak</td><td>Pass</td></tr>
+                <tr><td>"Yes" to submitting a change request</td><td>Link to the Change Requests form</td><td>Pass</td></tr>
+                <tr><td>"No" to submitting a change request</td><td>"Did that answer your question?" then a 1 to 5 star rating</td><td>Pass</td></tr>
+            </table>
+        </div>
+        <figure class="SP_Figure">
+            <a href="./media/images/copilot-studio/agent-test-conversation.webp"><img src="./media/images/copilot-studio/agent-test-conversation.webp" alt="Test chat: asked who the process owner for Quality is, the agent answers Tom Becker with a Departments citation, offers to submit a change request, and after No asks whether that answered the question and shows a five-star rating" width="442" height="525" loading="lazy"></a>
+            <figcaption>Department named up front: answered directly with a citation, then the wrap-up and rating.</figcaption>
+        </figure>
+        <p>
+            <strong>Lessons from the Build</strong>
+        </p>
+        <ul class="SP_List">
+            <li><strong>Test every option.</strong> A missing choice in a multiple-choice question failed silently: the agent just asked again, and the topic checker didn't flag it.</li>
+            <li><strong>Test before trusting a status.</strong> A knowledge source showed "Error" with no message, yet answered correctly on the first test.</li>
+            <li><strong>Save knowledge descriptions somewhere else.</strong> Removing and re-adding a source reset its description to the default.</li>
+            <li><strong>Agents need capacity to answer.</strong> The tenant had no Copilot Credits, so the agent built fine but couldn't respond. A pay-as-you-go plan limited to Copilot Studio in the development environment, with a budget alert, fixed it.</li>
+        </ul>
+        <p>
+            <strong>What I'd Add Next</strong><br>
+            Test the agent as different employees, for example a requester and an approver asking the same question about change requests, to show it only returns what each person may see. That needs the agent published, which the trial license doesn't allow. After that: a test that questions outside Lumen's knowledge get "I don't know, contact Ray Holt", publishing to Teams, and moving the hard-coded form link into an environment variable so it changes per environment without editing the agent.
+        </p>
+        <p>
+            <strong>Skills Demonstrated</strong><br>
+            Copilot Studio agent instructions, SharePoint knowledge sources with descriptions, Microsoft (Entra ID) authentication, generative orchestration, topic inputs, variables, conditions and question nodes, a generative answers step limited to one source, system topics, solution-based agent management, and Copilot Credits billing setup.
+        </p>
+        <p><strong>More from the Lumen Photonics lab</strong></p>
+        <div class="SP_Nav">
+            <a href="lumen_AtAGlance.html">Lab at a Glance</a>
+            <a href="sharepoint_LumenPhotonicsData.html">Building the Test Company</a>
+            <a href="sharepoint_ChangeRequestControls.html">Change Request Controls</a>
+            <a href="sharepoint_LumenHub.html">Lumen Hub Intranet</a>
+            <a href="power-automate_ChangeRequestEnforcement.html">Change Request Enforcement</a>
+            <a href="sharepoint_DocumentControl.html">Document Control</a>
+            <a href="power-automate_ApprovalRouting.html">Approval Routing</a>
+            <a href="power-bi_ChangeControl.html">Change Control Dashboard</a>
+        </div>
+
+        <p><a href="projects.html">Back to Projects</a></p>
+
+    </div>
+
+</body>
+</html>
