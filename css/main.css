@@ -1197,3 +1197,18 @@ button:hover, .form-container .btn:hover {
 .SP_Nav_PBI a:hover {
     background-color: #d9b20f;
 }
+
+/***** COPILOT STUDIO PAGES *****/
+
+.copilot-link {
+    background-color: #4A3AAE;
+}
+
+.SP_Callout_Copilot {
+    border-left-color: #4A3AAE;
+    background-color: #f3f1fc;
+}
+
+.SP_Callout_Copilot .SP_Callout_Label {
+    color: #4A3AAE;
+}
